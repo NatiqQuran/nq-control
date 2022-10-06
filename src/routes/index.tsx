@@ -1,16 +1,22 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useStore } from "@builder.io/qwik";
 import type { DocumentHead } from "@builder.io/qwik-city";
 import { Link } from "@builder.io/qwik-city";
 import { Button } from "ui";
 
 export default component$(() => {
+    const state = useStore({ showCoins: false });
     return (
         <div>
             <h1>
                 Welcome to Qwik <span class="lightning">⚡️</span>
             </h1>
 
-            <Button variant="text" children={<h1>HelloWorld</h1>}></Button>
+            <Button
+                variant="outlined"
+                onClick$={() => (state.showCoins = true)}
+            >
+                Hello
+            </Button>
 
             <ul>
                 <li>
