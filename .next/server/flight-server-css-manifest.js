@@ -1,0 +1,1 @@
+self.__RSC_CSS_MANIFEST={"__entry_css__":{"/home/mahdi/projects/nq-panel/app/page":[]}}
