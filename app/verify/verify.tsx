@@ -30,8 +30,6 @@ export default function Verify() {
 
     useEffect(() => {
         if (fetch.isResponseBodyReady && fetch.response.status === 200) {
-            console.log(fetch.response);
-
             localStorage.setItem("token", fetch.responseBody);
             router.replace("/panel");
         }
