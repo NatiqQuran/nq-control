@@ -1,3 +1,5 @@
-export default function Loading() {
-    return <h1>Loading...</h1>;
+import { Loading } from "@yakad/ui";
+
+export default function Loadingg() {
+    return <Loading variant="dots" size="large" />;
 }
