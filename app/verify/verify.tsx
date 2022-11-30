@@ -19,18 +19,21 @@ export default function Verify() {
 
     const handler = useFormDataHandle(setData);
 
-    const fetch = useFetch<string>("https://api.natiq.net/account/verify", {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    });
+    const fetch = useFetch<string>(
+        process.env.NEXT_PUBLIC_API_URL + "/account/verify",
+        {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        }
+    );
 
     useEffect(() => {
         if (fetch.isResponseBodyReady && fetch.response.status === 200) {
-            localStorage.setItem("token", fetch.responseBody);
+            document.cookie = `token=${fetch.responseBody}; Secure`;
             router.replace("/panel");
         }
     }, [fetch.isResponseBodyReady]);
