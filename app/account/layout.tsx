@@ -1,5 +1,8 @@
+"use client";
+
 import { AppBar, Main, Card, Stack, SvgIcon, Hr, Page } from "@yakad/ui/index";
 import styles from "./account.module.css";
+import LogoIcon from "../logoicon/logoicon";
 export default function Layout({ children }: any) {
     return (
         <Page className={styles.page}>
@@ -11,10 +14,13 @@ export default function Layout({ children }: any) {
                         style={{
                             justifyContent: "center",
                             gap: "0",
+                            flexDirection: "row",
                         }}
                     >
-                        <SvgIcon size={6}></SvgIcon>
-                        <h1>Natigh</h1>
+                        <SvgIcon size={6}>
+                            <LogoIcon />
+                        </SvgIcon>
+                        <h1>Natiq</h1>
                     </Stack>
                     <Hr />
                     {children}

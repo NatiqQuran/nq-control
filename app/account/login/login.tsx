@@ -36,7 +36,7 @@ export default function Login() {
     return (
         <>
             <Form onChange={handler.handle} onSubmit={fetch.send}>
-                <input name="email" type="email" />
+                <input name="email" type="email" placeholder="Email" />
             </Form>
             <Button
                 loading

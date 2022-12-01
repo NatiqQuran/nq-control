@@ -1,7 +1,7 @@
 "use client";
 
 import { useFetch, useFormDataHandle } from "@yakad/lib";
-import { Form, Button, Row, Spacer } from "@yakad/ui";
+import { Stack, Form, Button, Row, Spacer } from "@yakad/ui";
 import React, { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { notFound } from "next/navigation";
@@ -64,7 +64,14 @@ export default function Verify() {
     }, [resendFetch.isResponseBodyReady]);
 
     return (
-        <>
+        <Stack style={{ alignItems: "center" }}>
+            <Stack style={{ width: "100%", gap: "0" }}>
+                <h1>Enter your code</h1>
+                <span style={{ color: "#7d7d7d", fontSize: "1.2rem" }}>
+                    We sended a code to your email.
+                </span>
+            </Stack>
+
             <Form onChange={handler.handle} onSubmit={fetch.send}>
                 <input name="code" type="number" placeholder="Code" />
             </Form>
@@ -78,23 +85,22 @@ export default function Verify() {
                 Verify
             </Button>
 
-            <Row style={{ width: "100%" }}>
-                <h4> Remaining time:{countDown.time}</h4>
-                <Spacer />
+            <Button
+                size="small"
+                variant="tonal"
+                onClick={resendFetch.send}
+                loading={countDown.isCountDownEnded}
+                loadingVariant="spinner"
+                disabled={resendFetch.loading || !countDown.isCountDownEnded}
+            >
+                {countDown.isCountDownEnded
+                    ? "Resend code"
+                    : "Resend in: " + countDown.time}
+            </Button>
 
-                {countDown.isCountDownEnded ? (
-                    <Button
-                        variant="text"
-                        disabled={resendFetch.loading}
-                        onClick={resendFetch.send}
-                        loading
-                        loadingVariant="spinner"
-                    >
-                        Resend
-                    </Button>
-                ) : null}
-            </Row>
-            <Button>Get back</Button>
-        </>
+            <Button size="small" variant="text" onClick={() => router.back()}>
+                Get back
+            </Button>
+        </Stack>
     );
 }
