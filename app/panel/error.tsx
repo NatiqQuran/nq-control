@@ -3,9 +3,9 @@
 import { useEffect } from "react";
 
 export default function ErrorPage({ error }: any) {
-	useEffect(() => {
-		alert(error);
-	}, []);
+    useEffect(() => {
+        alert(error);
+    }, []);
 
-	return <h1>Error Happend</h1>;
+    return <h1>Error Happend</h1>;
 }
