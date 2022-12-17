@@ -24,7 +24,7 @@ export default function Logout({ token }: { token: string }) {
 
 		// Check if logout was succesful
 		if (logoutStatus === 200) {
-			router.push("/");
+			router.push("/login");
 		}
 	};
 
