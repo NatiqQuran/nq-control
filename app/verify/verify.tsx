@@ -20,7 +20,7 @@ export default function Verify() {
     const handler = useFormDataHandle(setData);
 
     const fetch = useFetch<string>(
-        process.env.NEXT_PUBLIC_API_URL + "/account/verify",
+        `${process.env.NEXT_PUBLIC_API_URL}/account/verify`,
         {
             method: "POST",
             headers: {
@@ -28,7 +28,7 @@ export default function Verify() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
-        }
+        },
     );
 
     useEffect(() => {

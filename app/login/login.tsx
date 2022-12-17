@@ -13,7 +13,7 @@ export default function Login() {
     const [formData, setFormData] = React.useState<SendCodeData>();
 
     const fetch = useFetch(
-        process.env.NEXT_PUBLIC_API_URL + "/account/sendCode",
+        `${process.env.NEXT_PUBLIC_API_URL}/account/sendCode`,
         {
             method: "POST",
             headers: {
@@ -21,7 +21,7 @@ export default function Login() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(formData),
-        }
+        },
     );
 
     const handler = useFormDataHandle(setFormData);
