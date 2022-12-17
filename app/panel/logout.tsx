@@ -1,32 +1,24 @@
 "use client";
 
+import { useFetch } from "@yakad/lib";
 import { useRouter } from "next/navigation";
-
-async function logout(token: string): Promise<number> {
-	const response = await fetch(
-		`${process.env.NEXT_PUBLIC_API_URL}/account/logout`,
-		{
-			method: "GET",
-			headers: {
-				Authorization: token,
-			},
-		},
-	);
-
-	return response.status;
-}
+import { useEffect } from "react";
 
 export default function Logout({ token }: { token: string }) {
 	const router = useRouter();
+	const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/account/logout`, {
+		method: "GET",
+		headers: {
+			Authorization: token,
+		},
+	});
 
-	const handleLogout = async () => {
-		const logoutStatus = await logout(token);
-
+	useEffect(() => {
 		// Check if logout was succesful
-		if (logoutStatus === 200) {
+		if (fetch.response && fetch.response.status === 200) {
 			router.push("/login");
 		}
-	};
+	}, [fetch.isResponseBodyReady]);
 
-	return <button onClick={handleLogout}>Logout</button>;
+	return <button onClick={fetch.send}>Logout</button>;
 }
