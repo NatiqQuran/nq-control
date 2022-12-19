@@ -3,7 +3,12 @@
 import React, { useState } from "react";
 import ContextMenu from "./contextMenu";
 
-export default function Menu({ children, avatar }: any) {
+interface MenuProps {
+    children: JSX.Element;
+    avatar: JSX.Element;
+}
+
+export default function Menu({ children, avatar }: MenuProps) {
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const [open, setOpen] = useState(false);
 
