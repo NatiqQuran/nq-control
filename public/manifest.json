@@ -1,25 +1,30 @@
 {
-  "short_name": "Natiq Panel",
-  "name": "Natiq Panel",
-  "icons": [
-    {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": "./pwa",
-  "display": "standalone",
-  "theme_color": "#222222",
-  "background_color": "#e9e9e9"
+    "short_name": "Natiq Panel",
+    "name": "Natiq Panel",
+    "icons": [
+        {
+            "src": "favicon.ico",
+            "type": "image/x-icon",
+            "sizes": "64x64 32x32 24x24 16x16"
+        },
+        {
+            "src": "android-chrome-192x192.png",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "android-chrome-512x512.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        },
+        {
+            "src": "apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "./pwa",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "display": "standalone"
 }
