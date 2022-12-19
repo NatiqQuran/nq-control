@@ -2,7 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useFetch, useFormDataHandle } from "@yakad/lib";
-import { Button, Form } from "@yakad/ui";
+import { InputField, Button, Form } from "@yakad/ui";
 import { useRouter } from "next/navigation";
 
 interface SendCodeData {
@@ -36,7 +36,7 @@ export default function Login() {
     return (
         <>
             <Form onChange={handler.handle} onSubmit={fetch.send}>
-                <input name="email" type="email" placeholder="Email" />
+                {/* <InputField placeholder="Email" /> */}
             </Form>
             <Button
                 loading

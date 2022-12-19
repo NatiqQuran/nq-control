@@ -1,7 +1,7 @@
 "use client";
 
 import { useFetch, useFormDataHandle } from "@yakad/lib";
-import { Stack, Form, Button, Row, Spacer } from "@yakad/ui";
+import { Stack, Form, Button, Row, Spacer, CodeField } from "@yakad/ui";
 import React, { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { notFound } from "next/navigation";
@@ -73,7 +73,7 @@ export default function Verify() {
             </Stack>
 
             <Form onChange={handler.handle} onSubmit={fetch.send}>
-                <input name="code" type="number" placeholder="Code" />
+                <CodeField length={6} />
             </Form>
             <Button
                 loading
