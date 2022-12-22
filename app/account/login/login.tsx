@@ -22,7 +22,7 @@ export default function Login() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(formData),
-        },
+        }
     );
 
     const handler = useFormDataHandle(setFormData);
@@ -36,7 +36,11 @@ export default function Login() {
     return (
         <>
             <Form onChange={handler.handle} onSubmit={fetch.send}>
-                {/* <InputField placeholder="Email" /> */}
+                <InputField
+                    variant="outlined"
+                    placeholder="Email"
+                    type="email"
+                />
             </Form>
             <Button
                 loading

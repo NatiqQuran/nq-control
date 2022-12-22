@@ -72,9 +72,14 @@ export default function Verify() {
                 </span>
             </Stack>
 
-            <Form onChange={handler.handle} onSubmit={fetch.send}>
+            <Form
+                onChange={handler.handle}
+                onSubmit={fetch.send}
+                style={{ alignItems: "center" }}
+            >
                 <CodeField length={6} />
             </Form>
+            <Spacer />
             <Button
                 loading
                 onClick={fetch.send}
