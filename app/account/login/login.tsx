@@ -37,9 +37,9 @@ export default function Login() {
         <>
             <Form onChange={handler.handle} onSubmit={fetch.send}>
                 <InputField
-                    variant="outlined"
                     placeholder="Email"
                     type="email"
+                    variant="outlined"
                 />
             </Form>
             <Button
