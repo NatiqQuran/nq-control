@@ -25,4 +25,4 @@ yarn-error.log*
 
 /.vscode
 
-.prettierrc.json
+/.prettierrc.json
