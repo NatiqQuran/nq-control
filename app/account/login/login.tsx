@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useFetch, useFormDataHandle } from "@yakad/lib";
+import { InputField, Button, Form } from "@yakad/ui";
 import { useRouter } from "next/navigation";
 
 interface SendCodeData {
@@ -21,30 +22,35 @@ export default function Login() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(formData),
-        },
+        }
     );
 
     const handler = useFormDataHandle(setFormData);
 
     useEffect(() => {
         if (fetch.isResponseBodyReady && fetch.response.status === 200) {
-            router.replace(`/verify?email=${formData?.email}`);
+            router.replace(`/account/verify?email=${formData?.email}`);
         }
     }, [fetch.isResponseBodyReady]);
 
     return (
         <>
-            {fetch.loading ? "loading..." : ""}
-            <form
-                onChange={handler.handle}
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    fetch.send();
-                }}
+            <Form onChange={handler.handle} onSubmit={fetch.send}>
+                <InputField
+                    placeholder="Email"
+                    type="email"
+                    variant="outlined"
+                />
+            </Form>
+            <Button
+                loading
+                onClick={fetch.send}
+                variant="filled"
+                style={{ width: "100%", justifyContent: "center" }}
+                disabled={fetch.loading}
             >
-                <input name="email" type="email" />
-                <input type="submit" />
-            </form>
+                Submit
+            </Button>
         </>
     );
 }
