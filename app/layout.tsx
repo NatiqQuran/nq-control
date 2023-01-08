@@ -1,4 +1,3 @@
-import "../styles/color.css";
 import "../styles/scrollbar.css";
 import "../styles/style.css";
 
