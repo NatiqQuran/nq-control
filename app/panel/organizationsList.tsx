@@ -11,7 +11,9 @@ async function getOrgs(token: string) {
     return response.json();
 }
 
-export default async function OrgsList({ token }: { token: string }) {
+export default async function OrgsList({
+    token,
+}: { token: string }): Promise<JSX.Element> {
     const list: any[] = await getOrgs(token);
 
     return (

@@ -109,6 +109,7 @@ export default async function Page() {
                     }}
                 >
                     <Suspense fallback={<Loading variant="spinner" />}>
+                        {/* @ts-expect-error Server Component */}
                         <OrgsList token={token.value} />
                     </Suspense>
 
