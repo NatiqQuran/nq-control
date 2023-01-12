@@ -24,7 +24,7 @@ export default function Verify() {
     const handler = useFormDataHandle(setData);
 
     const fetch = useFetch<string>(
-        process.env.NEXT_PUBLIC_API_URL + "/account/verify",
+        `${process.env.NEXT_PUBLIC_API_URL}/account/verify`,
         {
             method: "POST",
             headers: {
@@ -32,11 +32,11 @@ export default function Verify() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
-        }
+        },
     );
 
     const resendFetch = useFetch(
-        process.env.NEXT_PUBLIC_API_URL + "/account/sendCode",
+        `${process.env.NEXT_PUBLIC_API_URL}/account/sendCode`,
         {
             method: "POST",
             headers: {
@@ -44,13 +44,13 @@ export default function Verify() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ email: data.email }),
-        }
+        },
     );
 
     useEffect(() => {
         if (fetch.isResponseBodyReady && fetch.response.status === 200) {
             document.cookie = `token=${fetch.responseBody}; Secure`;
-            router.replace("/panel");
+            (async () => router.replace("/panel"))();
         }
     }, [fetch.isResponseBodyReady]);
 
@@ -77,7 +77,7 @@ export default function Verify() {
                 onSubmit={fetch.send}
                 style={{ alignItems: "center" }}
             >
-                <CodeField length={6} />
+                <CodeField type="number" length={6} name="code" />
             </Form>
             <Spacer />
             <Button
@@ -100,7 +100,7 @@ export default function Verify() {
             >
                 {countDown.isCountDownEnded
                     ? "Resend code"
-                    : "Resend in: " + countDown.time}
+                    : `Resend in: ${countDown.time}`}
             </Button>
 
             <Button size="small" variant="text" onClick={() => router.back()}>
