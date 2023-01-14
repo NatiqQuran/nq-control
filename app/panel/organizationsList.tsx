@@ -1,4 +1,5 @@
-import { Page, List, ListItem } from "@yakad/ui";
+import { Page, List, ListItem, Button } from "@yakad/ui";
+import Link from "next/link";
 import Image from "next/image";
 
 async function getOrgs(token: string) {
@@ -35,7 +36,11 @@ export default async function OrgsList({
                             src={org.profile_image}
                             style={{ borderRadius: "15px", padding: "10px" }}
                         />
-                        <h1>{org.name}</h1>
+                        <h1 style={{ marginRight: "auto" }}>{org.name}</h1>
+
+                        <Link href={`/panel/organization/edit/${org.id}`}>
+                            <Button variant="link">Edit</Button>
+                        </Link>
                     </ListItem>
                 ))}
             </List>
