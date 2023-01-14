@@ -1,6 +1,7 @@
 "use client";
 
 import { useFetch } from "@yakad/lib";
+import { Button } from "@yakad/ui";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -19,9 +20,9 @@ export default function Logout({ token }: { token: string }) {
     useEffect(() => {
         // Check if logout was succesful
         if (fetch.response && fetch.response.status === 200) {
-            router.push("/login");
+            router.push("/account/login");
         }
     }, [fetch.isResponseBodyReady]);
 
-    return <button onClick={fetch.send}>Logout</button>;
+    return <Button onClick={fetch.send}>Logout</Button>;
 }

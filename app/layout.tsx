@@ -1,3 +1,4 @@
+import { Theme } from "@yakad/ui";
 import "../styles/scrollbar.css";
 import "../styles/style.css";
 
@@ -17,7 +18,9 @@ export default function Layout({ children }: any) {
                 <link rel="manifest" href="manifest.json" />
                 <title>Natiq Panel</title>
             </head>
-            <body>{children}</body>
+            <body>
+                <Theme mode="dark">{children}</Theme>
+            </body>
         </html>
     );
 }
