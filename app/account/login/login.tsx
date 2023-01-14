@@ -36,7 +36,12 @@ export default function Login() {
     return (
         <>
             <Form onChange={handler.handle} onSubmit={fetch.send}>
-                <InputField placeholder="Email" type="email" name="email" />
+                <InputField
+                    variant="outlined"
+                    placeholder="Email"
+                    type="email"
+                    name="email"
+                />
             </Form>
             <Button
                 loading
