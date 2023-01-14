@@ -38,7 +38,9 @@ export default async function OrgsList({
                         />
                         <h1 style={{ marginRight: "auto" }}>{org.name}</h1>
 
-                        <Link href={`/panel/organization/edit/${org.id}`}>
+                        <Link
+                            href={`/panel/organization/edit/${org.account_id}`}
+                        >
                             <Button variant="link">Edit</Button>
                         </Link>
                     </ListItem>
