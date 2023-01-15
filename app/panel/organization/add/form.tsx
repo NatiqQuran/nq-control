@@ -2,48 +2,11 @@
 
 import { useFetch, useFormDataHandle } from "@yakad/lib";
 import { InputField, Page, Form, Container, Button } from "@yakad/ui";
-import React, { useEffect } from "react";
-
-interface NewOrganization {
-    /**
-     * The username of org,
-     * Other users can search,
-     * or go to the profile of org
-     * the backend identifies the org with this prop
-     */
-    username: string;
-
-    /**
-     * This prop is showen in the org profile,
-     * this is usually the full name of the org,
-     * or name that this org is known for
-     */
-    name: string;
-
-    /**
-     * National id of the org,
-     * this can be a changed very often,
-     * this value will verifyed, after the creator of the org
-     * requested
-     */
-    nationalId: string;
-
-    /**
-     * EstablishedDate: The date of the foundation of the org,
-     * the format supported from the backend: Y-MM-DD,
-     * example : 1988-10-21
-     */
-    establishedDate: Date;
-
-    /**
-     * The profile of the org, that will
-     * showen in the org profile
-     */
-    profileImage: string | null;
-}
+import React from "react";
+import { Organization } from "../../organization";
 
 export default function AddNewOrgForm({ token }: { token: string }) {
-    const [newOrgData, setNewOrgData] = React.useState<NewOrganization>();
+    const [newOrgData, setNewOrgData] = React.useState<Organization>();
 
     const handler = useFormDataHandle(setNewOrgData);
 
