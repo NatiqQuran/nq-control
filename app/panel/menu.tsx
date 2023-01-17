@@ -1,5 +1,6 @@
 "use client";
 
+import { Card, Button } from "@yakad/ui";
 import React, { useState } from "react";
 import ContextMenu from "./contextMenu";
 
@@ -19,19 +20,11 @@ export default function Menu({ children, avatar }: MenuProps) {
 
     return (
         <div>
-            <button onClick={handleButtonClick}>{avatar}</button>
+            <Button variant="filled" onClick={handleButtonClick}>
+                {avatar}
+            </Button>
             <ContextMenu anchorEl={anchorEl} open={open}>
-                <div
-                    style={{
-                        boxShadow: "0 0 5px #7d7d7d7d",
-                        background: "#fff",
-                        borderRadius: "5px",
-                        padding: "5px",
-                        width: "15rem",
-                    }}
-                >
-                    {children}
-                </div>
+                <Card>{children}</Card>
             </ContextMenu>
         </div>
     );

@@ -1,10 +1,21 @@
-import { Main, Container, AppBar, Spacer, Button } from "@yakad/ui";
+import {
+    Main,
+    Container,
+    AppBar,
+    Spacer,
+    Button,
+    Page as Pg,
+    Loading,
+} from "@yakad/ui";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import AccountIcon from "./account";
 import Menu from "./menu";
 import Logout from "./logout";
 import { redirect } from "next/navigation";
+import Link from "next/link";
+import OrgsList from "./organizationsList";
+import { Suspense } from "react";
 
 interface UserProfile {
     readonly username: string;
@@ -26,8 +37,7 @@ async function getUserProfile(token: string): Promise<Response> {
 }
 
 export default async function Page() {
-    const nextCookies = cookies();
-    const token = nextCookies.get("token") || redirect("/login");
+    const token = cookies().get("token")!;
 
     const profile: UserProfile = await (async () => {
         const profileFromApi = await getUserProfile(token.value);
@@ -38,7 +48,7 @@ export default async function Page() {
     })();
 
     return (
-        <>
+        <Pg style={{ position: "absolute", height: "100%" }}>
             <AppBar>
                 <h1>Panel</h1>
 
@@ -82,8 +92,6 @@ export default async function Page() {
                     </div>
                 </Menu>
             </AppBar>
-
-            <Logout token={token.value} />
             <Main
                 style={{
                     position: "fixed",
@@ -97,11 +105,23 @@ export default async function Page() {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "center",
+                        width: "40rem",
                     }}
                 >
-                    {profile.username}
+                    <Suspense fallback={<Loading variant="spinner" />}>
+                        {/* @ts-expect-error Server Component */}
+                        <OrgsList token={token.value} />
+                    </Suspense>
+
+                    <Link
+                        href={"/panel/organization/add"}
+                        style={{ padding: "10px" }}
+                    >
+                        <Button variant="filled">Add org</Button>
+                    </Link>
+                    <Logout token={token.value} />
                 </Container>
             </Main>
-        </>
+        </Pg>
     );
 }
