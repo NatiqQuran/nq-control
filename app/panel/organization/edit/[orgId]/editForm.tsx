@@ -1,8 +1,9 @@
 "use client";
 
 import { useFetch, useFormDataHandle } from "@yakad/lib";
-import { Button, Container, Form, InputField, Page } from "@yakad/ui";
-import React from "react";
+import { Button, Container, Form, Page } from "@yakad/ui";
+import { useRouter } from "next/navigation";
+import React, { useEffect } from "react";
 import { Organization } from "../../../organization";
 
 interface EditData {
@@ -12,6 +13,7 @@ interface EditData {
 }
 
 export default function EditForm({ orgData, token, orgId }: EditData) {
+    const router = useRouter();
     const [newOrgData, setNewOrgData] = React.useState<Organization>(orgData);
 
     const handler = useFormDataHandle(setNewOrgData);
@@ -28,6 +30,12 @@ export default function EditForm({ orgData, token, orgId }: EditData) {
             body: JSON.stringify(newOrgData),
         },
     );
+
+    useEffect(() => {
+        if (fetch.isResponseBodyReady && fetch.response.status === 200) {
+            router.back();
+        }
+    }, [fetch.isResponseBodyReady]);
 
     return (
         <Page>
@@ -71,7 +79,6 @@ export default function EditForm({ orgData, token, orgId }: EditData) {
                     />
                     <Button variant="tonal">edit</Button>
                 </Form>
-                <h3>{fetch.response?.status === 200 ? "Edited" : ""}</h3>
             </Container>
         </Page>
     );
