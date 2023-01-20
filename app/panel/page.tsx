@@ -16,25 +16,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import OrgsList from "./organizationsList";
 import { Suspense } from "react";
-
-interface UserProfile {
-    readonly username: string;
-    first_name: string;
-    last_name: string;
-    birthday: Date;
-    email: string;
-    profile_image: string | null;
-}
-
-async function getUserProfile(token: string): Promise<Response> {
-    const response = await fetch(`${process.env.API_URL}/profile`, {
-        headers: {
-            Authorization: token,
-        },
-    });
-
-    return response;
-}
+import { getUserProfile, UserProfile } from "./profile/profile";
 
 export default async function Page() {
     const token = cookies().get("token")!;
@@ -118,6 +100,10 @@ export default async function Page() {
                         style={{ padding: "10px" }}
                     >
                         <Button variant="filled">Add org</Button>
+                    </Link>
+
+                    <Link href={"/panel/profile"} style={{ padding: "10px" }}>
+                        <Button>profile</Button>
                     </Link>
                     <Logout token={token.value} />
                 </Container>
