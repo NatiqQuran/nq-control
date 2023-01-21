@@ -19,7 +19,7 @@ export default function Layout({ children }: any) {
                 <title>Natiq Panel</title>
             </head>
             <body>
-                <Theme color="green">{children}</Theme>
+                <Theme mode="dark">{children}</Theme>
             </body>
         </html>
     );
