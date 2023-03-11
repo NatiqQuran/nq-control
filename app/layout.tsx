@@ -1,4 +1,3 @@
-import "../styles/scrollbar.css";
 import "../styles/style.css";
 import { Theme } from "@yakad/ui";
 
