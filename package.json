@@ -14,7 +14,7 @@
         "@types/react-dom": "18.0.8",
         "@yakad/ui": "1.2.30-beta",
         "@yakad/lib": "1.0.1",
-        "next": "13.0.3",
+        "next": "13.2.4",
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-router-dom": "^6.4.3",

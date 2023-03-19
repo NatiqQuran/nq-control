@@ -5,9 +5,15 @@ import {
     Button,
     GridContainer,
     GridItem,
+    Card,
+    Row,
+    Stack,
+    Spacer,
+    Container,
 } from "@yakad/ui";
 import Link from "next/link";
 import Image from "next/image";
+import Organizationicon from "./account/organizationicon";
 
 async function getOrgs(token: string) {
     const response = await fetch(`${process.env.API_URL}/organizations`, {
@@ -25,53 +31,48 @@ export default async function OrgsList({
     token: string;
 }): Promise<JSX.Element> {
     const list: any[] = await getOrgs(token);
+    console.log(list);
 
     return (
         <Page>
-            <GridContainer
-                style={{ padding: "2rem 0 0" }}
-                rowGap={2}
-                columnGap={2}
-            >
-                <GridItem xl={4} lg={6} md={12}>
-                    <List direction="column">
-                        {list.map(org => (
-                            <ListItem
-                                style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    border: "1px solid rgb(125 125 125 / 13%)",
-                                }}
-                            >
-                                {org.profile_image ? (
-                                    <Image
-                                        width={35}
-                                        height={35}
-                                        alt=""
-                                        src={org.profile_image}
-                                        style={{
-                                            borderRadius: "15px",
-                                            padding: "10px",
-                                        }}
-                                    />
-                                ) : (
-                                    "NP"
-                                )}
-
+            <Container maxWidth="xs">
+                {list.map(org => (
+                    <Card
+                        style={{
+                            alignItems: "center",
+                            marginBottom: "1.5rem",
+                        }}
+                    >
+                        <Row>
+                            {org.profile_image ? (
+                                <Image
+                                    width={50}
+                                    height={50}
+                                    alt=""
+                                    src={org.profile_image}
+                                    style={{
+                                        borderRadius: "4rem",
+                                    }}
+                                />
+                            ) : (
+                                <Organizationicon />
+                            )}
+                            <Stack>
                                 <h1 style={{ marginRight: "auto" }}>
                                     {org.name}
                                 </h1>
-                                <Link
-                                    href={`/panel/organization/edit/${org.account_id}`}
-                                >
-                                    <Button variant="link">Edit</Button>
-                                </Link>
-                            </ListItem>
-                        ))}
-                    </List>
-                </GridItem>
-            </GridContainer>
+                                <h2>{org.username}</h2>
+                            </Stack>
+                            <Spacer />
+                            <Link
+                                href={`/panel/organization/edit/${org.account_id}`}
+                            >
+                                <Button variant="link">Edit</Button>
+                            </Link>
+                        </Row>
+                    </Card>
+                ))}
+            </Container>
         </Page>
     );
 }

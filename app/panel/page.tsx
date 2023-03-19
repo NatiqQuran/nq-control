@@ -6,6 +6,7 @@ import {
     Button,
     Page as Pg,
     Loading,
+    Row,
 } from "@yakad/ui";
 import { cookies } from "next/headers";
 import Image from "next/image";
@@ -19,13 +20,14 @@ import { Suspense } from "react";
 import { getUserProfile, UserProfile } from "./profile/profile";
 
 export default async function Page() {
-    const token = cookies().get("token")!;
+    const cookie = cookies();
+    const token = cookie.get("token") || redirect("/account/login");
 
     const profile: UserProfile = await (async () => {
         const profileFromApi = await getUserProfile(token.value);
 
         return profileFromApi.status === 401
-            ? redirect("/login")
+            ? redirect("/account/login")
             : profileFromApi.json();
     })();
 
@@ -35,44 +37,9 @@ export default async function Page() {
                 <h1>Panel</h1>
 
                 <Spacer />
-
-                <Menu
-                    avatar={
-                        profile.profile_image ? (
-                            <Image
-                                src={profile.profile_image || ""}
-                                alt="Profile Image"
-                                width={25}
-                                height={25}
-                            />
-                        ) : (
-                            <AccountIcon />
-                        )
-                    }
-                >
-                    <div
-                        style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            flexDirection: "column",
-                        }}
-                    >
-                        {profile.profile_image ? (
-                            <Image
-                                width={65}
-                                height={65}
-                                alt=""
-                                src={profile.profile_image}
-                                style={{ borderRadius: "100px" }}
-                            />
-                        ) : (
-                            "no profile image"
-                        )}
-                        <h3>username: {profile.username}</h3>
-                        <p>email: {profile.email}</p>
-                    </div>
-                </Menu>
+                <Link href={"/panel/account"}>
+                    <Button variant="tonal">Account</Button>
+                </Link>
             </AppBar>
             <Main
                 style={{
@@ -80,34 +47,7 @@ export default async function Page() {
                     top: "6rem",
                     height: "calc(100% - 6rem)",
                 }}
-            >
-                <Container
-                    // maxWidth="sm"
-                    style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        width: "40rem",
-                    }}
-                >
-                    <Suspense fallback={<Loading variant="spinner" />}>
-                        {/* @ts-expect-error Server Component */}
-                        <OrgsList token={token.value} />
-                    </Suspense>
-
-                    <Link
-                        href={"/panel/organization/add"}
-                        style={{ padding: "10px" }}
-                    >
-                        <Button variant="filled">Add org</Button>
-                    </Link>
-
-                    <Link href={"/panel/profile"} style={{ padding: "10px" }}>
-                        <Button>profile</Button>
-                    </Link>
-                    <Logout token={token.value} />
-                </Container>
-            </Main>
+            ></Main>
         </Pg>
     );
 }

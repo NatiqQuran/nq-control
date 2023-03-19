@@ -32,7 +32,7 @@ export default function Logout({ token }: { token: string }) {
     }, [fetch.isResponseBodyReady]);
 
     return (
-        <Button variant="tonal" onClick={fetch.send}>
+        <Button size="small" variant="tonal" onClick={fetch.send}>
             Logout
         </Button>
     );
