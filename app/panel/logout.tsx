@@ -5,6 +5,11 @@ import { Button } from "@yakad/ui";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
+/**
+ * Experimental future of JS
+ */
+export declare var cookieStore: any;
+
 export default function Logout({ token }: { token: string }) {
     const router = useRouter();
     const fetch = useFetch(
@@ -14,15 +19,21 @@ export default function Logout({ token }: { token: string }) {
             headers: {
                 Authorization: token,
             },
-        },
+        }
     );
 
     useEffect(() => {
         // Check if logout was succesful
         if (fetch.response && fetch.response.status === 200) {
-            router.push("/account/login");
+            cookieStore.delete("token").then((_result: any) => {
+                router.push("/account/login");
+            });
         }
     }, [fetch.isResponseBodyReady]);
 
-    return <Button onClick={fetch.send}>Logout</Button>;
+    return (
+        <Button size="small" variant="tonal" onClick={fetch.send}>
+            Logout
+        </Button>
+    );
 }

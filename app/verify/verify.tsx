@@ -10,6 +10,11 @@ interface VerifyData {
     code?: number;
 }
 
+/**
+ * Experimental future of JS
+ */
+export declare var cookieStore: any;
+
 export default function Verify() {
     const router = useRouter();
     const searchParams = useSearchParams();
@@ -28,13 +33,16 @@ export default function Verify() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
-        },
+        }
     );
 
     useEffect(() => {
         if (fetch.isResponseBodyReady && fetch.response.status === 200) {
-            document.cookie = `token=${fetch.responseBody}; Secure`;
-            router.replace("/panel");
+            cookieStore
+                .set("token", fetch.responseBody)
+                .then((_result: any) => {
+                    router.replace("/panel");
+                });
         }
     }, [fetch.isResponseBodyReady]);
 
@@ -42,7 +50,7 @@ export default function Verify() {
         <>
             <form
                 onChange={handler.handle}
-                onSubmit={(e) => {
+                onSubmit={e => {
                     e.preventDefault();
                     fetch.send();
                 }}

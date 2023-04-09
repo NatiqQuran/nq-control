@@ -1,6 +1,5 @@
-import { Theme } from "@yakad/ui";
-import "../styles/scrollbar.css";
 import "../styles/style.css";
+import { Theme } from "@yakad/ui";
 
 export default function Layout({ children }: any) {
     return (
