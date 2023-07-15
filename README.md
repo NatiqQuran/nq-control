@@ -11,7 +11,7 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Access to natiq main api
-Create new '.env' file in root and copy the following url in to it:
+Create new '.env' file in root and copy the following variables in to it:
 
 ```bash
 NEXT_PUBLIC_API_URL=http://api.natiq.net
