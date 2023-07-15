@@ -10,8 +10,8 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## For craete .env file
-Create new '.env' file in root and copy the following code in to it:
+## Access to natiq main api
+Create new '.env' file in root and copy the following url in to it:
 
 ```bash
 NEXT_PUBLIC_API_URL=http://api.natiq.net
