@@ -21,14 +21,14 @@ import { getUserProfile, UserProfile } from "./profile/profile";
 
 export default async function Page() {
     const cookie = cookies();
-    const token = cookie.get("token") || redirect("/account/login");
+    const token = await cookie.get("token") || redirect("/account/login");
 
-    const profile: UserProfile = await (async () => {
+    const profile= await (async () => {
         const profileFromApi = await getUserProfile(token.value);
 
         return profileFromApi.status === 401
             ? redirect("/account/login")
-            : profileFromApi.json();
+           : profileFromApi.json();
     })();
 
     return (
