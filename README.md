@@ -14,6 +14,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 Create new '.env' file in root and copy the following variables in to it:
 
 ```bash
-NEXT_PUBLIC_API_URL=http://api.natiq.net
-API_URL=http://api.natiq.net
+NEXT_PUBLIC_API_URL=https://api.natiq.net
+API_URL=https://api.natiq.net
 ```
