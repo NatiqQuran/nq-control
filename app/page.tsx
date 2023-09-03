@@ -72,7 +72,7 @@ export default function Page() {
                                         lineHeight: "2rem",
                                     }}
                                 >
-                                    Quran Nategh, Recitation, Word by Word,
+                                    Quran Natigh, Recitation, Word by Word,
                                     Translate & Tafsir. Based on research.
                                 </p>
 

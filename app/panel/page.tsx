@@ -18,10 +18,11 @@ import Link from "next/link";
 import OrgsList from "./organizationsList";
 import { Suspense } from "react";
 import { getUserProfile, UserProfile } from "./profile/profile";
+import { Xpanel } from "@yakad/x";
 
 export default async function Page() {
     const cookie = cookies();
-    const token = await cookie.get("token") || redirect("/account/login");
+    const token = cookie.get("token") || redirect("/account/login");
 
     const profile= await (async () => {
         const profileFromApi = await getUserProfile(token.value);
@@ -30,24 +31,31 @@ export default async function Page() {
             ? redirect("/account/login")
            : profileFromApi.json();
     })();
-
+    var menuItems = [
+        {
+            name: "Profile",
+        },
+        {
+            name: "Accounts",
+            childs: [
+                {name: "Users"},
+                {name: "Organizations"},
+                {name: "Permissions"}
+            ],
+        },
+        {
+            name: "Quran",
+            childs: [
+                {name: "Arabic Text"},
+                {name: "Translations"},
+                {name: "By Word"},
+                {name: "Tafrsir"},
+                {name: "Recite"}
+            ],
+        }
+    ]
+    
     return (
-        <Pg style={{ position: "absolute", height: "100%" }}>
-            <AppBar>
-                <h1>Panel</h1>
-
-                <Spacer />
-                <Link href={"/panel/account"}>
-                    <Button variant="tonal">Account</Button>
-                </Link>
-            </AppBar>
-            <Main
-                style={{
-                    position: "fixed",
-                    top: "6rem",
-                    height: "calc(100% - 6rem)",
-                }}
-            ></Main>
-        </Pg>
+        <Xpanel name="Natiq Control Panel" menuItems={menuItems} ></Xpanel>
     );
 }
