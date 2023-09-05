@@ -9,7 +9,7 @@ import {
     Stack,
     Button,
     Spacer,
-    Page as Pg,
+    Page as Pg
 } from "@yakad/ui";
 import LogoIcon from "./logoicon";
 
@@ -45,7 +45,7 @@ export default function Page() {
                             style={{
                                 alignItems: "center",
                                 display: "flex",
-                                paddingRight: "3rem",
+                                paddingRight: "3rem"
                             }}
                         >
                             <Stack
@@ -55,7 +55,7 @@ export default function Page() {
                                     <h1
                                         style={{
                                             fontSize: "7rem",
-                                            fontFamily: "Hafs",
+                                            fontFamily: "Hafs"
                                         }}
                                     >
                                         <span>الْقُرآنُ </span>
@@ -69,10 +69,10 @@ export default function Page() {
                                         textAlign: "justify",
                                         textAlignLast: "center",
                                         fontSize: "1.6rem",
-                                        lineHeight: "2rem",
+                                        lineHeight: "2rem"
                                     }}
                                 >
-                                    Quran Natigh, Recitation, Word by Word,
+                                    Quran Natiq, Recitation, Word by Word,
                                     Translate & Tafsir. Based on research.
                                 </p>
 

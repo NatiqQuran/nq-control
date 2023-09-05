@@ -10,10 +10,9 @@ export interface UserProfile {
 export async function getUserProfile(token: string): Promise<Response> {
     const response = await fetch(`${process.env.API_URL}/user`, {
         headers: {
-            Authorization: token,
-        },
+            Authorization: token
+        }
     });
 
     return response;
 }
-

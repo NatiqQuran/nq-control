@@ -1,8 +1,8 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
-import { getUserProfile, UserProfile } from "./profile";
+import { getUserProfile, UserProfile } from "../profile";
 import EditProfileForm from "./editProfileForm";
-import { Page } from "@yakad/ui";
+import { Button, Container, Page, Stack } from "@yakad/ui";
 
 export default async function EditProfile() {
     const token = cookies().get("token")?.value || redirect("/account/login");
@@ -16,8 +16,8 @@ export default async function EditProfile() {
     })();
 
     return (
-        <Page style={{ position: "absolute", padding: "10px", height: "100%" }}>
+        <Container maxWidth="xs">
             <EditProfileForm profile={profile} token={token} />
-        </Page>
+        </Container>
     );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useFetch, useFormDataHandle } from "@yakad/lib";
-import { Stack, Form, Button, Row, Spacer, CodeField } from "@yakad/ui";
+import { Stack, Form, Button, Spacer, CodeField } from "@yakad/ui";
 import React, { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { notFound } from "next/navigation";
@@ -29,10 +29,10 @@ export default function Verify() {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify(data),
-        },
+            body: JSON.stringify(data)
+        }
     );
 
     const resendFetch = useFetch(
@@ -41,10 +41,10 @@ export default function Verify() {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({ email: data.email }),
-        },
+            body: JSON.stringify({ email: data.email })
+        }
     );
 
     useEffect(() => {

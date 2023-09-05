@@ -1,4 +1,4 @@
-import { Page } from "@yakad/ui";
+import { Container } from "@yakad/ui";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Organization } from "../../../organization";
@@ -30,8 +30,8 @@ export default async function EditOrg({
     };
 
     return (
-        <Page style={{ position: "absolute", padding: "10px", height: "100%" }}>
+        <Container>
             <EditForm orgData={organization} orgId={orgId} token={token} />
-        </Page>
+        </Container>
     );
 }
