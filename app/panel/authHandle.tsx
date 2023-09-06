@@ -1,10 +1,7 @@
-import { Container, Button, Row } from "@yakad/ui";
-import Link from "next/link";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { getUserProfile, UserProfile } from "./profile/profile";
-
-export default async function Page() {
+export default async function handler() {
     const cookie = cookies();
     const token = cookie.get("token") || redirect("/account/login");
 
@@ -16,13 +13,5 @@ export default async function Page() {
             : profileFromApi.json();
     })();
 
-    return (
-        <Container>
-            <Row>
-                <Link href="./panel/account">
-                    <Button variant="filledtonal">Accounts</Button>
-                </Link>
-            </Row>
-        </Container>
-    );
+    return <h1>from Auth</h1>;
 }

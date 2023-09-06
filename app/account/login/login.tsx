@@ -19,9 +19,9 @@ export default function Login() {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify(formData),
+            body: JSON.stringify(formData)
         }
     );
 

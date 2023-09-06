@@ -3,7 +3,6 @@
 import { AppBar, Main, Card, Stack, SvgIcon, Hr, Page } from "@yakad/ui/index";
 import styles from "./account.module.css";
 import LogoIcon from "./logoicon";
-import Logo from "../assets/account.svg";
 export default function Layout({ children }: any) {
     return (
         <Page className={styles.page}>
@@ -15,7 +14,7 @@ export default function Layout({ children }: any) {
                         style={{
                             justifyContent: "center",
                             gap: "0",
-                            flexDirection: "row",
+                            flexDirection: "row"
                         }}
                     >
                         <SvgIcon size={6}>

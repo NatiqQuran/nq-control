@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function useCountdown(second: number) {
     const [reseted, setReseted] = useState(false);
@@ -9,7 +9,7 @@ function useCountdown(second: number) {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setTime(pervTime => {
+            setTime((pervTime) => {
                 if (pervTime <= 0) {
                     setIsCountDownEnded(true);
                     clearInterval(interval);
@@ -30,7 +30,7 @@ function useCountdown(second: number) {
     }, [reseted]);
 
     const resetTime = () => {
-        setReseted(r => !r);
+        setReseted((r) => !r);
         setTime(second);
     };
 

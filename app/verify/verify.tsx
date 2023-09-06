@@ -30,9 +30,9 @@ export default function Verify() {
             method: "POST",
             headers: {
                 Accept: "application/json",
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(data)
         }
     );
 
@@ -50,7 +50,7 @@ export default function Verify() {
         <>
             <form
                 onChange={handler.handle}
-                onSubmit={e => {
+                onSubmit={(e) => {
                     e.preventDefault();
                     fetch.send();
                 }}
