@@ -4,16 +4,12 @@ import { useFetch, useFormDataHandle } from "@yakad/lib";
 import React, { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { notFound } from "next/navigation";
+import { cookies } from "next/headers";
 
 interface VerifyData {
     email: string;
     code?: number;
 }
-
-/**
- * Experimental future of JS
- */
-export declare var cookieStore: any;
 
 export default function Verify() {
     const router = useRouter();
@@ -36,13 +32,16 @@ export default function Verify() {
         }
     );
 
+    async function setCookie(token: string) {
+        "use server";
+
+        cookies().set("token", token);
+    }
+
     useEffect(() => {
         if (fetch.isResponseBodyReady && fetch.response.status === 200) {
-            cookieStore
-                .set("token", fetch.responseBody)
-                .then((_result: any) => {
-                    router.replace("/panel");
-                });
+            setCookie(fetch.responseBody);
+            router.replace("/panel")
         }
     }, [fetch.isResponseBodyReady]);
 
