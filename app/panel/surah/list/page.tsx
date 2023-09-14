@@ -25,14 +25,14 @@ async function getSurahsList(): Promise<SimpleSurah[]> {
 export default async function Page() {
     const surahsList = await getSurahsList();
     const tableData: SurahTableHeader = {
-        name: "name2",
-        number: "number2",
-        number_of_ayahs: "noa2",
-        uuid: "221213131313"
+        name: "Surah Name",
+        number: "Surah Number",
+        number_of_ayahs: "Number of Ayahs",
+        uuid: "Surah uuid"
     };
     return (
         <Container>
-            <h1>JAFAR</h1>
+            <h1>Surah List</h1>
             <Xtable head={tableData} data={surahsList} />
         </Container>
     )
