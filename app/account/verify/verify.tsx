@@ -81,7 +81,7 @@ export default function Verify() {
             </Form>
             <Spacer />
             <Button
-                loading
+                loadingVariant="spinner"
                 onClick={fetch.send}
                 variant="filled"
                 disabled={fetch.loading}
@@ -94,8 +94,6 @@ export default function Verify() {
                 size="small"
                 variant="tonal"
                 onClick={resendFetch.send}
-                loading={countDown.isCountDownEnded}
-                loadingVariant="spinner"
                 disabled={resendFetch.loading || !countDown.isCountDownEnded}
             >
                 {countDown.isCountDownEnded

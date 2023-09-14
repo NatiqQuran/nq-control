@@ -44,7 +44,7 @@ export default function Login() {
                 />
             </Form>
             <Button
-                loading
+                loadingVariant="spinner"
                 onClick={fetch.send}
                 variant="filled"
                 style={{ width: "100%", justifyContent: "center" }}
