@@ -9,11 +9,11 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@types/node": "18.11.9",
-        "@types/react": "18.0.25",
-        "@types/react-dom": "18.0.8",
+        "@types/node": "20.5.7",
+        "@types/react": "18.2.21",
+        "@types/react-dom": "18.2.7",
         "@yakad/lib": "1.0.1",
-        "@yakad/symbols": "^1.0.0",
+        "@yakad/symbols": "1.0.0",
         "@yakad/ui": "1.2.78-beta",
         "@yakad/x": "1.0.22-beta",
         "eslint-config-next": "13.4.19",
@@ -21,6 +21,6 @@
         "react": "18.2.0",
         "react-dom": "18.2.0",
         "react-router-dom": "6.4.3",
-        "typescript": "4.8.4"
+        "typescript": "5.2.2"
     }
 }
