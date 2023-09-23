@@ -4,8 +4,6 @@ import { redirect } from "next/navigation";
 import { Organization } from "../../../organization";
 import EditForm from "./editForm";
 
-export const runtime = "edge";
-
 async function viewOrg(id: string, token: string) {
     const response = await fetch(`${process.env.API_URL}/organizations/${id}`, {
         method: "GET",
