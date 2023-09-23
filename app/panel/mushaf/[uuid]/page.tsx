@@ -1,7 +1,5 @@
 import { Container } from "@yakad/ui";
 
-export const runtime = "edge";
-
 interface SimpleMushaf {
     uuid: string;
     name: string;

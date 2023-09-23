@@ -4,8 +4,6 @@ import { getUserProfile, UserProfile } from "../profile";
 import EditProfileForm from "./editProfileForm";
 import { Button, Container, Page, Stack } from "@yakad/ui";
 
-export const runtime = "edge";
-
 export default async function EditProfile() {
     const token = cookies().get("token")?.value || redirect("/account/login");
 

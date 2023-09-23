@@ -1,8 +1,6 @@
 import { Container } from "@yakad/ui";
 import { Xtable } from "@yakad/x";
 
-export const runtime = "edge";
-
 interface SimpleSurah {
     mushaf_uuid: string;
     mushaf_name: string;

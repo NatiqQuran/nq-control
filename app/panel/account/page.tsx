@@ -8,8 +8,6 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getUserProfile, UserProfile } from "../profile/profile";
 
-export const runtime = "edge";
-
 export default async function Page() {
     const cookie = cookies();
     const token = cookie.get("token") || redirect("/account/login");
