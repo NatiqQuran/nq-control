@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { Organization } from "../../../organization";
 import EditForm from "./editForm";
 
+export const runtime = "edge";
+
 async function viewOrg(id: string, token: string) {
     const response = await fetch(`${process.env.API_URL}/organizations/${id}`, {
         method: "GET",
@@ -17,7 +19,9 @@ async function viewOrg(id: string, token: string) {
 
 export default async function EditOrg({
     params: { orgId },
-}: { params: { orgId: string } }) {
+}: {
+    params: { orgId: string };
+}) {
     const token = cookies().get("token")?.value || redirect("/account/login");
 
     const currentOrgData = await viewOrg(orgId, token);

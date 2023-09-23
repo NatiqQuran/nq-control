@@ -2,15 +2,15 @@ import { Container } from "@yakad/ui";
 import { Xtable } from "@yakad/x";
 
 interface SimpleSurah {
-    name: string,
-    period: string | null,
+    name: string;
+    period: string | null;
     number: number;
     number_of_ayahs: number;
     uuid: string;
 }
 
 interface SurahTableHeader {
-    name: string,
+    name: string;
     number: string;
     number_of_ayahs: string;
     uuid: string;
@@ -28,12 +28,12 @@ export default async function Page() {
         name: "Surah Name",
         number: "Surah Number",
         number_of_ayahs: "Number of Ayahs",
-        uuid: "Surah uuid"
+        uuid: "Surah uuid",
     };
     return (
         <Container>
             <h1>Surah List</h1>
             <Xtable head={tableData} data={surahsList} />
         </Container>
-    )
+    );
 }

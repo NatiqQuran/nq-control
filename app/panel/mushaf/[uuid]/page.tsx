@@ -1,30 +1,31 @@
 import { Container } from "@yakad/ui";
-// import { Xtable } from "@yakad/x";
+
+export const runtime = "edge";
 
 interface SimpleMushaf {
-  uuid: string;
-  name: string;
-  source: string;
+    uuid: string;
+    name: string;
+    source: string;
 }
 
 async function getMushaf(uuid: string): Promise<SimpleMushaf> {
-  const response = await fetch(`${process.env.API_URL}/mushaf/${uuid}`);
+    const response = await fetch(`${process.env.API_URL}/mushaf/${uuid}`);
 
-  return response.json();
+    return response.json();
 }
 
 export default async function ViewMushaf({
-  params,
+    params,
 }: {
-  params: { uuid: string };
+    params: { uuid: string };
 }) {
-  const singleMushaf = await getMushaf(params.uuid);
+    const singleMushaf = await getMushaf(params.uuid);
 
-  return (
-    <Container>
-      <h1>mushaf uuid : {singleMushaf.uuid}</h1>
-      <h1>mushaf name : {singleMushaf.name}</h1>
-      <h1>mushaf source: {singleMushaf.source}</h1>
-    </Container>
-  );
+    return (
+        <Container>
+            <h1>mushaf uuid : {singleMushaf.uuid}</h1>
+            <h1>mushaf name : {singleMushaf.name}</h1>
+            <h1>mushaf source: {singleMushaf.source}</h1>
+        </Container>
+    );
 }
