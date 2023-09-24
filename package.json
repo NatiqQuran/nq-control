@@ -14,7 +14,7 @@
         "@types/react-dom": "18.2.7",
         "@yakad/lib": "1.0.1",
         "@yakad/symbols": "1.0.0",
-        "@yakad/ui": "1.2.78-beta",
+        "@yakad/ui": "1.2.79-beta",
         "@yakad/x": "1.0.22-beta",
         "eslint-config-next": "13.4.19",
         "next": "13.4.19",
