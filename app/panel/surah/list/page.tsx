@@ -32,7 +32,7 @@ export default async function Page() {
         <Container>
             <h1>Surah List</h1>
             <Table>
-                <Thead>
+                <Thead style={{ textAlign: "left" }}>
                     <Tr>
                         <Th>Surah Number</Th>
                         <Th>Surah Name</Th>

@@ -7,13 +7,7 @@ export default function page() {
 
     return (
         <Container>
-            <Row>
-                <h1>This page will be use for overview soon. </h1>
-                <Spacer />
-                <Button variant="outlined" onClick={() => router.back()}>
-                    Cancel
-                </Button>
-            </Row>
+            <h1>This page will be use for overview soon. </h1>
         </Container>
     );
 }
