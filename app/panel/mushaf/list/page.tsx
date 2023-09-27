@@ -1,18 +1,23 @@
-import { Button, Container, Row, Spacer } from "@yakad/ui";
-import { Xtable } from "@yakad/x";
-import AddButton from "./addButton";
-import SurahOpt from "./surahOpt";
+import {
+    Container,
+    Button,
+    Table,
+    Tbody,
+    Td,
+    Th,
+    Thead,
+    Tr,
+    Row,
+    Spacer,
+} from "@yakad/ui";
+import Link from "next/link";
 
 interface SimpleMushaf {
     name: string;
     source: string;
     uuid: string;
 }
-interface MushafTableHeader {
-    name: string;
-    source: string;
-    uuid: string;
-}
+
 async function getMushafsList(): Promise<SimpleMushaf[]> {
     const response = await fetch(`${process.env.API_URL}/mushaf`);
 
@@ -20,21 +25,60 @@ async function getMushafsList(): Promise<SimpleMushaf[]> {
 }
 
 export default async function Page() {
-    const mushafList = await getMushafsList();
-    const tableData: MushafTableHeader = {
-        name: "Mushaf Name",
-        source: "Mushaf Source",
-        uuid: "Mushaf uuid",
-    };
+    const mushafsList = await getMushafsList();
+
     return (
         <Container>
             <Row>
                 <h1>Mushaf List</h1>
                 <Spacer />
-                <AddButton />
-                <SurahOpt />
+                <Link href={"/panel/mushaf/add"}>
+                    <Button variant="outlined">Add Mushaf</Button>
+                </Link>
             </Row>
-            <Xtable head={tableData} data={mushafList} />
+            <Table>
+                <Thead style={{ textAlign: "left" }}>
+                    <Tr>
+                        <Th>Mushaf Name</Th>
+                        <Th>Mushaf Source</Th>
+                        <Th>Mushaf uuid</Th>
+                        <Th>More</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {mushafsList.map((item) => (
+                        <Tr>
+                            <Td>{item.name}</Td>
+                            <Td>{item.source}</Td>
+                            <Td>{item.uuid}</Td>
+                            <Td>
+                                <Row>
+                                    <Link href={"/panel/surah/list"}>
+                                        <Button size="small" variant="link">
+                                            Surahs
+                                        </Button>
+                                    </Link>
+                                    <Link href={"/panel/mushaf/" + item.uuid}>
+                                        <Button size="small" variant="link">
+                                            View
+                                        </Button>
+                                    </Link>
+                                    <Link
+                                        href={"/panel/mushaf/edit/" + item.uuid}
+                                    >
+                                        <Button size="small" variant="link">
+                                            Edit
+                                        </Button>
+                                    </Link>
+                                    <Button size="small" variant="link">
+                                        Delete
+                                    </Button>
+                                </Row>
+                            </Td>
+                        </Tr>
+                    ))}
+                </Tbody>
+            </Table>
         </Container>
     );
 }
