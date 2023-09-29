@@ -10,6 +10,7 @@ import {
     Row,
 } from "@yakad/ui";
 import Link from "next/link";
+import DeleteButton from "../../../../components/deleteButton";
 
 interface SimpleSurah {
     name: string;
@@ -66,9 +67,7 @@ export default async function Page() {
                                             Edit
                                         </Button>
                                     </Link>
-                                    <Button size="small" variant="link">
-                                        Delete
-                                    </Button>
+                                    <DeleteButton />
                                 </Row>
                             </Td>
                         </Tr>
