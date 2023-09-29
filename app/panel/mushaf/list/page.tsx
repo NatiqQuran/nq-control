@@ -11,6 +11,7 @@ import {
     Spacer,
 } from "@yakad/ui";
 import Link from "next/link";
+import DeleteButton from "../../../../components/deleteButton";
 
 interface SimpleMushaf {
     name: string;
@@ -36,8 +37,8 @@ export default async function Page() {
                     <Button variant="outlined">Add Mushaf</Button>
                 </Link>
             </Row>
-            <Table>
-                <Thead style={{ textAlign: "left" }}>
+            <Table style={{ textAlign: "justify" }}>
+                <Thead>
                     <Tr>
                         <Th>Mushaf Name</Th>
                         <Th>Mushaf Source</Th>
@@ -48,7 +49,11 @@ export default async function Page() {
                 <Tbody>
                     {mushafsList.map((item) => (
                         <Tr>
-                            <Td>{item.name}</Td>
+                            <Td>
+                                <Link href={"/panel/mushaf/" + item.uuid}>
+                                    {item.name}
+                                </Link>
+                            </Td>
                             <Td>{item.source}</Td>
                             <Td>{item.uuid}</Td>
                             <Td>
@@ -58,11 +63,6 @@ export default async function Page() {
                                             Surahs
                                         </Button>
                                     </Link>
-                                    <Link href={"/panel/mushaf/" + item.uuid}>
-                                        <Button size="small" variant="link">
-                                            View
-                                        </Button>
-                                    </Link>
                                     <Link
                                         href={"/panel/mushaf/edit/" + item.uuid}
                                     >
@@ -70,9 +70,10 @@ export default async function Page() {
                                             Edit
                                         </Button>
                                     </Link>
-                                    <Button size="small" variant="link">
+                                    <DeleteButton />
+                                    {/* <Button size="small" variant="link">
                                         Delete
-                                    </Button>
+                                    </Button> */}
                                 </Row>
                             </Td>
                         </Tr>
