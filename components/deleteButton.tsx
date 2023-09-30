@@ -1,67 +1,35 @@
 "use client";
 
-import { Button, Container, Form, InputField, Row, Spacer } from "@yakad/ui";
-import { useRouter } from "next/navigation";
-import { useFetch, useFormDataHandle } from "@yakad/lib";
 import React from "react";
+import { useFetch, useFormDataHandle } from "@yakad/lib";
+import { Button, Container, Form, InputField, Row, Spacer } from "@yakad/ui";
 
-interface Delete {
+interface DeleteButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
     controller: string;
     uuid: string;
+    itemName: string;
 }
 
-export default function DeleteButton() {
-    const router = useRouter();
-    const [formData, setFormData] = React.useState<Delete>();
-
+export default function DeleteButton(props: DeleteButtonProps) {
     const fetch = useFetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/?{controller/?{uuid}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/${props.controller}/${props.uuid}`,
         {
             method: "DELETE",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
         }
     );
 
-    const handler = useFormDataHandle(setFormData);
-    function deleted() {
-        if (confirm("Are you sure to delete a uuid") == true) {
-            fetch.send;
-            console.log("Deleted");
-        } else {
-            fetch.loading;
-            console.log("Canceled");
+    function confirmDelete() {
+        if (confirm("Are you sure to delete: " + props.itemName) == true) {
+            fetch.send();
         }
     }
     return (
-        // <Container maxWidth="sm">
-        //     <h1>Delete</h1>
-
-        //     <Form onChange={handler.handle} onSubmit={fetch.send}>
-        //         <InputField
-        //             variant="outlined"
-        //             placeholder="Controller"
-        //             type="string"
-        //             name="controller"
-        //         />
-        //         <p>The name of controller like mushaf, suarah & ...</p>
-        //         <InputField
-        //             variant="outlined"
-        //             placeholder="UUID"
-        //             type="string"
-        //             name="uuid"
-        //         />
-        //         <p>The mushaf, surah or ... uuid</p>
-        //     </Form>
-        // </Container>
         <Button
-            onClick={deleted}
+            onClick={confirmDelete}
             size="small"
             loadingVariant="spinner"
             variant="link"
+            disabled={fetch.loading}
         >
             Delete
         </Button>
