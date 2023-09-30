@@ -32,8 +32,8 @@ export default async function Page() {
     return (
         <Container>
             <h1>Surah List</h1>
-            <Table style={{ textAlign: "justify" }}>
-                <Thead>
+            <Table>
+                <Thead style={{ textAlign: "justify" }}>
                     <Tr>
                         <Th>Surah Number</Th>
                         <Th>Surah Name</Th>
@@ -45,21 +45,18 @@ export default async function Page() {
                 <Tbody>
                     {surahsList.map((item) => (
                         <Tr>
-                            <Td>
-                                <Link href={"/panel/surah/" + item.uuid}>
-                                    {item.number}
-                                </Link>
-                            </Td>
-                            <Td>
-                                <Link href={"/panel/surah/" + item.uuid}>
-                                    {item.name}
-                                </Link>
-                            </Td>
+                            <Td>{item.number}</Td>
+                            <Td>{item.name}</Td>
                             <Td>{item.number_of_ayahs}</Td>
                             <Td>{item.period}</Td>
 
                             <Td>
                                 <Row>
+                                    <Link href={"/panel/surah/" + item.uuid}>
+                                        <Button size="small" variant="link">
+                                            View
+                                        </Button>
+                                    </Link>
                                     <Link
                                         href={"/panel/surah/edit/" + item.uuid}
                                     >
@@ -67,7 +64,11 @@ export default async function Page() {
                                             Edit
                                         </Button>
                                     </Link>
-                                    <DeleteButton />
+                                    <DeleteButton
+                                        controller="surah"
+                                        uuid={item.uuid}
+                                        name={item.name}
+                                    />
                                 </Row>
                             </Td>
                         </Tr>

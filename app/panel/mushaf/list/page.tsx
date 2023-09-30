@@ -37,8 +37,8 @@ export default async function Page() {
                     <Button variant="outlined">Add Mushaf</Button>
                 </Link>
             </Row>
-            <Table style={{ textAlign: "justify" }}>
-                <Thead>
+            <Table>
+                <Thead style={{ textAlign: "justify" }}>
                     <Tr>
                         <Th>Mushaf Name</Th>
                         <Th>Mushaf Source</Th>
@@ -49,11 +49,7 @@ export default async function Page() {
                 <Tbody>
                     {mushafsList.map((item) => (
                         <Tr>
-                            <Td>
-                                <Link href={"/panel/mushaf/" + item.uuid}>
-                                    {item.name}
-                                </Link>
-                            </Td>
+                            <Td>{item.name}</Td>
                             <Td>{item.source}</Td>
                             <Td>{item.uuid}</Td>
                             <Td>
@@ -63,6 +59,11 @@ export default async function Page() {
                                             Surahs
                                         </Button>
                                     </Link>
+                                    <Link href={"/panel/mushaf/" + item.uuid}>
+                                        <Button size="small" variant="link">
+                                            View
+                                        </Button>
+                                    </Link>
                                     <Link
                                         href={"/panel/mushaf/edit/" + item.uuid}
                                     >
@@ -70,10 +71,11 @@ export default async function Page() {
                                             Edit
                                         </Button>
                                     </Link>
-                                    <DeleteButton />
-                                    {/* <Button size="small" variant="link">
-                                        Delete
-                                    </Button> */}
+                                    <DeleteButton
+                                        controller="mushaf"
+                                        uuid={item.uuid}
+                                        name={item.name}
+                                    />
                                 </Row>
                             </Td>
                         </Tr>
