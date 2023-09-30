@@ -74,7 +74,7 @@ export default async function Page() {
                                     <DeleteButton
                                         controller="mushaf"
                                         uuid={item.uuid}
-                                        name={item.name}
+                                        itemName={item.name}
                                     />
                                 </Row>
                             </Td>
