@@ -4,14 +4,11 @@ import { Button, Container, Form, InputField, Row, Spacer } from "@yakad/ui";
 import { useRouter } from "next/navigation";
 import { useFetch, useFormDataHandle } from "@yakad/lib";
 import React from "react";
-interface AddSurahData {
-    name: string;
-    source: string;
-}
+import { Surah } from "../surah";
 
 export default function Page() {
     const router = useRouter();
-    const [formData, setFormData] = React.useState<AddSurahData>();
+    const [formData, setFormData] = React.useState<Surah>();
 
     const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/surah`, {
         method: "POST",
@@ -33,42 +30,42 @@ export default function Page() {
                     variant="outlined"
                     placeholder="Surah Name"
                     type="string"
-                    name="surah name"
+                    name="name"
                 />
                 <p>The name of surah</p>
                 <InputField
                     variant="outlined"
                     placeholder="Period"
                     type="string"
-                    name="surah period"
+                    name="period"
                 />
                 <p>The surah is makki or madani</p>
                 <InputField
                     variant="outlined"
                     placeholder="Surah Number"
                     type="number"
-                    name="surah number"
+                    name="number"
                 />
                 <p>The number of surah</p>
                 <InputField
                     variant="outlined"
                     placeholder="Mushaf id"
                     type="string"
-                    name="mushaf id"
+                    name="mushaf_uuid"
                 />
                 <p>The mushaf id that we want add the surah</p>
                 <InputField
                     variant="outlined"
-                    placeholder="Bissmillah Text"
-                    type="string"
-                    name="bissmillah text"
+                    placeholder="Bissmillah Status"
+                    type="boolean"
+                    name="bismillah_status"
                 />
                 <p>The surah bissmillah text</p>
                 <InputField
                     variant="outlined"
-                    placeholder="Bissmillah Status"
+                    placeholder="Bissmillah as first ayah"
                     type="string"
-                    name="bissmillah Status"
+                    name="bismillah_as_first_ayah"
                 />
                 <p>
                     The surah start with bismillah, start with bismillah as

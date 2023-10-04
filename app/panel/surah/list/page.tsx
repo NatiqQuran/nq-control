@@ -11,16 +11,9 @@ import {
 } from "@yakad/ui";
 import Link from "next/link";
 import DeleteButton from "../../../../components/deleteButton";
+import { Surah } from "../surah";
 
-interface SimpleSurah {
-    name: string;
-    period: string | null;
-    number: number;
-    number_of_ayahs: number;
-    uuid: string;
-}
-
-async function getSurahsList(): Promise<SimpleSurah[]> {
+async function getSurahsList(): Promise<Surah[]> {
     const response = await fetch(`${process.env.API_URL}/surah?mushaf=hafs`);
 
     return response.json();

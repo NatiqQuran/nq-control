@@ -8,8 +8,8 @@ interface SimpleSurah {
     surah_name: string;
     surah_period: string;
     surah_number: number;
-    bismillah_status: string;
-    bismillah_text: string | null;
+    bismillah_status: boolean;
+    bismillah_as_first_ayah: boolean;
     number_of_ayahs: string;
 
     ayahs: {
@@ -43,8 +43,8 @@ export default async function ViewSurah({
             <h1>surah uuid : {singleSurah.surah_uuid}</h1>
             <h1>mushaf name : {singleSurah.mushaf_name}</h1>
             <h1>mushaf uuid : {singleSurah.mushaf_uuid}</h1>
-            <h1>bismillah text : {singleSurah.bismillah_text}</h1>
             <h1>bismillah status : {singleSurah.bismillah_status}</h1>
+            <h1>bismillah as first ayah : {singleSurah.bismillah_as_first_ayah}</h1>
 
             <Xtable
                 data={singleSurah.ayahs.map((ayah) => ({
