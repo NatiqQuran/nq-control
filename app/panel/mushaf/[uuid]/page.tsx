@@ -1,4 +1,5 @@
 import { Container } from "@yakad/ui";
+import { ApiError } from "../../api";
 
 interface SimpleMushaf {
     uuid: string;
@@ -6,10 +7,10 @@ interface SimpleMushaf {
     source: string;
 }
 
-async function getMushaf(uuid: string): Promise<SimpleMushaf> {
+async function getMushaf(uuid: string): Promise<Response> {
     const response = await fetch(`${process.env.API_URL}/mushaf/${uuid}`);
 
-    return response.json();
+    return response;
 }
 
 export default async function ViewMushaf({
@@ -17,7 +18,13 @@ export default async function ViewMushaf({
 }: {
     params: { uuid: string };
 }) {
-    const singleMushaf = await getMushaf(params.uuid);
+    const response = await getMushaf(params.uuid);
+
+    if (response.status >= 400) {
+        throw new ApiError(response.status);
+    }
+
+    const singleMushaf: SimpleMushaf = await response.json();
 
     return (
         <Container>

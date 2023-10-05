@@ -4,14 +4,11 @@ import { Button, Container, Form, InputField, Row, Spacer } from "@yakad/ui";
 import { useRouter } from "next/navigation";
 import { useFetch, useFormDataHandle } from "@yakad/lib";
 import React from "react";
-interface AddMushafData {
-    name: string;
-    source: string;
-}
+import { Mushaf } from "../mushaf";
 
 export default function Page() {
     const router = useRouter();
-    const [formData, setFormData] = React.useState<AddMushafData>();
+    const [formData, setFormData] = React.useState<Mushaf>();
 
     const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/mushaf`, {
         method: "POST",
@@ -33,14 +30,14 @@ export default function Page() {
                     variant="outlined"
                     placeholder="Mushaf Name"
                     type="string"
-                    name="mushaf name"
+                    name="name"
                 />
                 <p>The name of mushaf</p>
                 <InputField
                     variant="outlined"
                     placeholder="Mushaf Source"
                     type="string"
-                    name="mushaf source"
+                    name="source"
                 />
                 <p>The mushaf text source</p>
                 <Row>
