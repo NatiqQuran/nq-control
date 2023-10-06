@@ -40,6 +40,13 @@ export default function Page() {
                     name="source"
                 />
                 <p>The mushaf text source</p>
+                <InputField
+                    variant="outlined"
+                    placeholder="Bismillah text"
+                    type="string"
+                    name="bismillah_text"
+                />
+                <p>The mushaf bismillah_text</p>
                 <Row>
                     <Spacer />
                     <Button variant="outlined" onClick={() => router.back()}>

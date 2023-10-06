@@ -4,8 +4,7 @@ export interface Surah {
 
     name: string;
 
-    // TODO: Fix type
-    period: string | null;
+    period: "maki" | "madani" | null;
 
     number: number;
 

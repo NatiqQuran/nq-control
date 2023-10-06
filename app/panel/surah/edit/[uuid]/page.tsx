@@ -54,17 +54,15 @@ export default function Page({ params: { uuid } }: { params: { uuid: string } })
                     name="mushaf_uuid"
                 />
                 <p>The mushaf id that we want add the surah</p>
-                <InputField
-                    variant="outlined"
-                    placeholder="Bissmillah status"
-                    type="string"
+                <label>Bismillah status</label>
+                <input
+                    type="checkbox"
                     name="bismillah_status"
                 />
-                <p>The surah bissmillah text</p>
-                <InputField
-                    variant="outlined"
-                    placeholder="Bissmillah as first ayah"
-                    type="string"
+
+                <label>Bismillah as first ayah</label>
+                <input
+                    type="checkbox"
                     name="bismillah_as_first_ayah"
                 />
                 <p>
