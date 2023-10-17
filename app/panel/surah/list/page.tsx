@@ -11,9 +11,10 @@ import {
 } from "@yakad/ui";
 import Link from "next/link";
 import DeleteButton from "../../../../components/deleteButton";
-import { Surah } from "../surah";
 
-async function getSurahsList(): Promise<Surah[]> {
+export const dynamic = 'force-dynamic';
+
+async function getSurahsList(): Promise<object[]> {
     const response = await fetch(`${process.env.API_URL}/surah?mushaf=hafs`);
 
     return response.json();

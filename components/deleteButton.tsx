@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
-import { useFetch, useFormDataHandle } from "@yakad/lib";
-import { Button, Container, Form, InputField, Row, Spacer } from "@yakad/ui";
+import React, { useEffect } from "react";
+import { useFetch } from "@yakad/lib";
+import { Button } from "@yakad/ui";
+import { useRouter } from "next/navigation";
 
 interface DeleteButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
     controller: string;
@@ -11,6 +12,8 @@ interface DeleteButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 export default function DeleteButton(props: DeleteButtonProps) {
+    const router = useRouter();
+
     const fetch = useFetch(
         `${process.env.NEXT_PUBLIC_API_URL}/${props.controller}/${props.uuid}`,
         {
@@ -18,11 +21,18 @@ export default function DeleteButton(props: DeleteButtonProps) {
         }
     );
 
+    useEffect(() => {
+        if (fetch.isResponseBodyReady && fetch.response) {
+            router.refresh();
+        }
+    }, [fetch.isResponseBodyReady]);
+
     function confirmDelete() {
-        if (confirm("Are you sure to delete: " + props.itemName) == true) {
+        if (confirm("Are you sure to delete: " + props.itemName)) {
             fetch.send();
         }
     }
+
     return (
         <Button
             onClick={confirmDelete}

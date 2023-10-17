@@ -19,7 +19,6 @@ export default async function OrgsList({
     token: string;
 }): Promise<JSX.Element> {
     const list: any[] = await getOrgs(token);
-    console.log(list);
 
     return (
         <Container maxWidth="xs">

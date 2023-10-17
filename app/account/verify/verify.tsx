@@ -1,6 +1,6 @@
 "use client";
 
-import { useFetch, useFormDataHandle } from "@yakad/lib";
+import { useFetch, useForm } from "@yakad/lib";
 import { Stack, Form, Button, Spacer, CodeField } from "@yakad/ui";
 import React, { useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -19,9 +19,7 @@ export default function Verify() {
     const searchParams = useSearchParams();
     const email = searchParams.get("email") || notFound();
 
-    const [data, setData] = React.useState<VerifyData>({ email: email });
-
-    const handler = useFormDataHandle(setData);
+    const [data, handle] = useForm<VerifyData>({ email: email });
 
     const fetch = useFetch<string>(
         `${process.env.NEXT_PUBLIC_API_URL}/account/verify`,
@@ -73,7 +71,7 @@ export default function Verify() {
             </Stack>
 
             <Form
-                onChange={handler.handle}
+                onChange={handle}
                 onSubmit={fetch.send}
                 style={{ alignItems: "center" }}
             >

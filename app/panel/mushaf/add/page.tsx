@@ -2,13 +2,13 @@
 
 import { Button, Container, Form, InputField, Row, Spacer } from "@yakad/ui";
 import { useRouter } from "next/navigation";
-import { useFetch, useFormDataHandle } from "@yakad/lib";
+import { useFetch, useForm } from "@yakad/lib";
 import React from "react";
 import { Mushaf } from "../mushaf";
 
 export default function Page() {
     const router = useRouter();
-    const [formData, setFormData] = React.useState<Mushaf>();
+    const [data, handle] = useForm<Mushaf>();
 
     const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/mushaf`, {
         method: "POST",
@@ -16,16 +16,14 @@ export default function Page() {
             Accept: "application/json",
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
     });
-
-    const handler = useFormDataHandle(setFormData);
 
     return (
         <Container maxWidth="sm">
             <h1>Add new Mushaf</h1>
 
-            <Form onChange={handler.handle} onSubmit={fetch.send}>
+            <Form onChange={handle} onSubmit={fetch.send}>
                 <InputField
                     variant="outlined"
                     placeholder="Mushaf Name"
@@ -40,6 +38,13 @@ export default function Page() {
                     name="source"
                 />
                 <p>The mushaf text source</p>
+                <InputField
+                    variant="outlined"
+                    placeholder="Bismillah text"
+                    type="string"
+                    name="bismillah_text"
+                />
+                <p>The mushaf bismillah_text</p>
                 <Row>
                     <Spacer />
                     <Button variant="outlined" onClick={() => router.back()}>

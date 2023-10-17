@@ -3,21 +3,22 @@
 import { Button, Container, Form, InputField, Row, Spacer } from "@yakad/ui";
 import { useRouter } from "next/navigation";
 import { useFetch, useForm } from "@yakad/lib";
-import React from "react";
+import React, { useEffect } from "react";
+import { Surah } from "../../surah";
 
-export default function AddSurah() {
+export default function EditSurahForm({ surah, uuid }: { uuid: string, surah: Surah }) {
     const router = useRouter();
 
     const [data, handle] = useForm({
-        name: null,
-        mushaf_uuid: null,
-        number: null,
-        period: null,
-        bismillah_status: null,
-        bismillah_as_first_ayah: null
+        name: surah.surah_name,
+        mushaf_uuid: surah.mushaf_uuid,
+        number: surah.surah_number,
+        period: surah.surah_period,
+        bismillah_status: surah.bismillah_status,
+        bismillah_as_first_ayah: surah.bismillah_as_first_ayah
     });
 
-    const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/surah`, {
+    const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/surah/${uuid}`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -26,9 +27,17 @@ export default function AddSurah() {
         body: JSON.stringify(data),
     });
 
+    useEffect(() => {
+        if (fetch.isResponseBodyReady && fetch.response) {
+            router.back();
+            router.refresh();
+        }
+    }, [fetch.isResponseBodyReady]);
+
+
     return (
         <Container maxWidth="sm">
-            <h1>Add Surah</h1>
+            <h1>Edit Surah</h1>
 
             <Form onChange={handle} onSubmit={fetch.send}>
                 <InputField
@@ -36,6 +45,7 @@ export default function AddSurah() {
                     placeholder="Surah Name"
                     type="string"
                     name="name"
+                    value={data.name}
                 />
                 <p>The name of surah</p>
                 <InputField
@@ -43,6 +53,7 @@ export default function AddSurah() {
                     placeholder="Period"
                     type="string"
                     name="period"
+                    value={data.period as any}
                 />
                 <p>The surah is makki or madani</p>
                 <InputField
@@ -50,6 +61,7 @@ export default function AddSurah() {
                     placeholder="Surah Number"
                     type="number"
                     name="number"
+                    value={data.number.toString()}
                 />
                 <p>The number of surah</p>
                 <InputField
@@ -57,18 +69,21 @@ export default function AddSurah() {
                     placeholder="Mushaf uuid"
                     type="string"
                     name="mushaf_uuid"
+                    value={data.mushaf_uuid}
                 />
                 <p>The mushaf id that we want add the surah</p>
                 <label>Bismillah status</label>
                 <input
                     type="checkbox"
                     name="bismillah_status"
+                    checked={data.bismillah_status}
                 />
 
                 <label>Bismillah as first ayah</label>
                 <input
                     type="checkbox"
                     name="bismillah_as_first_ayah"
+                    checked={data.bismillah_as_first_ayah}
                 />
                 <p>
                     The surah start with bismillah, start with bismillah as
@@ -85,11 +100,10 @@ export default function AddSurah() {
                         variant="filled"
                         disabled={fetch.loading}
                     >
-                        Add
+                        Edit
                     </Button>
                 </Row>
             </Form>
         </Container>
     );
 }
-

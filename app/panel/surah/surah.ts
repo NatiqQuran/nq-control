@@ -1,16 +1,15 @@
 export interface Surah {
-    uuid: string;
-    mushafUuid: string;
+    surah_uuid: string;
+    mushaf_uuid: string;
 
-    name: string;
+    surah_name: string;
 
-    // TODO: Fix type
-    period: string | null;
+    surah_period: "maki" | "madani" | null;
 
-    number: number;
+    surah_number: number;
 
-    bismillahStatus: boolean;
-    bismillahAsFirst_ayah: boolean;
+    bismillah_status: boolean;
+    bismillah_as_first_ayah: boolean;
 
     number_of_ayahs: number;
 }

@@ -15,4 +15,6 @@ export interface Mushaf {
      * example: tanzil
      */
     source: string;
+
+    bismillah_text: string | null;
 }

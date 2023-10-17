@@ -1,7 +1,7 @@
 "use client";
 
-import { useFetch, useFormDataHandle } from "@yakad/lib";
-import { Button, Container, Form, Page } from "@yakad/ui";
+import { useFetch, useForm } from "@yakad/lib";
+import { Button, Container, Form } from "@yakad/ui";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { Organization } from "../../../organization";
@@ -14,9 +14,8 @@ interface EditData {
 
 export default function EditForm({ orgData, token, orgId }: EditData) {
     const router = useRouter();
-    const [newOrgData, setNewOrgData] = React.useState<Organization>(orgData);
+    const [data, handle] = useForm<Organization>(orgData);
 
-    const handler = useFormDataHandle(setNewOrgData);
 
     const fetch = useFetch(
         `${process.env.NEXT_PUBLIC_API_URL}/organizations/${orgId}`,
@@ -27,7 +26,7 @@ export default function EditForm({ orgData, token, orgId }: EditData) {
                 "Content-Type": "application/json",
                 Authorization: token,
             },
-            body: JSON.stringify(newOrgData),
+            body: JSON.stringify(data),
         },
     );
 
@@ -43,30 +42,30 @@ export default function EditForm({ orgData, token, orgId }: EditData) {
                 width: "25rem",
             }}
         >
-            <Form onChange={handler.handle} onSubmit={fetch.send}>
+            <Form onChange={handle} onSubmit={fetch.send}>
                 <input
                     type="text"
                     placeholder="username"
                     name="username"
-                    value={newOrgData.username}
+                    value={data.username}
                 />
                 <input
                     type="text"
                     placeholder="name"
                     name="name"
-                    value={newOrgData.name}
+                    value={data.name}
                 />
                 <input
                     type="text"
                     placeholder="national id"
                     name="national_id"
-                    value={newOrgData.national_id}
+                    value={data.national_id}
                 />
                 <input
                     type="date"
                     name="established_date"
                     placeholder="established date"
-                    value={newOrgData.established_date as string}
+                    value={data.established_date as string}
                 />
 
                 {/* This is only for test the real input must be a type of file */}
@@ -74,7 +73,7 @@ export default function EditForm({ orgData, token, orgId }: EditData) {
                     type="text"
                     name="profile_image"
                     placeholder="profile image"
-                    value={newOrgData.profile_image!}
+                    value={data.profile_image!}
                 />
                 <Button variant="tonal">edit</Button>
             </Form>
