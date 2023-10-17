@@ -1,9 +1,9 @@
 "use client";
 
-import { useFetch, useFormDataHandle } from "@yakad/lib";
+import { useFetch, useForm } from "@yakad/lib";
 import { Button, Form, Row } from "@yakad/ui";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { UserProfile } from "../profile";
 
 export default function EditProfileForm({
@@ -14,15 +14,13 @@ export default function EditProfileForm({
     token: string;
 }) {
     const router = useRouter();
-    const [newUserProfile, setNewUserProfile] = useState({
+    const [data, handle] = useForm({
         first_name: profile.first_name,
         last_name: profile.last_name,
         birthday: profile.birthday,
         profile_image: profile.profile_image,
         username: profile.username
     });
-
-    const handler = useFormDataHandle(setNewUserProfile);
 
     const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/profile`, {
         method: "POST",
@@ -31,7 +29,7 @@ export default function EditProfileForm({
             "Content-Type": "application/json",
             Authorization: token
         },
-        body: JSON.stringify(newUserProfile)
+        body: JSON.stringify(data)
     });
 
     useEffect(() => {
@@ -41,31 +39,31 @@ export default function EditProfileForm({
     }, [fetch.isResponseBodyReady]);
 
     return (
-        <Form onChange={handler.handle} onSubmit={fetch.send}>
+        <Form onChange={handle} onSubmit={fetch.send}>
             <input
                 type="text"
                 placeholder="username"
                 name="username"
-                value={newUserProfile.username}
+                value={data.username}
             />
             <input
                 type="text"
                 placeholder="first name"
                 name="first_name"
-                value={newUserProfile.first_name}
+                value={data.first_name}
             />
             <input
                 type="text"
                 placeholder="last name"
                 name="last_name"
-                value={newUserProfile.last_name}
+                value={data.last_name}
             />
 
             <input
                 type="date"
                 name="birthday"
                 placeholder="birthday"
-                value={newUserProfile.birthday as string}
+                value={data.birthday as string}
             />
 
             {/* This is only for test the real input must be a type of file */}
@@ -73,7 +71,7 @@ export default function EditProfileForm({
                 type="text"
                 name="profile_image"
                 placeholder="profile image"
-                value={newUserProfile.profile_image!}
+                value={data.profile_image!}
             />
             <Row style={{ justifyContent: "flex-end" }}>
                 <Button variant="outlined" onClick={() => router.back()}>

@@ -2,13 +2,20 @@
 
 import { Button, Container, Form, InputField, Row, Spacer } from "@yakad/ui";
 import { useRouter } from "next/navigation";
-import { useFetch, useFormDataHandle } from "@yakad/lib";
+import { useFetch, useForm } from "@yakad/lib";
 import React from "react";
-import { Surah } from "../surah";
 
-export default function Page() {
+export default function AddSurah() {
     const router = useRouter();
-    const [formData, setFormData] = React.useState<Surah>();
+
+    const [data, handle] = useForm({
+        name: null,
+        mushaf_uuid: null,
+        number: null,
+        period: null,
+        bismillah_status: null,
+        bismillah_as_first_ayah: null
+    });
 
     const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/surah`, {
         method: "POST",
@@ -16,16 +23,14 @@ export default function Page() {
             Accept: "application/json",
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
     });
-
-    const handler = useFormDataHandle(setFormData);
 
     return (
         <Container maxWidth="sm">
-            <h1>Add new Surah</h1>
+            <h1>Add Surah</h1>
 
-            <Form onChange={handler.handle} onSubmit={fetch.send}>
+            <Form onChange={handle} onSubmit={fetch.send}>
                 <InputField
                     variant="outlined"
                     placeholder="Surah Name"
@@ -49,22 +54,20 @@ export default function Page() {
                 <p>The number of surah</p>
                 <InputField
                     variant="outlined"
-                    placeholder="Mushaf id"
+                    placeholder="Mushaf uuid"
                     type="string"
                     name="mushaf_uuid"
                 />
                 <p>The mushaf id that we want add the surah</p>
-                <InputField
-                    variant="outlined"
-                    placeholder="Bissmillah Status"
-                    type="boolean"
+                <label>Bismillah status</label>
+                <input
+                    type="checkbox"
                     name="bismillah_status"
                 />
-                <p>The surah bissmillah text</p>
-                <InputField
-                    variant="outlined"
-                    placeholder="Bissmillah as first ayah"
-                    type="string"
+
+                <label>Bismillah as first ayah</label>
+                <input
+                    type="checkbox"
                     name="bismillah_as_first_ayah"
                 />
                 <p>
@@ -89,3 +92,4 @@ export default function Page() {
         </Container>
     );
 }
+

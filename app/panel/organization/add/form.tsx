@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useFetch, useFormDataHandle } from "@yakad/lib";
+import { useFetch, useForm } from "@yakad/lib";
 import { InputField, Row, Form, Container, Button } from "@yakad/ui";
 import React from "react";
 import { Organization } from "../../organization";
@@ -9,9 +9,7 @@ import { Organization } from "../../organization";
 export default function AddNewOrgForm({ token }: { token: string }) {
     const router = useRouter();
 
-    const [newOrgData, setNewOrgData] = React.useState<Organization>();
-
-    const handler = useFormDataHandle(setNewOrgData);
+    const [data, handle] = useForm<Organization>();
 
     const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/organizations`, {
         method: "POST",
@@ -20,13 +18,13 @@ export default function AddNewOrgForm({ token }: { token: string }) {
             "Content-Type": "application/json",
             Authorization: token
         },
-        body: JSON.stringify(newOrgData)
+        body: JSON.stringify(data)
     });
 
     return (
         <Container maxWidth="xs">
             <h1>Add a new Organization</h1>
-            <Form onChange={handler.handle} onSubmit={fetch.send}>
+            <Form onChange={handle} onSubmit={fetch.send}>
                 <InputField
                     type="text"
                     name="username"

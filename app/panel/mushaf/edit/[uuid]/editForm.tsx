@@ -2,7 +2,7 @@
 
 import { Button, Form, InputField, Row, Spacer } from "@yakad/ui";
 import { useRouter } from "next/navigation";
-import { useFetch, useFormDataHandle } from "@yakad/lib";
+import { useFetch, useForm } from "@yakad/lib";
 import React from "react";
 import { Mushaf } from "../../mushaf";
 
@@ -21,7 +21,7 @@ interface EditMushafParams {
 
 export default function EditMushafForm({ uuid, mushaf }: EditMushafParams) {
     const router = useRouter();
-    const [formData, setFormData] = React.useState<Mushaf>(mushaf);
+    const [data, handle] = useForm<Mushaf>(mushaf);
 
     const editMushafFetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/mushaf/${uuid}`, {
         method: "POST",
@@ -29,27 +29,35 @@ export default function EditMushafForm({ uuid, mushaf }: EditMushafParams) {
             Accept: "application/json",
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
     });
 
-    const handler = useFormDataHandle(setFormData);
-
     return (
-        <Form onChange={handler.handle} onSubmit={editMushafFetch.send}>
+        <Form onChange={handle} onSubmit={editMushafFetch.send}>
             <InputField
                 variant="outlined"
-                placeholder={mushaf.name}
+                placeholder="Mushaf Name"
                 type="string"
                 name="name"
+                value={data.name}
             />
             <p>The name of mushaf</p>
             <InputField
                 variant="outlined"
-                placeholder={mushaf.source}
+                placeholder="Mushaf Source"
                 type="string"
                 name="source"
+                value={data.source}
             />
             <p>The mushaf text source</p>
+            <InputField
+                variant="outlined"
+                placeholder="Mushaf Bismillah Text"
+                type="string"
+                name="bismillah_text"
+                value={data.bismillah_text || ""}
+            />
+            <p>Bismillah Text</p>
             <Row>
                 <Spacer />
                 <Button variant="outlined" onClick={() => router.back()}>

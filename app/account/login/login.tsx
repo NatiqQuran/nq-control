@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useFetch, useFormDataHandle } from "@yakad/lib";
+import { useFetch, useForm } from "@yakad/lib";
 import { InputField, Button, Form } from "@yakad/ui";
 import { useRouter } from "next/navigation";
 
@@ -11,7 +11,7 @@ interface SendCodeData {
 
 export default function Login() {
     const router = useRouter();
-    const [formData, setFormData] = React.useState<SendCodeData>();
+    const [data, handle] = useForm<SendCodeData>();
 
     const fetch = useFetch(
         `${process.env.NEXT_PUBLIC_API_URL}/account/sendCode`,
@@ -21,21 +21,19 @@ export default function Login() {
                 Accept: "application/json",
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(data)
         }
     );
 
-    const handler = useFormDataHandle(setFormData);
-
     useEffect(() => {
         if (fetch.isResponseBodyReady && fetch.response.status === 200) {
-            router.replace(`/account/verify?email=${formData?.email}`);
+            router.replace(`/account/verify?email=${data?.email}`);
         }
     }, [fetch.isResponseBodyReady]);
 
     return (
         <>
-            <Form onChange={handler.handle} onSubmit={fetch.send}>
+            <Form onChange={handle} onSubmit={fetch.send}>
                 <InputField
                     variant="outlined"
                     placeholder="Email"
