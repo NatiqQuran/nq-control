@@ -8,10 +8,12 @@ import { UserProfile } from "../profile";
 
 export default function EditProfileForm({
     profile,
-    token
+    token,
+    uuid
 }: {
     profile: UserProfile;
     token: string;
+    uuid: string;
 }) {
     const router = useRouter();
     const [data, handle] = useForm({
@@ -22,7 +24,7 @@ export default function EditProfileForm({
         username: profile.username
     });
 
-    const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/profile`, {
+    const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/user/${uuid}`, {
         method: "POST",
         headers: {
             Accept: "application/json",

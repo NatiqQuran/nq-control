@@ -11,7 +11,7 @@ export default function AddNewOrgForm({ token }: { token: string }) {
 
     const [data, handle] = useForm<Organization>();
 
-    const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/organizations`, {
+    const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/organization`, {
         method: "POST",
         headers: {
             Accept: "application/json",

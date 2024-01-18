@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { getUserProfile, UserProfile } from "../profile";
 import EditProfileForm from "./editProfileForm";
-import { Button, Container, Page, Stack } from "@yakad/ui";
+import { Container } from "@yakad/ui";
 
 export default async function EditProfile() {
     const token = cookies().get("token")?.value || redirect("/account/login");

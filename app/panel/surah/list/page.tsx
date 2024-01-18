@@ -14,7 +14,15 @@ import DeleteButton from "../../../../components/deleteButton";
 
 export const dynamic = 'force-dynamic';
 
-async function getSurahsList(): Promise<object[]> {
+interface ListSurah {
+    uuid: string;
+    name: string;
+    number: number;
+    number_of_ayahs: number;
+    period: "makki" | "madani" | null;
+}
+
+async function getSurahsList(): Promise<ListSurah[]> {
     const response = await fetch(`${process.env.API_URL}/surah?mushaf=hafs`);
 
     return response.json();
