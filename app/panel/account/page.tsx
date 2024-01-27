@@ -2,11 +2,12 @@ import { Container, Button, Loading, Row, Stack, Hr, SvgIcon } from "@yakad/ui";
 import { cookies } from "next/headers";
 import Image from "next/image";
 import AccountIcon from "../account";
-import Logout from "../logout";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
 import { getUserProfile, UserProfile } from "../profile/profile";
+
+export const revalidate = 0;
 
 export default async function Page() {
     const cookie = cookies();
@@ -19,6 +20,23 @@ export default async function Page() {
             ? redirect("/account/login")
             : profileFromApi.json();
     })();
+
+     async function logout() {
+        'use server';
+        const result = await fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/account/logout`,
+            {
+                method: "GET",
+                headers: {
+                    Authorization: token.value,
+                },
+            }
+        );
+
+        if (result.status === 200) {
+            cookies().set('token', '');
+        }
+    }
 
     return (
         <Container maxWidth="sm">
@@ -53,7 +71,9 @@ export default async function Page() {
                                 EDIT
                             </Button>
                         </Link>
-                        <Logout token={token.value} />
+                        <Button size="small" variant="tonal" onClick={logout}>
+                            Logout
+                        </Button>
                     </Row>
                 </Stack>
             </Row>
