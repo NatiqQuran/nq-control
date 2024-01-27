@@ -4,7 +4,8 @@ import { useFetch } from "@yakad/lib";
 import { Button } from "@yakad/ui";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-
+import { cookies } from 'next/headers';
+import deleteToken from "./removeCookie";
 /**
  * Experimental future of JS
  */
@@ -25,7 +26,7 @@ export default function Logout({ token }: { token: string }) {
     useEffect(() => {
         // Check if logout was succesful
         if (fetch.response && fetch.response.status === 200) {
-            cookieStore.delete("token").then((_result: any) => {
+            deleteToken().then(() => {
                 router.push("/account/login");
             });
         }

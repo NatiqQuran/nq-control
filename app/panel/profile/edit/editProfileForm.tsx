@@ -38,6 +38,7 @@ export default function EditProfileForm({
     useEffect(() => {
         if (fetch.isResponseBodyReady && fetch.response.status === 200) {
             router.back();
+            router.refresh();
         }
     }, [fetch.isResponseBodyReady]);
 
@@ -87,7 +88,7 @@ export default function EditProfileForm({
                 <Button variant="outlined" onClick={() => router.back()}>
                     Cancel
                 </Button>
-                <Button variant="filled">edit</Button>
+                <Button disabled={fetch.loading} loadingVariant="spinner" variant="filled">edit</Button>
             </Row>
         </Form>
     );
