@@ -46,7 +46,7 @@ export default async function Page() {
                     <h2> {profile.username}</h2>
                     <Row>
                         <Link
-                            href={"/panel/profile/edit"}
+                            href={`/panel/profile/edit`}
                             style={{ padding: "10px" }}
                         >
                             <Button size="small" variant="filled">

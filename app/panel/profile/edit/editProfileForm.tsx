@@ -9,11 +9,9 @@ import { UserProfile } from "../profile";
 export default function EditProfileForm({
     profile,
     token,
-    uuid
 }: {
     profile: UserProfile;
     token: string;
-    uuid: string;
 }) {
     const router = useRouter();
     const [data, handle] = useForm({
@@ -21,10 +19,13 @@ export default function EditProfileForm({
         last_name: profile.last_name,
         birthday: profile.birthday,
         profile_image: profile.profile_image,
-        username: profile.username
+        username: profile.username,
+
+        // Fix
+        language: "en",
     });
 
-    const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/user/${uuid}`, {
+    const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/profile`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -69,12 +70,19 @@ export default function EditProfileForm({
             />
 
             {/* This is only for test the real input must be a type of file */}
-            <input
+            {/* <input
                 type="text"
                 name="profile_image"
                 placeholder="profile image"
                 value={data.profile_image!}
-            />
+            >
+            */}
+            {/*<input
+                type="text"
+                name="language"
+                placeholder="language"
+                value={data.language!}
+            />*/}
             <Row style={{ justifyContent: "flex-end" }}>
                 <Button variant="outlined" onClick={() => router.back()}>
                     Cancel
