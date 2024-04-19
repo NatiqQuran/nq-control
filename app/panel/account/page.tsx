@@ -24,7 +24,7 @@ export default async function Page() {
      async function logout() {
         'use server';
         const result = await fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/account/logout`,
+            `${process.env.API_URL}/account/logout`,
             {
                 method: "GET",
                 headers: {

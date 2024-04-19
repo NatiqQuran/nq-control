@@ -5,6 +5,7 @@ import { Button, Form, Row } from "@yakad/ui";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { UserProfile } from "../profile";
+import { ApiError } from "../../api";
 
 export default function EditProfileForm({
     profile,
@@ -36,6 +37,10 @@ export default function EditProfileForm({
     });
 
     useEffect(() => {
+        if (fetch.response && !fetch.response.ok) {
+            throw new ApiError(fetch.response.status || 0)
+        }
+
         if (fetch.isResponseBodyReady && fetch.response.status === 200) {
             router.back();
             router.refresh();

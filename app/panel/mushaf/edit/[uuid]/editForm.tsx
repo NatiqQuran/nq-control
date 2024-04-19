@@ -3,8 +3,9 @@
 import { Button, Form, InputField, Row, Spacer } from "@yakad/ui";
 import { useRouter } from "next/navigation";
 import { useFetch, useForm } from "@yakad/lib";
-import React from "react";
+import React, { useEffect } from "react";
 import { Mushaf } from "../../mushaf";
+import { ApiError, handle_fetch_error } from "../../../api";
 
 interface EditMushafParams {
     /**
@@ -29,8 +30,16 @@ export default function EditMushafForm({ uuid, mushaf }: EditMushafParams) {
             Accept: "application/json",
             "Content-Type": "application/json",
         },
+
         body: JSON.stringify(data),
     });
+
+
+    useEffect(() => {
+        if (editMushafFetch.response && !editMushafFetch.response.ok) {
+            throw new ApiError(editMushafFetch.response.status || 0)
+        }
+    }, [editMushafFetch.isResponseBodyReady]);
 
     return (
         <Form onChange={handle} onSubmit={editMushafFetch.send}>
@@ -65,9 +74,9 @@ export default function EditMushafForm({ uuid, mushaf }: EditMushafParams) {
                 </Button>
                 <Button
                     loadingVariant="spinner"
-                    onClick={editMushafFetch.send}
                     variant="filled"
                     disabled={editMushafFetch.loading}
+                    onClick={editMushafFetch.send}
                 >
                     Edit
                 </Button>
