@@ -5,6 +5,7 @@ import { Button, Container, Form } from "@yakad/ui";
 import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { Organization } from "../../../organization";
+import { ApiError } from "../../../api";
 
 interface EditData {
     orgData: Organization;
@@ -26,11 +27,16 @@ export default function EditForm({ orgData, token, orgId }: EditData) {
                 "Content-Type": "application/json",
                 Authorization: token,
             },
+            mode: "no-cors",
             body: JSON.stringify(data),
         },
     );
 
     useEffect(() => {
+        if (fetch.response && !fetch.response.ok) {
+            throw new ApiError(fetch.response.status || 0)
+        }
+
         if (fetch.isResponseBodyReady && fetch.response.status === 200) {
             router.back();
         }

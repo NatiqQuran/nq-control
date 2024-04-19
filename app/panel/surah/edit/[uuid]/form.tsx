@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useFetch, useForm } from "@yakad/lib";
 import React, { useEffect } from "react";
 import { Surah } from "../../surah";
+import { ApiError } from "../../../api";
 
 export default function EditSurahForm({ surah, uuid }: { uuid: string, surah: Surah }) {
     const router = useRouter();
@@ -24,11 +25,15 @@ export default function EditSurahForm({ surah, uuid }: { uuid: string, surah: Su
             Accept: "application/json",
             "Content-Type": "application/json",
         },
+        mode: "no-cors",
         body: JSON.stringify(data),
     });
 
     useEffect(() => {
         if (fetch.isResponseBodyReady && fetch.response) {
+            if (!fetch.response.ok) {
+                throw new ApiError(fetch.response.status || 0)
+            }
             router.back();
             router.refresh();
         }
