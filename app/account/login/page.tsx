@@ -1,22 +1,30 @@
-"use client";
-
 import { Stack, Button } from "@yakad/ui";
-import Login from "./login";
-import { useRouter } from "next/navigation";
+import { sendCode } from "./lib";
+import { redirect } from "next/navigation";
 
 export default function Page() {
-  const router = useRouter();
+    return (
+        <Stack style={{ alignItems: "center" }}>
+            <span>
+                <h3>Enter email to SignIn or Register account. </h3>
+            </span>
 
-  return (
-    <Stack style={{ alignItems: "center" }}>
-      <span>
-        <h3>Enter email to SignIn or Register account. </h3>
-      </span>
+            <form action={async (formData) => {
+                "use server";
 
-      <Login />
-      <Button size="small" variant="text" onClick={() => router.back()}>
-        Cancel
-      </Button>
-    </Stack>
-  );
+                await sendCode(formData);
+
+                redirect(`/account/verify?email=${formData.get("email")}`)
+            }}>
+                <input
+                    placeholder="Email"
+                    type="email"
+                    name="email"
+                />
+            </form>
+            <Button size="small" variant="text">
+                Cancel
+            </Button>
+        </Stack>
+    );
 }

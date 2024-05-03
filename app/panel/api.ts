@@ -5,6 +5,9 @@ export class ApiError extends Error {
 
     static getErrorMessage(code: number) {
         switch (true) {
+            case code === 401:
+                return "Please Login!";
+
             case code === 403:
                 return "You don't have access to this resource!";
 
