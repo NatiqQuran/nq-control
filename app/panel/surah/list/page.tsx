@@ -12,7 +12,7 @@ import {
 import Link from "next/link";
 import DeleteButton from "../../../../components/deleteButton";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 interface ListSurah {
     uuid: string;
@@ -45,8 +45,8 @@ export default async function Page() {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {surahsList.map((item) => (
-                        <Tr>
+                    {surahsList.map((item, index) => (
+                        <Tr key={index}>
                             <Td>{item.number}</Td>
                             <Td>{item.name}</Td>
                             <Td>{item.number_of_ayahs}</Td>

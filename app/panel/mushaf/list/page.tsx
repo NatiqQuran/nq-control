@@ -47,8 +47,8 @@ export default async function Page() {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {mushafsList.map((item) => (
-                        <Tr>
+                    {mushafsList.map((item, index) => (
+                        <Tr key={index}>
                             <Td>{item.name}</Td>
                             <Td>{item.source}</Td>
                             <Td>{item.uuid}</Td>

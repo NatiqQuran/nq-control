@@ -1,4 +1,4 @@
-import { Container, Row, Spacer } from "@yakad/ui";
+import { Button, Container, InputField, Row, Spacer } from "@yakad/ui";
 import React from "react";
 import { Mushaf } from "../../mushaf";
 import { cookies } from "next/headers";
@@ -25,64 +25,66 @@ async function editMushaf(uuid: string, form: FormData) {
         bismillah_text: form.get("bismillah_text"),
     };
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/mushaf/${uuid}`, {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            "Authorization": cookies().get("token")?.value || "none"
-        },
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/mushaf/${uuid}`,
+        {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: cookies().get("token")?.value || "none",
+            },
 
-        body: JSON.stringify(data),
-    })
+            body: JSON.stringify(data),
+        }
+    );
 
     if (response.status !== 200) {
-        throw new Error(`Can't edit mushaf!, ${await response.text()}`)
+        throw new Error(`Can't edit mushaf!, ${await response.text()}`);
     }
 }
 
-export default async function EditMushaf({ params: { uuid } }: { params: { uuid: string } }) {
+export default async function EditMushaf({
+    params: { uuid },
+}: {
+    params: { uuid: string };
+}) {
     const response = await viewMushaf(uuid);
     const mushaf: Mushaf = await response.json();
 
     return (
         <Container maxWidth="sm">
             <h1>Edit Mushaf</h1>
-            <form action={async (formData) => {
-                "use server";
+            <form
+                action={async (formData) => {
+                    "use server";
 
-                await editMushaf(uuid, formData);
-            }}>
-                <input
+                    await editMushaf(uuid, formData);
+                }}
+            >
+                <InputField
                     placeholder="Mushaf Name"
                     type="string"
                     name="name"
-                    value={mushaf.name}
+                    defaultValue={mushaf.name}
                 />
-                <p>The name of mushaf</p>
-                <input
+                <InputField
                     placeholder="Mushaf Source"
                     type="string"
                     name="source"
-                    value={mushaf.source}
+                    defaultValue={mushaf.source}
                 />
-                <p>The mushaf text source</p>
-                <input
-                    placeholder="Mushaf Bismillah Text"
+                <InputField
+                    placeholder="Bismillah text in this Mushaf"
                     type="string"
                     name="bismillah_text"
-                    value={mushaf.bismillah_text || ""}
+                    defaultValue={mushaf.bismillah_text || ""}
                 />
-                <p>Bismillah Text</p>
                 <Row>
                     <Spacer />
-                    <input
-                        type="submit"
-                        value="Edit"
-                    />
+                    <Button variant="filled">Edit</Button>
                 </Row>
             </form>
-
         </Container>
     );
 }
