@@ -17,7 +17,6 @@ export default function EditForm({ orgData, token, orgId }: EditData) {
     const router = useRouter();
     const [data, handle] = useForm<Organization>(orgData);
 
-
     const fetch = useFetch(
         `${process.env.NEXT_PUBLIC_API_URL}/organizations/${orgId}`,
         {
@@ -29,12 +28,12 @@ export default function EditForm({ orgData, token, orgId }: EditData) {
             },
             mode: "no-cors",
             body: JSON.stringify(data),
-        },
+        }
     );
 
     useEffect(() => {
         if (fetch.response && !fetch.response.ok) {
-            throw new ApiError(fetch.response.status || 0)
+            throw new ApiError(fetch.response.status || 0);
         }
 
         if (fetch.isResponseBodyReady && fetch.response.status === 200) {

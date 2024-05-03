@@ -6,15 +6,15 @@ import Organizationicon from "./account/organizationicon";
 async function getOrgs(token: string) {
     const response = await fetch(`${process.env.API_URL}/organizations`, {
         headers: {
-            Authorization: token
-        }
+            Authorization: token,
+        },
     });
 
     return response.json();
 }
 
 export default async function OrgsList({
-    token
+    token,
 }: {
     token: string;
 }): Promise<JSX.Element> {
@@ -22,11 +22,12 @@ export default async function OrgsList({
 
     return (
         <Container maxWidth="xs">
-            {list.map((org) => (
+            {list.map((org, index) => (
                 <Card
+                    key={index}
                     style={{
                         alignItems: "center",
-                        marginBottom: "1.5rem"
+                        marginBottom: "1.5rem",
                     }}
                 >
                     <Row>
@@ -37,7 +38,7 @@ export default async function OrgsList({
                                 alt=""
                                 src={org.profile_image}
                                 style={{
-                                    borderRadius: "4rem"
+                                    borderRadius: "4rem",
                                 }}
                             />
                         ) : (
