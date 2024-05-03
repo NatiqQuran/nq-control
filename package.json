@@ -1,5 +1,5 @@
 {
-    "name": "app",
+    "name": "Natiq control panel",
     "version": "0.1.0",
     "private": true,
     "scripts": {
@@ -15,7 +15,7 @@
         "react-router-dom": "6.4.3",
         "@yakad/lib": "1.0.6",
         "@yakad/ui": "1.2.108-beta",
-        "@yakad/x": "1.0.49-beta",
+        "@yakad/x": "1.0.50-beta",
         "@yakad/symbols": "1.0.4"
     },
     "devDependencies": {
