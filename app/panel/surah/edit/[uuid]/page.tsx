@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { Surah, SurahPeriod } from "../../surah";
-import { Button, Container, InputField, Row, Spacer } from "@yakad/ui";
+import { Button, Chekbox, Container, InputField } from "@yakad/ui";
 import { redirect } from "next/navigation";
 import { XbackButton } from "@yakad/x";
 
@@ -11,15 +11,15 @@ async function getSurah(uuid: string): Promise<Surah> {
 }
 
 async function editSurah(uuid: string, formData: FormData) {
-    const surah: Surah = {
-        surah_name: formData.get("name")?.toString() || "",
-        surah_uuid: uuid,
+    const surah = {
+        name: formData.get("name")?.toString() || "",
+        uuid: uuid,
         mushaf_uuid: formData.get("mushaf_uuid")?.toString() || "",
-        surah_number: parseInt(formData.get("number")?.toString()!),
-        surah_period: formData.get("period")?.toString()! as SurahPeriod || null,
-        number_of_ayahs: parseInt(formData.get("number_of_ayahs")?.toString()!),
-        bismillah_status: formData.get("bismillah_status")?.toString()! === "true" ? true : false,
-        bismillah_as_first_ayah: formData.get("bismillah_as_first_ayah")?.toString()! === "true" ? true : false,
+        number: parseInt(formData.get("number")?.toString()!),
+        period: formData.get("period")?.toString()! as SurahPeriod || null,
+        //number_of_ayahs: parseInt(formData.get("number_of_ayahs")?.toString()!),
+        bismillah_status: formData.get("bismillah_status")?.toString()! === "on" ? true : false,
+        bismillah_as_first_ayah: formData.get("bismillah_as_first_ayah")?.toString()! === "on" ? true : false,
     }
 
     const response = await fetch(`${process.env.API_URL}/surah/${uuid}`, {
@@ -31,7 +31,6 @@ async function editSurah(uuid: string, formData: FormData) {
         },
         body: JSON.stringify(surah),
     });
-    console.log(response)
 
     if (response.status !== 200) {
         throw new Error(`You can't edit this surah!, ${await response.text()}`);
@@ -83,24 +82,20 @@ export default async function Page({ params }: { params: { uuid: string } }) {
                     defaultValue={surah.mushaf_uuid}
                 />
                 <p>The mushaf id that we want add the surah</p>
-                <label>Bismillah status</label>
-                <input
-                    type="checkbox"
+                <Chekbox
+                    label="Bismillah status"
                     name="bismillah_status"
                     checked={surah.bismillah_status}
                 />
-
-                <label>Bismillah as first ayah</label>
-                <input
-                    type="checkbox"
+                <Chekbox
                     name="bismillah_as_first_ayah"
+                    label="Bismillah as first ayah"
                     checked={surah.bismillah_as_first_ayah}
                 />
                 <p>
                     The surah start with bismillah, start with bismillah as
                     first ayah or start without bismillah
                 </p>
-
 
                 <Button variant="outlined">Edit</Button>
             </form>
