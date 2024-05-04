@@ -22,14 +22,14 @@ interface ListSurah {
     period: "makki" | "madani" | null;
 }
 
-async function getSurahsList(): Promise<ListSurah[]> {
-    const response = await fetch(`${process.env.API_URL}/surah?mushaf=hafs`);
+async function getSurahsList(mushaf: string): Promise<ListSurah[]> {
+    const response = await fetch(`${process.env.API_URL}/surah?mushaf=${mushaf}`);
 
     return response.json();
 }
 
-export default async function Page() {
-    const surahsList = await getSurahsList();
+export default async function Page({ searchParams }: { searchParams: { mushaf: string } }) {
+    const surahsList = await getSurahsList(searchParams.mushaf);
 
     return (
         <Container>

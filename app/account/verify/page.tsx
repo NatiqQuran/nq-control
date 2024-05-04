@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { verify } from "./lib";
+import { Button, InputField, Row } from "@yakad/ui";
 
 export default function Page({ searchParams }: { searchParams: { email: string } }) {
     return (
@@ -13,8 +14,10 @@ export default function Page({ searchParams }: { searchParams: { email: string }
                     redirect("/panel");
                 }}
             >
-                <input name="code" type="number" placeholder="Code" />
-                <input type="submit" value="Verify" />
+                <InputField name="code" type="number" placeholder="Code" />
+                <Row style={{ justifyContent: "center" }}>
+                    <Button>Verify</Button>
+                </Row>
             </form>
         </>
     );

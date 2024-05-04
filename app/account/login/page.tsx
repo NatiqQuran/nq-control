@@ -1,4 +1,4 @@
-import { Stack, Button } from "@yakad/ui";
+import { Stack, Button, InputField, Row, Spacer, Hr } from "@yakad/ui";
 import { sendCode } from "./lib";
 import { redirect } from "next/navigation";
 
@@ -16,12 +16,17 @@ export default function Page() {
 
                 redirect(`/account/verify?email=${formData.get("email")}`)
             }}>
-                <input
+                <InputField
                     placeholder="Email"
                     type="email"
                     name="email"
                 />
+
+                <Row style={{ justifyContent: "center" }}>
+                    <Button variant="filled">Send</Button>
+                </Row>
             </form>
+            <Hr />
             <Button size="small" variant="text">
                 Cancel
             </Button>
