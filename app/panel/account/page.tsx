@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
 import { getUserProfile, UserProfile } from "../profile/profile";
+import OrgsList from "../organizationsList";
 
 export const revalidate = 0;
 
@@ -13,13 +14,7 @@ export default async function Page() {
     const cookie = cookies();
     const token = cookie.get("token") || redirect("/account/login");
 
-    const profile: UserProfile = await (async () => {
-        const profileFromApi = await getUserProfile(token.value);
-
-        return profileFromApi.status === 401
-            ? redirect("/account/login")
-            : profileFromApi.json();
-    })();
+    const profile: UserProfile = await getUserProfile(token.value);
 
      async function logout() {
         'use server';
@@ -34,7 +29,7 @@ export default async function Page() {
         );
 
         if (result.status === 200) {
-            cookies().set('token', '');
+            cookies().delete('token');
         }
     }
 
@@ -79,7 +74,7 @@ export default async function Page() {
             </Row>
             <Hr />
             <Suspense fallback={<Loading variant="spinner" />}>
-                {/* <OrgsList token={token.value} /> */}
+                <OrgsList token={token.value} />
             </Suspense>
 
             <Link href={"/panel/organization/add"} style={{ padding: "10px" }}>

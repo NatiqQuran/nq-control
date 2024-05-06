@@ -4,11 +4,15 @@ import Image from "next/image";
 import Organizationicon from "./account/organizationicon";
 
 async function getOrgs(token: string) {
-    const response = await fetch(`${process.env.API_URL}/organizations`, {
+    const response = await fetch(`${process.env.API_URL}/organization`, {
         headers: {
             Authorization: token,
         },
     });
+
+    if(response.status !== 200) {
+        throw new Error(`Could't get list of organizations!, ${await response.text()}`);
+    }
 
     return response.json();
 }

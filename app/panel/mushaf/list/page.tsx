@@ -54,7 +54,7 @@ export default async function Page() {
                             <Td>{item.uuid}</Td>
                             <Td>
                                 <Row>
-                                    <Link href={"/panel/surah/list"}>
+                                    <Link href={`/panel/surah/list?mushaf=${item.name}`}>
                                         <Button size="small" variant="link">
                                             Surahs
                                         </Button>

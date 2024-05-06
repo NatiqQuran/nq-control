@@ -1,9 +1,4 @@
-"use client";
-
-import React, { useEffect } from "react";
-import { useFetch } from "@yakad/lib";
-import { Button } from "@yakad/ui";
-import { useRouter } from "next/navigation";
+import { cookies } from "next/headers";
 
 interface DeleteButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
     controller: string;
@@ -11,37 +6,30 @@ interface DeleteButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
     itemName: string;
 }
 
-export default function DeleteButton(props: DeleteButtonProps) {
-    const router = useRouter();
-
-    const fetch = useFetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/${props.controller}/${props.uuid}`,
+async function del(controller: string, uuid: string) {
+    const response = await fetch(`${process.env.API_URL}/${controller}/${uuid}`,
         {
             method: "DELETE",
+            headers: {
+                Authorization: cookies().get("token")?.value || "none"
+            }
         }
     );
 
-    useEffect(() => {
-        if (fetch.isResponseBodyReady && fetch.response) {
-            router.refresh();
-        }
-    }, [fetch.isResponseBodyReady]);
-
-    function confirmDelete() {
-        if (confirm("Are you sure to delete: " + props.itemName)) {
-            fetch.send();
-        }
+    if (response.status !== 200) {
+        throw new Error(`Could't Delete ${controller}!, ${await response.text()}`);
     }
+}
 
+export default function DeleteButton(props: DeleteButtonProps) {
     return (
-        <Button
-            onClick={confirmDelete}
-            size="small"
-            loadingVariant="spinner"
-            variant="link"
-            disabled={fetch.loading}
+        <button
+            onClick={async () => {
+                "use server";
+                await del(props.controller, props.uuid);
+            }}
         >
             Delete
-        </Button>
+        </button>
     );
 }
