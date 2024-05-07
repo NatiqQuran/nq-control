@@ -1,11 +1,13 @@
 import { cookies } from "next/headers";
-import { Surah, SurahPeriod } from "../../surah";
-import { Button, Chekbox, Container, InputField } from "@yakad/ui";
 import { redirect } from "next/navigation";
+import { Button, Chekbox, Container, InputField, Row, Spacer } from "@yakad/ui";
 import { XbackButton } from "@yakad/x";
+import { Surah, SurahPeriod } from "../../surah";
 
 async function getSurah(uuid: string): Promise<Surah> {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/surah/${uuid}`);
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/surah/${uuid}`
+    );
 
     return response.json();
 }
@@ -16,18 +18,24 @@ async function editSurah(uuid: string, formData: FormData) {
         uuid: uuid,
         mushaf_uuid: formData.get("mushaf_uuid")?.toString() || "",
         number: parseInt(formData.get("number")?.toString()!),
-        period: formData.get("period")?.toString()! as SurahPeriod || null,
+        period: (formData.get("period")?.toString()! as SurahPeriod) || null,
         //number_of_ayahs: parseInt(formData.get("number_of_ayahs")?.toString()!),
-        bismillah_status: formData.get("bismillah_status")?.toString()! === "on" ? true : false,
-        bismillah_as_first_ayah: formData.get("bismillah_as_first_ayah")?.toString()! === "on" ? true : false,
-    }
+        bismillah_status:
+            formData.get("bismillah_status")?.toString()! === "on"
+                ? true
+                : false,
+        bismillah_as_first_ayah:
+            formData.get("bismillah_as_first_ayah")?.toString()! === "on"
+                ? true
+                : false,
+    };
 
     const response = await fetch(`${process.env.API_URL}/surah/${uuid}`, {
         method: "POST",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "Authorization": cookies().get("token")?.value || "none"
+            Authorization: cookies().get("token")?.value || "none",
         },
         body: JSON.stringify(surah),
     });
@@ -44,12 +52,14 @@ export default async function Page({ params }: { params: { uuid: string } }) {
         <Container maxWidth="sm">
             <h1>Edit Surah</h1>
 
-            <form action={async (formData) => {
-                "use server";
-                await editSurah(params.uuid, formData);
+            <form
+                action={async (formData) => {
+                    "use server";
+                    await editSurah(params.uuid, formData);
 
-                redirect("/panel/mushaf/list");
-            }}>
+                    redirect("/panel/mushaf/list");
+                }}
+            >
                 <InputField
                     variant="outlined"
                     placeholder="Surah Name"
@@ -96,10 +106,12 @@ export default async function Page({ params }: { params: { uuid: string } }) {
                     The surah start with bismillah, start with bismillah as
                     first ayah or start without bismillah
                 </p>
-
-                <Button variant="outlined">Edit</Button>
+                <Row>
+                    <Spacer />
+                    <XbackButton>Cancel</XbackButton>
+                    <Button variant="filled">Edit</Button>
+                </Row>
             </form>
-            <XbackButton variant="filled">Cancel</XbackButton>
         </Container>
     );
 }

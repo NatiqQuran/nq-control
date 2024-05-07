@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useFetch, useForm } from "@yakad/lib";
 import React from "react";
 import { Mushaf } from "../mushaf";
+import { XbackButton } from "@yakad/x";
 
 export default function Page() {
     const router = useRouter();
@@ -47,10 +48,9 @@ export default function Page() {
                 <p>The mushaf bismillah_text</p>
                 <Row>
                     <Spacer />
-                    <Button variant="outlined" onClick={() => router.back()}>
-                        Cancel
-                    </Button>
+                    <XbackButton>Cancel</XbackButton>
                     <Button
+                        submit
                         loadingVariant="spinner"
                         onClick={fetch.send}
                         variant="filled"

@@ -1,4 +1,4 @@
-import { Button, Container, InputField, Row, Spacer } from "@yakad/ui";
+import { Button, Container, Form, InputField, Row, Spacer } from "@yakad/ui";
 import React from "react";
 import { Mushaf } from "../../mushaf";
 import { cookies } from "next/headers";
@@ -83,11 +83,10 @@ export default async function EditMushaf({
                 />
                 <Row>
                     <Spacer />
+                    <XbackButton>Cancel</XbackButton>
                     <Button variant="filled">Edit</Button>
                 </Row>
             </form>
-
-            <XbackButton variant="filled">Cancel</XbackButton>
         </Container>
     );
 }
