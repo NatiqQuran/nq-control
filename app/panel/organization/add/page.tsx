@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { Button, Container, InputField, Row } from "@yakad/ui";
+import { Button, Container, InputField, Row, Spacer } from "@yakad/ui";
+import { XbackButton } from "@yakad/x";
 import { Organization } from "../../organization";
 
 async function addOrg(token: string, formData: FormData) {
@@ -17,13 +18,15 @@ async function addOrg(token: string, formData: FormData) {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: token
+            Authorization: token,
         },
-        body: JSON.stringify(new_organization)
+        body: JSON.stringify(new_organization),
     });
 
     if (response.status !== 200) {
-        throw new Error(`Could't create Organization!, ${await response.text()}`)
+        throw new Error(
+            `Could't create Organization!, ${await response.text()}`
+        );
     }
 }
 
@@ -33,11 +36,13 @@ export default function Page() {
     return (
         <Container maxWidth="xs">
             <h1>Add a new Organization</h1>
-            <form action={async (formData) => {
-                "use server";
-                await addOrg(token, formData);
-                redirect("/panel/account")
-            }}>
+            <form
+                action={async (formData) => {
+                    "use server";
+                    await addOrg(token, formData);
+                    redirect("/panel/account");
+                }}
+            >
                 <InputField
                     type="text"
                     name="username"
@@ -61,8 +66,10 @@ export default function Page() {
                     name="profile_image"
                     placeholder="profile image"
                 />
-                <Row style={{ justifyContent: "flex-end" }}>
-                    <Button variant="tonal">Add</Button>
+                <Row>
+                    <Spacer />
+                    <XbackButton>Cancel</XbackButton>
+                    <Button variant="filled">Edit</Button>
                 </Row>
             </form>
         </Container>

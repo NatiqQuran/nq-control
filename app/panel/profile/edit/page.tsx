@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { getUserProfile, UserProfile } from "../profile";
-import { Button, Container, InputField, Row } from "@yakad/ui";
+import { Button, Container, InputField, Row, Spacer } from "@yakad/ui";
+import { XbackButton } from "@yakad/x";
 
 async function editProfile(token: string, formData: FormData) {
     const profile = {
@@ -12,18 +13,17 @@ async function editProfile(token: string, formData: FormData) {
         profile_image: formData.get("profile_image")?.toString()!,
         email: formData.get("email")?.toString()!,
         language: formData.get("language")?.toString()!,
-    }
-
+    };
 
     const response = await fetch(`${process.env.API_URL}/profile`, {
         method: "POST",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            Authorization: token
+            Authorization: token,
         },
-        body: JSON.stringify(profile)
-    })
+        body: JSON.stringify(profile),
+    });
 
     if (response.status !== 200) {
         throw new Error(`Can't edit you profile!, ${await response.text()}`);
@@ -37,12 +37,14 @@ export default async function EditProfile() {
 
     return (
         <Container maxWidth="xs">
-            <form action={async (formData) => {
-                "use server";
-                await editProfile(token, formData);
+            <form
+                action={async (formData) => {
+                    "use server";
+                    await editProfile(token, formData);
 
-                redirect("/panel/account");
-            }}>
+                    redirect("/panel/account");
+                }}
+            >
                 <InputField
                     type="text"
                     placeholder="username"
@@ -81,8 +83,9 @@ export default async function EditProfile() {
                     placeholder="language"
                     defaultValue={profile.language!}
                 />
-
-                <Row style={{ justifyContent: "flex-end" }}>
+                <Row>
+                    <Spacer />
+                    <XbackButton>Cancel</XbackButton>
                     <Button variant="filled">Edit</Button>
                 </Row>
             </form>

@@ -1,7 +1,8 @@
-import { Button, Container, InputField } from "@yakad/ui";
+import { Button, Container, InputField, Row, Spacer } from "@yakad/ui";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Organization } from "../../../organization";
+import { XbackButton } from "@yakad/x";
 
 async function viewOrg(id: string, token: string) {
     const response = await fetch(`${process.env.API_URL}/organizations/${id}`, {
@@ -15,7 +16,6 @@ async function viewOrg(id: string, token: string) {
 }
 
 async function editOrg(token: string, uuid: string, formData: FormData) {
-
     const new_organization: Organization = {
         username: formData.get("username")?.toString()!,
         name: formData.get("name")?.toString()!,
@@ -23,7 +23,6 @@ async function editOrg(token: string, uuid: string, formData: FormData) {
         national_id: formData.get("national_id")?.toString()!,
         established_date: formData.get("established_date")?.toString()!,
     };
-
 
     const response = await fetch(
         `${process.env.API_URL}/organizations/${uuid}`,
@@ -39,11 +38,11 @@ async function editOrg(token: string, uuid: string, formData: FormData) {
         }
     );
 
-
     if (response.status !== 200) {
-        throw new Error(`You can't edit this organization!, ${await response.text()}`)
+        throw new Error(
+            `You can't edit this organization!, ${await response.text()}`
+        );
     }
-
 }
 
 export default async function EditOrg({
@@ -68,10 +67,12 @@ export default async function EditOrg({
                 width: "25rem",
             }}
         >
-            <form action={async (formData) => {
-                await editOrg(token, orgId, formData);
-                redirect("/panel")
-            }}>
+            <form
+                action={async (formData) => {
+                    await editOrg(token, orgId, formData);
+                    redirect("/panel");
+                }}
+            >
                 <InputField
                     type="text"
                     placeholder="username"
@@ -104,7 +105,11 @@ export default async function EditOrg({
                     placeholder="profile image"
                     defaultValue={organization.profile_image!}
                 />
-                <Button variant="tonal">Edit</Button>
+                <Row>
+                    <Spacer />
+                    <XbackButton>Cancel</XbackButton>
+                    <Button variant="filled">Edit</Button>
+                </Row>
             </form>
         </Container>
     );

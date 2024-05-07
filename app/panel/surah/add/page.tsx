@@ -1,9 +1,10 @@
 "use client";
 
-import { Button, Container, Form, InputField, Row, Spacer } from "@yakad/ui";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { useFetch, useForm } from "@yakad/lib";
-import React from "react";
+import { Button, Container, Form, InputField, Row, Spacer } from "@yakad/ui";
+import { XbackButton } from "@yakad/x";
 
 export default function AddSurah() {
     const router = useRouter();
@@ -14,7 +15,7 @@ export default function AddSurah() {
         number: null,
         period: null,
         bismillah_status: null,
-        bismillah_as_first_ayah: null
+        bismillah_as_first_ayah: null,
     });
 
     const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/surah`, {
@@ -60,25 +61,17 @@ export default function AddSurah() {
                 />
                 <p>The mushaf id that we want add the surah</p>
                 <label>Bismillah status</label>
-                <input
-                    type="checkbox"
-                    name="bismillah_status"
-                />
+                <input type="checkbox" name="bismillah_status" />
 
                 <label>Bismillah as first ayah</label>
-                <input
-                    type="checkbox"
-                    name="bismillah_as_first_ayah"
-                />
+                <input type="checkbox" name="bismillah_as_first_ayah" />
                 <p>
                     The surah start with bismillah, start with bismillah as
                     first ayah or start without bismillah
                 </p>
                 <Row>
                     <Spacer />
-                    <Button variant="outlined" onClick={() => router.back()}>
-                        Cancel
-                    </Button>
+                    <XbackButton>Cancel</XbackButton>
                     <Button
                         loadingVariant="spinner"
                         onClick={fetch.send}
@@ -92,4 +85,3 @@ export default function AddSurah() {
         </Container>
     );
 }
-
