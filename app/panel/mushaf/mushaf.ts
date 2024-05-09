@@ -16,5 +16,7 @@ export interface Mushaf {
      */
     source: string;
 
+    short_name: string;
+
     bismillah_text: string | null;
 }

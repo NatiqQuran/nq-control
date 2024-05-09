@@ -1,35 +1,51 @@
-"use client";
-
-import { Button, Container, Form, InputField, Row, Spacer } from "@yakad/ui";
-import { useRouter } from "next/navigation";
-import { useFetch, useForm } from "@yakad/lib";
-import React from "react";
+import { Button, Container, InputField, Row, Spacer } from "@yakad/ui";
 import { Mushaf } from "../mushaf";
 import { XbackButton } from "@yakad/x";
+import { cookies } from "next/headers";
 
-export default function Page() {
-    const router = useRouter();
-    const [data, handle] = useForm<Mushaf>();
+async function addMushaf(formData: FormData) {
+    const requestBody: Mushaf = {
+        name: formData.get("name")?.toString()!,
+        short_name: formData.get("short_name")?.toString()!,
+        source: formData.get("source")?.toString()!,
+        bismillah_text: formData.get("bismillah_text")?.toString()!,
+    };
 
-    const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/mushaf`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/mushaf`, {
         method: "POST",
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            "Authorization": cookies().get("token")?.value || "none",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(requestBody),
     });
 
+    if (response.status !== 200) {
+        throw new Error(`Could't add new mushaf, ${await response.text()}`);
+    }
+}
+
+export default function Page() {
     return (
         <Container maxWidth="sm">
             <h1>Add new Mushaf</h1>
 
-            <Form onChange={handle} onSubmit={fetch.send}>
+            <form action={async (formData) => {
+                "use server";
+                await addMushaf(formData)
+            }}>
                 <InputField
                     variant="outlined"
                     placeholder="Mushaf Name"
                     type="string"
                     name="name"
+                />
+                <InputField
+                    variant="outlined"
+                    placeholder="Mushaf short name"
+                    type="string"
+                    name="short_name"
                 />
                 <p>The name of mushaf</p>
                 <InputField
@@ -50,16 +66,13 @@ export default function Page() {
                     <Spacer />
                     <XbackButton>Cancel</XbackButton>
                     <Button
-                        submit
                         loadingVariant="spinner"
-                        onClick={fetch.send}
                         variant="filled"
-                        disabled={fetch.loading}
                     >
                         Add
                     </Button>
                 </Row>
-            </Form>
+            </form>
         </Container>
     );
 }
