@@ -10,7 +10,7 @@ import {
     Row,
 } from "@yakad/ui";
 import Link from "next/link";
-import DeleteButton from "../../../../components/deleteButton";
+import del from "../../../../components/deleteButton";
 
 export const dynamic = "force-dynamic";
 
@@ -66,11 +66,11 @@ export default async function Page({ searchParams }: { searchParams: { mushaf: s
                                             Edit
                                         </Button>
                                     </Link>
-                                    <DeleteButton
-                                        controller="surah"
-                                        uuid={item.uuid}
-                                        itemName={item.name}
-                                    />
+                                    <Button
+                                        onClick={async () => {
+                                            "use server";
+                                            await del("mushaf", item.uuid)
+                                        }}>Delete</Button>
                                 </Row>
                             </Td>
                         </Tr>

@@ -1,4 +1,4 @@
-import { Button, Container, Form, InputField, Row, Spacer } from "@yakad/ui";
+import { Button, Container, InputField, Row, Spacer } from "@yakad/ui";
 import React from "react";
 import { Mushaf } from "../../mushaf";
 import { cookies } from "next/headers";
@@ -20,10 +20,11 @@ async function viewMushaf(uuid: string): Promise<Response> {
 }
 
 async function editMushaf(uuid: string, form: FormData) {
-    const data = {
-        name: form.get("name"),
-        source: form.get("source"),
-        bismillah_text: form.get("bismillah_text"),
+    const data: Mushaf = {
+        name: form.get("name")?.toString()!,
+        short_name: form.get("short_name")?.toString()!,
+        source: form.get("source")?.toString()!,
+        bismillah_text: form.get("bismillah_text")?.toString()!,
     };
 
     const response = await fetch(
@@ -68,6 +69,12 @@ export default async function EditMushaf({
                     type="string"
                     name="name"
                     defaultValue={mushaf.name}
+                />
+                <InputField
+                    placeholder="Mushaf Short name"
+                    type="string"
+                    name="short_name"
+                    defaultValue={mushaf.short_name}
                 />
                 <InputField
                     placeholder="Mushaf Source"
