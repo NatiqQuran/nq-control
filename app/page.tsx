@@ -13,7 +13,6 @@ import {
 import LogoIcon from "./logoicon";
 import { Xbackground, XgetStart } from "@yakad/x";
 
-import QForm from "../components/form";
 const navListItems = [
     <ListItem key={0}>
         <a href="https://natiq.net" target="_blank">
@@ -30,14 +29,6 @@ const navListItems = [
 export default function Page(): JSX.Element {
     return (
         <Pg>
-            <QForm action={async () => {
-                "use server";
-                console.log("TEST")
-            }}>
-                <h1>QForm</h1>
-
-                <button>TEST</button>
-            </QForm>
             <AppBar style={{ gap: "1rem" }}>
                 <SvgIcon size={5}>
                     <LogoIcon />

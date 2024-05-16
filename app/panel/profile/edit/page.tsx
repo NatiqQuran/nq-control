@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { getUserProfile, UserProfile } from "../profile";
-import { Button, Container, InputField, Row, Spacer } from "@yakad/ui";
+import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
 import { XbackButton } from "@yakad/x";
 
 async function editProfile(token: string, formData: FormData) {
@@ -45,49 +45,49 @@ export default async function EditProfile() {
                     redirect("/panel/account");
                 }}
             >
-                <InputField
-                    type="text"
-                    placeholder="username"
-                    name="username"
-                    defaultValue={profile.username}
-                />
-                <InputField
-                    type="text"
-                    placeholder="first name"
-                    name="first_name"
-                    defaultValue={profile.first_name}
-                />
-                <InputField
-                    type="text"
-                    placeholder="last name"
-                    name="last_name"
-                    defaultValue={profile.last_name}
-                />
+                <Stack>
+                    <InputField
+                        type="text"
+                        placeholder="username"
+                        name="username"
+                        defaultValue={profile.username}
+                    />
+                    <InputField
+                        type="text"
+                        placeholder="first name"
+                        name="first_name"
+                        defaultValue={profile.first_name}
+                    />
+                    <InputField
+                        type="text"
+                        placeholder="last name"
+                        name="last_name"
+                        defaultValue={profile.last_name}
+                    />
 
-                <InputField
-                    type="date"
-                    name="birthday"
-                    placeholder="birthday"
-                    defaultValue={profile.birthday as string}
-                />
-
-                <InputField
-                    type="text"
-                    name="profile_image"
-                    placeholder="profile image"
-                    defaultValue={profile.profile_image!}
-                />
-                <InputField
-                    type="text"
-                    name="language"
-                    placeholder="language"
-                    defaultValue={profile.language!}
-                />
-                <Row>
-                    <Spacer />
-                    <XbackButton>Cancel</XbackButton>
-                    <Button variant="filled">Edit</Button>
-                </Row>
+                    <InputField
+                        type="date"
+                        name="birthday"
+                        placeholder="birthday"
+                        defaultValue={profile.birthday as string}
+                    />
+                    <InputField
+                        type="text"
+                        name="profile_image"
+                        placeholder="profile image"
+                        defaultValue={profile.profile_image!}
+                    />
+                    <InputField
+                        type="text"
+                        name="language"
+                        placeholder="language"
+                        defaultValue={profile.language!}
+                    />
+                    <Row align="end">
+                        <XbackButton>Cancel</XbackButton>
+                        <Button variant="filled">Edit</Button>
+                    </Row>
+                </Stack>
             </form>
         </Container>
     );

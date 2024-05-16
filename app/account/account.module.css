@@ -12,10 +12,6 @@
 .card {
     max-width: 35rem;
 }
-.logoholder {
-    align-items: center;
-    flex-direction: row;
-}
 
 @media screen and (max-width: 900px) {
     .page {
@@ -33,8 +29,5 @@
         gap: 2rem;
         background: none;
         box-shadow: none;
-    }
-    .logoholder {
-        flex-direction: column;
     }
 }

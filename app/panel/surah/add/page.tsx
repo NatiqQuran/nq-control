@@ -3,7 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useFetch, useForm } from "@yakad/lib";
-import { Button, Container, Form, InputField, Row, Spacer } from "@yakad/ui";
+import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
 import { XbackButton } from "@yakad/x";
 
 export default function AddSurah() {
@@ -31,57 +31,58 @@ export default function AddSurah() {
         <Container maxWidth="sm">
             <h1>Add Surah</h1>
 
-            <Form onChange={handle} onSubmit={fetch.send}>
-                <InputField
-                    variant="outlined"
-                    placeholder="Surah Name"
-                    type="string"
-                    name="name"
-                />
-                <p>The name of surah</p>
-                <InputField
-                    variant="outlined"
-                    placeholder="Period"
-                    type="string"
-                    name="period"
-                />
-                <p>The surah is makki or madani</p>
-                <InputField
-                    variant="outlined"
-                    placeholder="Surah Number"
-                    type="number"
-                    name="number"
-                />
-                <p>The number of surah</p>
-                <InputField
-                    variant="outlined"
-                    placeholder="Mushaf uuid"
-                    type="string"
-                    name="mushaf_uuid"
-                />
-                <p>The mushaf id that we want add the surah</p>
-                <label>Bismillah status</label>
-                <input type="checkbox" name="bismillah_status" />
+            <form onChange={handle} onSubmit={fetch.send}>
+                <Stack>
+                    <InputField
+                        variant="outlined"
+                        placeholder="Surah Name"
+                        type="string"
+                        name="name"
+                    />
+                    <p>The name of surah</p>
+                    <InputField
+                        variant="outlined"
+                        placeholder="Period"
+                        type="string"
+                        name="period"
+                    />
+                    <p>The surah is makki or madani</p>
+                    <InputField
+                        variant="outlined"
+                        placeholder="Surah Number"
+                        type="number"
+                        name="number"
+                    />
+                    <p>The number of surah</p>
+                    <InputField
+                        variant="outlined"
+                        placeholder="Mushaf uuid"
+                        type="string"
+                        name="mushaf_uuid"
+                    />
+                    <p>The mushaf id that we want add the surah</p>
+                    <label>Bismillah status</label>
+                    <input type="checkbox" name="bismillah_status" />
 
-                <label>Bismillah as first ayah</label>
-                <input type="checkbox" name="bismillah_as_first_ayah" />
-                <p>
-                    The surah start with bismillah, start with bismillah as
-                    first ayah or start without bismillah
-                </p>
-                <Row>
-                    <Spacer />
-                    <XbackButton>Cancel</XbackButton>
-                    <Button
-                        loadingVariant="spinner"
-                        onClick={fetch.send}
-                        variant="filled"
-                        disabled={fetch.loading}
-                    >
-                        Add
-                    </Button>
-                </Row>
-            </Form>
+                    <label>Bismillah as first ayah</label>
+                    <input type="checkbox" name="bismillah_as_first_ayah" />
+                    <p>
+                        The surah start with bismillah, start with bismillah as
+                        first ayah or start without bismillah
+                    </p>
+                    <Row align="end">
+                        <XbackButton>Cancel</XbackButton>
+                        <Button
+                            loadingVariant="spinner"
+                            onClick={fetch.send}
+                            variant="filled"
+                            disabled={fetch.loading}
+                        >
+                            Add
+                        </Button>
+                    </Row>
+                </Stack>
+            </form>
         </Container>
     );
 }

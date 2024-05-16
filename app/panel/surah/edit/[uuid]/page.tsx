@@ -1,6 +1,14 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { Button, Chekbox, Container, InputField, Row, Spacer } from "@yakad/ui";
+import {
+    Button,
+    Chekbox,
+    Container,
+    InputField,
+    Row,
+    Spacer,
+    Stack,
+} from "@yakad/ui";
 import { XbackButton } from "@yakad/x";
 import { Surah, SurahPeriod } from "../../surah";
 
@@ -60,57 +68,58 @@ export default async function Page({ params }: { params: { uuid: string } }) {
                     redirect("/panel/mushaf/list");
                 }}
             >
-                <InputField
-                    variant="outlined"
-                    placeholder="Surah Name"
-                    type="string"
-                    name="name"
-                    defaultValue={surah.surah_name}
-                />
-                <p>The name of surah</p>
-                <InputField
-                    variant="outlined"
-                    placeholder="Period"
-                    type="string"
-                    name="period"
-                    defaultValue={surah.surah_period as any}
-                />
-                <p>The surah is makki or madani</p>
-                <InputField
-                    variant="outlined"
-                    placeholder="Surah Number"
-                    type="number"
-                    name="number"
-                    defaultValue={surah.surah_number.toString()}
-                />
-                <p>The number of surah</p>
-                <InputField
-                    variant="outlined"
-                    placeholder="Mushaf uuid"
-                    type="string"
-                    name="mushaf_uuid"
-                    defaultValue={surah.mushaf_uuid}
-                />
-                <p>The mushaf id that we want add the surah</p>
-                <Chekbox
-                    label="Bismillah status"
-                    name="bismillah_status"
-                    checked={surah.bismillah_status}
-                />
-                <Chekbox
-                    name="bismillah_as_first_ayah"
-                    label="Bismillah as first ayah"
-                    checked={surah.bismillah_as_first_ayah}
-                />
-                <p>
-                    The surah start with bismillah, start with bismillah as
-                    first ayah or start without bismillah
-                </p>
-                <Row>
-                    <Spacer />
-                    <XbackButton>Cancel</XbackButton>
-                    <Button variant="filled">Edit</Button>
-                </Row>
+                <Stack>
+                    <InputField
+                        variant="outlined"
+                        placeholder="Surah Name"
+                        type="string"
+                        name="name"
+                        defaultValue={surah.surah_name}
+                    />
+                    <p>The name of surah</p>
+                    <InputField
+                        variant="outlined"
+                        placeholder="Period"
+                        type="string"
+                        name="period"
+                        defaultValue={surah.surah_period as any}
+                    />
+                    <p>The surah is makki or madani</p>
+                    <InputField
+                        variant="outlined"
+                        placeholder="Surah Number"
+                        type="number"
+                        name="number"
+                        defaultValue={surah.surah_number.toString()}
+                    />
+                    <p>The number of surah</p>
+                    <InputField
+                        variant="outlined"
+                        placeholder="Mushaf uuid"
+                        type="string"
+                        name="mushaf_uuid"
+                        defaultValue={surah.mushaf_uuid}
+                    />
+                    <p>The mushaf id that we want add the surah</p>
+                    <Chekbox
+                        label="Bismillah status"
+                        name="bismillah_status"
+                        checked={surah.bismillah_status}
+                    />
+                    <Chekbox
+                        name="bismillah_as_first_ayah"
+                        label="Bismillah as first ayah"
+                        checked={surah.bismillah_as_first_ayah}
+                    />
+                    <p>
+                        The surah start with bismillah, start with bismillah as
+                        first ayah or start without bismillah
+                    </p>
+                    <Row align="end">
+                        <XbackButton>Cancel</XbackButton>
+                        <Button variant="filled">Edit</Button>
+                    </Row>
+                </Stack>
             </form>
         </Container>
     );
