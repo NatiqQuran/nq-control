@@ -9,8 +9,9 @@ export default function Page({
     searchParams: { email: string };
 }) {
     return (
-        <Stack style={{ alignItems: "center" }}>
+        <Stack align="center">
             <form
+                style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
 
@@ -19,11 +20,10 @@ export default function Page({
                     redirect("/panel");
                 }}
             >
-                <CodeField name="code" length={6} />
-                <br />
-                <Row style={{ justifyContent: "center" }}>
+                <Stack align="center">
+                    <CodeField name="code" length={6} />
                     <Button variant="filled">Verify</Button>
-                </Row>
+                </Stack>
             </form>
             <Hr />
             <XbackButton size="small" />

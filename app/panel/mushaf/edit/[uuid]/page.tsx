@@ -1,4 +1,4 @@
-import { Button, Container, InputField, Row, Spacer } from "@yakad/ui";
+import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
 import React from "react";
 import { Mushaf } from "../../mushaf";
 import { cookies } from "next/headers";
@@ -58,41 +58,43 @@ export default async function EditMushaf({
         <Container maxWidth="sm">
             <h1>Edit Mushaf</h1>
             <form
+                style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
 
                     await editMushaf(uuid, formData);
                 }}
             >
-                <InputField
-                    placeholder="Mushaf Name"
-                    type="string"
-                    name="name"
-                    defaultValue={mushaf.name}
-                />
-                <InputField
-                    placeholder="Mushaf Short name"
-                    type="string"
-                    name="short_name"
-                    defaultValue={mushaf.short_name}
-                />
-                <InputField
-                    placeholder="Mushaf Source"
-                    type="string"
-                    name="source"
-                    defaultValue={mushaf.source}
-                />
-                <InputField
-                    placeholder="Bismillah text in this Mushaf"
-                    type="string"
-                    name="bismillah_text"
-                    defaultValue={mushaf.bismillah_text || ""}
-                />
-                <Row>
-                    <Spacer />
-                    <XbackButton>Cancel</XbackButton>
-                    <Button variant="filled">Edit</Button>
-                </Row>
+                <Stack>
+                    <InputField
+                        placeholder="Mushaf Name"
+                        type="string"
+                        name="name"
+                        defaultValue={mushaf.name}
+                    />
+                    <InputField
+                        placeholder="Mushaf Short name"
+                        type="string"
+                        name="short_name"
+                        defaultValue={mushaf.short_name}
+                    />
+                    <InputField
+                        placeholder="Mushaf Source"
+                        type="string"
+                        name="source"
+                        defaultValue={mushaf.source}
+                    />
+                    <InputField
+                        placeholder="Bismillah text in this Mushaf"
+                        type="string"
+                        name="bismillah_text"
+                        defaultValue={mushaf.bismillah_text || ""}
+                    />
+                    <Row align="end">
+                        <XbackButton>Cancel</XbackButton>
+                        <Button variant="filled">Edit</Button>
+                    </Row>
+                </Stack>
             </form>
         </Container>
     );

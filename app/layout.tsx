@@ -1,6 +1,6 @@
 import "../styles/style.css";
 import { Theme } from "@yakad/ui";
-import type { Viewport } from 'next'
+import type { Viewport } from "next";
 
 export const runtime = "edge";
 
@@ -10,17 +10,17 @@ export const metadata = {
     manifest: "manifest.json",
     viewport: "width=device-width, initial-scale=1",
     icons: "favicon.ico",
-}
+};
 
 export const viewport: Viewport = {
     themeColor: "#222222",
-}
+};
 
 export default function Layout({ children }: any) {
     return (
         <html>
             <body>
-                <Theme mode="system">{children}</Theme>
+                <Theme color="purple">{children}</Theme>
             </body>
         </html>
     );

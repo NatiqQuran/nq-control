@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { Button, Container, InputField, Row, Spacer } from "@yakad/ui";
+import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
 import { XbackButton } from "@yakad/x";
 import { Organization } from "../../organization";
 
@@ -37,40 +37,42 @@ export default function Page() {
         <Container maxWidth="xs">
             <h1>Add a new Organization</h1>
             <form
+                style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
                     await addOrg(token, formData);
                     redirect("/panel/account");
                 }}
             >
-                <InputField
-                    type="text"
-                    name="username"
-                    placeholder="username"
-                />
-                <InputField type="text" placeholder="name" name="name" />
-                <InputField
-                    type="text"
-                    placeholder="national id"
-                    name="national_id"
-                />
-                <InputField
-                    type="date"
-                    name="established_date"
-                    placeholder="established date"
-                />
+                <Stack>
+                    <InputField
+                        type="text"
+                        name="username"
+                        placeholder="username"
+                    />
+                    <InputField type="text" placeholder="name" name="name" />
+                    <InputField
+                        type="text"
+                        placeholder="national id"
+                        name="national_id"
+                    />
+                    <InputField
+                        type="date"
+                        name="established_date"
+                        placeholder="established date"
+                    />
 
-                {/* This is only for test the real input must be a type of file */}
-                <InputField
-                    type="text"
-                    name="profile_image"
-                    placeholder="profile image"
-                />
-                <Row>
-                    <Spacer />
-                    <XbackButton>Cancel</XbackButton>
-                    <Button variant="filled">Edit</Button>
-                </Row>
+                    {/* This is only for test the real input must be a type of file */}
+                    <InputField
+                        type="text"
+                        name="profile_image"
+                        placeholder="profile image"
+                    />
+                    <Row align="end">
+                        <XbackButton>Cancel</XbackButton>
+                        <Button variant="filled">Edit</Button>
+                    </Row>
+                </Stack>
             </form>
         </Container>
     );
