@@ -85,7 +85,7 @@ export default function Page(): JSX.Element {
                             <br />
                             Based on research.
                         </p>
-                        <Row>
+                        <Row align="center">
                             <a href="https://natiq.net">
                                 <Button
                                     variant="filled"

@@ -14,7 +14,7 @@
         "react-dom": "18.2.0",
         "react-router-dom": "6.4.3",
         "@yakad/lib": "1.0.6",
-        "@yakad/ui": "1.2.132-beta",
+        "@yakad/ui": "1.2.134-beta",
         "@yakad/x": "1.0.56-beta",
         "@yakad/symbols": "1.0.4"
     },
