@@ -37,6 +37,7 @@ export default function Page() {
         <Container maxWidth="xs">
             <h1>Add a new Organization</h1>
             <form
+                style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
                     await addOrg(token, formData);

@@ -31,7 +31,11 @@ export default function AddSurah() {
         <Container maxWidth="sm">
             <h1>Add Surah</h1>
 
-            <form onChange={handle} onSubmit={fetch.send}>
+            <form
+                style={{ width: "100%" }}
+                onChange={handle}
+                onSubmit={fetch.send}
+            >
                 <Stack>
                     <InputField
                         variant="outlined"

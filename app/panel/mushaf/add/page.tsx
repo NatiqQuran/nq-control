@@ -32,6 +32,7 @@ export default function Page() {
             <h1>Add new Mushaf</h1>
 
             <form
+                style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
                     await addMushaf(formData);

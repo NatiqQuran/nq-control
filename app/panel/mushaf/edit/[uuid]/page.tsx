@@ -58,6 +58,7 @@ export default async function EditMushaf({
         <Container maxWidth="sm">
             <h1>Edit Mushaf</h1>
             <form
+                style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
 

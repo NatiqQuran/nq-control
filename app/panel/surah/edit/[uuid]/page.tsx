@@ -61,6 +61,7 @@ export default async function Page({ params }: { params: { uuid: string } }) {
             <h1>Edit Surah</h1>
 
             <form
+                style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
                     await editSurah(params.uuid, formData);

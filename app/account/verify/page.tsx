@@ -11,6 +11,7 @@ export default function Page({
     return (
         <Stack align="center">
             <form
+                style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
 

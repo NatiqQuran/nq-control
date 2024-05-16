@@ -64,6 +64,7 @@ export default async function EditOrg({
     return (
         <Container maxWidth="xs">
             <form
+                style={{ width: "100%" }}
                 action={async (formData) => {
                     await editOrg(token, orgId, formData);
                     redirect("/panel");

@@ -38,6 +38,7 @@ export default async function EditProfile() {
     return (
         <Container maxWidth="xs">
             <form
+                style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
                     await editProfile(token, formData);

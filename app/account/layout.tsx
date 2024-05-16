@@ -1,17 +1,7 @@
-"use client";
-
-import {
-    AppBar,
-    Main,
-    Card,
-    Stack,
-    SvgIcon,
-    Hr,
-    Page,
-    Row,
-} from "@yakad/ui/index";
+import { AppBar, Main, Card, SvgIcon, Hr, Page, Row } from "@yakad/ui/index";
 import styles from "./account.module.css";
 import LogoIcon from "./logoicon";
+
 export default function Layout({ children }: any) {
     return (
         <Page className={styles.page}>
