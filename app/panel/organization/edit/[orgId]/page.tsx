@@ -1,4 +1,4 @@
-import { Button, Container, InputField, Row, Spacer } from "@yakad/ui";
+import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Organization } from "../../../organization";
@@ -61,12 +61,9 @@ export default async function EditOrg({
     };
 
     return (
-        <Container
-            style={{
-                width: "25rem",
-            }}
-        >
+        <Container maxWidth="xs">
             <form
+                style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
                     await editOrg(token, orgId, formData);
@@ -97,19 +94,44 @@ export default async function EditOrg({
                     placeholder="established date"
                     defaultValue={organization.established_date as string}
                 />
+                <Stack>
+                    <InputField
+                        type="text"
+                        placeholder="username"
+                        name="username"
+                        defaultValue={organization.username}
+                    />
+                    <InputField
+                        type="text"
+                        placeholder="name"
+                        name="name"
+                        defaultValue={organization.primary_name}
+                    />
+                    <InputField
+                        type="text"
+                        placeholder="national id"
+                        name="national_id"
+                        defaultValue={organization.national_id}
+                    />
+                    <InputField
+                        type="date"
+                        name="established_date"
+                        placeholder="established date"
+                        defaultValue={organization.established_date as string}
+                    />
 
-                {/* This is only for test the real input must be a type of file */}
-                <InputField
-                    type="text"
-                    name="profile_image"
-                    placeholder="profile image"
-                    defaultValue={organization.profile_image!}
-                />
-                <Row>
-                    <Spacer />
-                    <XbackButton>Cancel</XbackButton>
-                    <Button variant="filled">Edit</Button>
-                </Row>
+                    {/* This is only for test the real input must be a type of file */}
+                    <InputField
+                        type="text"
+                        name="profile_image"
+                        placeholder="profile image"
+                        defaultValue={organization.profile_image!}
+                    />
+                    <Row align="end">
+                        <XbackButton>Cancel</XbackButton>
+                        <Button variant="filled">Edit</Button>
+                    </Row>
+                </Stack>
             </form>
         </Container>
     );

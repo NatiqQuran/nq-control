@@ -1,4 +1,4 @@
-import { Button, Container, InputField, Row, Spacer } from "@yakad/ui";
+import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
 import { Mushaf } from "../mushaf";
 import { XbackButton } from "@yakad/x";
 import { cookies } from "next/headers";
@@ -16,7 +16,7 @@ async function addMushaf(formData: FormData) {
         headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
-            "Authorization": cookies().get("token")?.value || "none",
+            Authorization: cookies().get("token")?.value || "none",
         },
         body: JSON.stringify(requestBody),
     });
@@ -31,47 +31,46 @@ export default function Page() {
         <Container maxWidth="sm">
             <h1>Add new Mushaf</h1>
 
-            <form action={async (formData) => {
-                "use server";
-                await addMushaf(formData)
-            }}>
-                <InputField
-                    variant="outlined"
-                    placeholder="Mushaf Name"
-                    type="string"
-                    name="name"
-                />
-                <InputField
-                    variant="outlined"
-                    placeholder="Mushaf short name"
-                    type="string"
-                    name="short_name"
-                />
-                <p>The name of mushaf</p>
-                <InputField
-                    variant="outlined"
-                    placeholder="Mushaf Source"
-                    type="string"
-                    name="source"
-                />
-                <p>The mushaf text source</p>
-                <InputField
-                    variant="outlined"
-                    placeholder="Bismillah text"
-                    type="string"
-                    name="bismillah_text"
-                />
-                <p>The mushaf bismillah_text</p>
-                <Row>
-                    <Spacer />
-                    <XbackButton>Cancel</XbackButton>
-                    <Button
-                        loadingVariant="spinner"
-                        variant="filled"
-                    >
-                        Add
-                    </Button>
-                </Row>
+            <form
+                style={{ width: "100%" }}
+                action={async (formData) => {
+                    "use server";
+                    await addMushaf(formData);
+                }}
+            >
+                <Stack>
+                    <InputField
+                        variant="outlined"
+                        placeholder="Mushaf Name"
+                        type="string"
+                        name="name"
+                    />
+                    <InputField
+                        variant="outlined"
+                        placeholder="Mushaf short name"
+                        type="string"
+                        name="short_name"
+                    />
+                    <InputField
+                        variant="outlined"
+                        placeholder="Mushaf Source"
+                        type="string"
+                        name="source"
+                    />
+                    <InputField
+                        variant="outlined"
+                        placeholder="Bismillah text in Mushaf"
+                        type="string"
+                        name="bismillah_text"
+                    />
+
+                    <Row align="end">
+                        <XbackButton>Cancel</XbackButton>
+                        <Button loadingVariant="spinner" variant="filled">
+                            Add
+                        </Button>
+                    </Row>
+                </Stack>
             </form>
         </Container>
     );
