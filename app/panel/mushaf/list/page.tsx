@@ -12,6 +12,7 @@ import {
 } from "@yakad/ui";
 import Link from "next/link";
 import del from "../../../../components/deleteButton";
+import FormButton from "../../../(components)/FormButton";
 
 interface SimpleMushaf {
     name: string;
@@ -71,13 +72,13 @@ export default async function Page() {
                                             Edit
                                         </Button>
                                     </Link>
-                                    <Button
-                                        size="small"
-                                        variant="link"
-                                        onClick={async () => {
-                                            "use server";
-                                            await del("mushaf", item.uuid)
-                                        }}>Delete</Button>
+                                    <FormButton onClick={async () => {
+                                        "use server";
+
+                                        await del("mushaf", item.uuid)
+                                    }}>
+                                        <Button variant="link" size="small">Delete</Button>
+                                    </FormButton>
                                 </Row>
                             </Td>
                         </Tr>

@@ -11,6 +11,8 @@ import {
 } from "@yakad/ui";
 import Link from "next/link";
 import del from "../../../../components/deleteButton";
+import FormButton from "../../../(components)/FormButton";
+import { revalidatePath } from "next/cache";
 
 export const dynamic = "force-dynamic";
 
@@ -66,11 +68,15 @@ export default async function Page({ searchParams }: { searchParams: { mushaf: s
                                             Edit
                                         </Button>
                                     </Link>
-                                    <Button
-                                        onClick={async () => {
-                                            "use server";
-                                            await del("mushaf", item.uuid)
-                                        }}>Delete</Button>
+                                    <FormButton onClick={async () => {
+                                        "use server";
+
+                                        await del("surah", item.uuid)
+
+                                        revalidatePath("/panel/surah/list");
+                                    }}>
+                                        <Button variant="link" size="small">Delete</Button>
+                                    </FormButton>
                                 </Row>
                             </Td>
                         </Tr>
