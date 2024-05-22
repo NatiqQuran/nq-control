@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getUserProfile, UserProfile } from "../profile/profile";
 import OrgsList from "../organizationsList";
-import Logout from "../../(components)/Logout";
+import LogoutButton from "../../(components)/LogoutButton";
 
 export default async function Page() {
     const cookie = cookies();
@@ -48,7 +48,7 @@ export default async function Page() {
                                 EDIT
                             </Button>
                         </Link>
-                        <Logout />
+                        <LogoutButton variant="tonal" size="small" />
                     </Row>
                 </Stack>
             </Row>

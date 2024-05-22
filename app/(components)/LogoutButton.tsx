@@ -1,4 +1,5 @@
 import { Button } from "@yakad/ui";
+import { ButtonProps } from "@yakad/ui/button/button";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -22,13 +23,13 @@ async function logout() {
     redirect("/");
 }
 
-export default async function Logout() {
+export default async function LogoutButton(props: ButtonProps) {
     return (
         <form action={async () => {
             "use server"
             await logout();
         }}>
-            <Button variant="tonal" size="small">Logout</Button>
+            <Button {...props}>Logout</Button>
         </form>
     );
 }

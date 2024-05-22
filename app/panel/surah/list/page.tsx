@@ -10,7 +10,7 @@ import {
     Row,
 } from "@yakad/ui";
 import Link from "next/link";
-import Delete from "../../../(components)/Delete";
+import DeleteButton from "../../../(components)/DeleteButton";
 
 export const dynamic = "force-dynamic";
 
@@ -67,7 +67,7 @@ export default async function Page({ searchParams }: { searchParams: { mushaf: s
                                         </Button>
                                     </Link>
 
-                                    <Delete controller="surah" uuid={item.uuid} />
+                                    <DeleteButton controller="surah" uuid={item.uuid} variant="link" size="small" />
                                 </Row>
                             </Td>
                         </Tr>

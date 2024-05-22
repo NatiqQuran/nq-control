@@ -11,7 +11,7 @@ import {
     Spacer,
 } from "@yakad/ui";
 import Link from "next/link";
-import Delete from "../../../(components)/Delete";
+import DeleteButton from "../../../(components)/DeleteButton";
 
 interface SimpleMushaf {
     name: string;
@@ -72,7 +72,7 @@ export default async function Page() {
                                         </Button>
                                     </Link>
 
-                                    <Delete controller="mushaf" uuid={item.uuid} />
+                                    <DeleteButton controller="surah" uuid={item.uuid} variant="link" size="small" />
                                 </Row>
                             </Td>
                         </Tr>

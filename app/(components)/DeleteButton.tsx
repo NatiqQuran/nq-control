@@ -1,4 +1,5 @@
 import { Button } from "@yakad/ui";
+import { ButtonProps } from "@yakad/ui/button/button";
 import { cookies } from "next/headers";
 
 async function del(controller: string, uuid: string) {
@@ -16,14 +17,21 @@ async function del(controller: string, uuid: string) {
     }
 }
 
-export default function Delete({controller, uuid}: {controller: string, uuid: string}) {
+interface DeleteButtonProps extends ButtonProps {
+    controller: string;
+    uuid: string;
+}
+
+export default function DeleteButton(props: DeleteButtonProps) {
+    const { controller, uuid, ...restOfProps } = props;
+
     return (
         <form action={async () => {
             "use server";
 
-            await del(controller, uuid)
+            await del(props.controller, props.uuid)
         }}>
-            <Button variant="link" size="small">Delete</Button>
+            <Button {...restOfProps}>Delete</Button>
         </form>
     );
 }
