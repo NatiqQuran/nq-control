@@ -1,13 +1,13 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
+import { Button, Container, InputField, Row, Stack } from "@yakad/ui";
 import { XbackButton } from "@yakad/x";
 import { Organization } from "../../organization";
 
 async function addOrg(token: string, formData: FormData) {
     const new_organization: Organization = {
         username: formData.get("username")?.toString()!,
-        name: formData.get("name")?.toString()!,
+        primary_name: formData.get("name")?.toString()!,
         profile_image: formData.get("profile_image")?.toString()!,
         national_id: formData.get("national_id")?.toString()!,
         established_date: formData.get("established_date")?.toString()!,

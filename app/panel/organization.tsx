@@ -1,5 +1,11 @@
 export interface Organization {
     /**
+     * UUID of organization
+     * used to edit or delete the org
+     */
+    uuid?: string;
+
+    /**
      * The username of org,
      * Other users can search,
      * or go to the profile of org
@@ -12,7 +18,7 @@ export interface Organization {
      * this is usually the full name of the org,
      * or name that this org is known for
      */
-    name: string;
+    primary_name: string;
 
     /**
      * National id of the org,

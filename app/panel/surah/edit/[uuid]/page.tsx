@@ -14,7 +14,7 @@ import { Surah, SurahPeriod } from "../../surah";
 
 async function getSurah(uuid: string): Promise<Surah> {
     const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/surah/${uuid}`
+        `${process.env.API_URL}/surah/${uuid}`
     );
 
     return response.json();

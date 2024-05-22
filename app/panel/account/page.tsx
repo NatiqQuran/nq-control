@@ -7,31 +7,13 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { getUserProfile, UserProfile } from "../profile/profile";
 import OrgsList from "../organizationsList";
-
-export const revalidate = 0;
+import LogoutButton from "../../(components)/LogoutButton";
 
 export default async function Page() {
     const cookie = cookies();
     const token = cookie.get("token") || redirect("/account/login");
 
     const profile: UserProfile = await getUserProfile(token.value);
-
-     async function logout() {
-        'use server';
-        const result = await fetch(
-            `${process.env.API_URL}/account/logout`,
-            {
-                method: "GET",
-                headers: {
-                    Authorization: token.value,
-                },
-            }
-        );
-
-        if (result.status === 200) {
-            cookies().delete('token');
-        }
-    }
 
     return (
         <Container maxWidth="sm">
@@ -66,12 +48,11 @@ export default async function Page() {
                                 EDIT
                             </Button>
                         </Link>
-                        <Button size="small" variant="tonal" onClick={logout}>
-                            Logout
-                        </Button>
+                        <LogoutButton variant="tonal" size="small" />
                     </Row>
                 </Stack>
             </Row>
+
             <Hr />
             <Suspense fallback={<Loading variant="spinner" />}>
                 <OrgsList token={token.value} />
