@@ -72,7 +72,7 @@ export default async function Page() {
                                         </Button>
                                     </Link>
 
-                                    <DeleteButton controller="surah" uuid={item.uuid} variant="link" size="small" />
+                                    <DeleteButton controller="mushaf" uuid={item.uuid} variant="link" size="small" />
                                 </Row>
                             </Td>
                         </Tr>

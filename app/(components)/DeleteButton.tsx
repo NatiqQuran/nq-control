@@ -28,8 +28,7 @@ export default function DeleteButton(props: DeleteButtonProps) {
     return (
         <form action={async () => {
             "use server";
-
-            await del(props.controller, props.uuid)
+            await del(controller, uuid)
         }}>
             <Button {...restOfProps}>Delete</Button>
         </form>
