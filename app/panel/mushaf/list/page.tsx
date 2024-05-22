@@ -11,8 +11,7 @@ import {
     Spacer,
 } from "@yakad/ui";
 import Link from "next/link";
-import del from "../../../../components/deleteButton";
-import FormButton from "../../../(components)/FormButton";
+import Delete from "../../../(components)/Delete";
 
 interface SimpleMushaf {
     name: string;
@@ -72,13 +71,8 @@ export default async function Page() {
                                             Edit
                                         </Button>
                                     </Link>
-                                    <FormButton onClick={async () => {
-                                        "use server";
 
-                                        await del("mushaf", item.uuid)
-                                    }}>
-                                        <Button variant="link" size="small">Delete</Button>
-                                    </FormButton>
+                                    <Delete controller="mushaf" uuid={item.uuid} />
                                 </Row>
                             </Td>
                         </Tr>
