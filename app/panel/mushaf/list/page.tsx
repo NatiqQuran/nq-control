@@ -20,7 +20,7 @@ interface SimpleMushaf {
 }
 
 async function getMushafsList(): Promise<SimpleMushaf[]> {
-    const response = await fetch(`${process.env.API_URL}/mushaf`, { cache: "no-cache" });
+    const response = await fetch(`${process.env.API_URL}/mushaf`);
 
     return response.json();
 }
