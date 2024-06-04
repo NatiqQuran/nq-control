@@ -32,6 +32,15 @@ export default function Panel(props: any) {
                 { name: "Recite" },
             ],
         },
+        {
+            name: "Reports",
+            childs: [
+                {
+                    name: "Errors",
+                    onclick: () => router.push("/panel/error/list"),
+                },
+            ],
+        },
     ];
     return (
         <Xpanel
