@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { verify } from "./lib";
-import { Button, CodeField, Hr, InputField, Row, Stack } from "@yakad/ui";
-import { XbackButton } from "@yakad/x";
+import { Button, CodeField, Hr, Row, Stack } from "@yakad/ui";
+import BackButton from "../../(components)/BackButton";
 
 export default function Page({
     searchParams,
@@ -26,7 +26,7 @@ export default function Page({
                 </Stack>
             </form>
             <Hr />
-            <XbackButton size="small" />
+            <BackButton size="small" />
         </Stack>
     );
 }

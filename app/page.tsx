@@ -12,6 +12,7 @@ import {
 } from "@yakad/ui";
 import LogoIcon from "./logoicon";
 import { Xbackground, XgetStart } from "@yakad/x";
+import ProfileButton from "./(components)/ProfileButton";
 
 const navListItems = [
     <ListItem key={0}>
@@ -26,7 +27,7 @@ const navListItems = [
     </ListItem>,
 ];
 
-export default function Page(): JSX.Element {
+export default async function Page() {
     return (
         <Pg>
             <AppBar style={{ gap: "1rem" }}>
@@ -45,11 +46,7 @@ export default function Page(): JSX.Element {
                 </h1>
                 <List>{navListItems.map((item) => item)}</List>
                 <Spacer />
-                <Link href="/account/login">
-                    <Button variant="outlined" icon="login">
-                        Login
-                    </Button>
-                </Link>
+                <ProfileButton />
             </AppBar>
             <Main>
                 <Xbackground variant="dotted">

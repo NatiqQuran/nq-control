@@ -1,4 +1,3 @@
-"use client";
 import { Container } from "@yakad/ui";
 
 export default function Page() {

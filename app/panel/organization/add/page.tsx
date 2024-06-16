@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Button, Container, InputField, Row, Stack } from "@yakad/ui";
-import { XbackButton } from "@yakad/x";
 import { Organization } from "../../organization";
+import BackButton from "../../../(components)/BackButton";
 
 async function addOrg(token: string, formData: FormData) {
     const new_organization: Organization = {
@@ -69,7 +69,7 @@ export default function Page() {
                         placeholder="profile image"
                     />
                     <Row align="end">
-                        <XbackButton>Cancel</XbackButton>
+                        <BackButton>Cancel</BackButton>
                         <Button variant="filled">Edit</Button>
                     </Row>
                 </Stack>

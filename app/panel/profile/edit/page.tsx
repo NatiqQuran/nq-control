@@ -2,7 +2,7 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { getUserProfile, UserProfile } from "../profile";
 import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
-import { XbackButton } from "@yakad/x";
+import BackButton from "../../../(components)/BackButton";
 
 async function editProfile(token: string, formData: FormData) {
     const profile = {
@@ -85,7 +85,7 @@ export default async function EditProfile() {
                         defaultValue={profile.language!}
                     />
                     <Row align="end">
-                        <XbackButton>Cancel</XbackButton>
+                        <BackButton>Cancel</BackButton>
                         <Button variant="filled">Edit</Button>
                     </Row>
                 </Stack>

@@ -2,7 +2,7 @@ import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
 import React from "react";
 import { Mushaf } from "../../mushaf";
 import { cookies } from "next/headers";
-import { XbackButton } from "@yakad/x";
+import BackButton from "../../../../(components)/BackButton";
 
 /**
  * Returns the Mushaf Object
@@ -91,7 +91,7 @@ export default async function EditMushaf({
                         defaultValue={mushaf.bismillah_text || ""}
                     />
                     <Row align="end">
-                        <XbackButton>Cancel</XbackButton>
+                        <BackButton>Cancel</BackButton>
                         <Button variant="filled">Edit</Button>
                     </Row>
                 </Stack>

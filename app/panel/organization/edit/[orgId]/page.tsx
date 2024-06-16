@@ -1,8 +1,8 @@
 import { Button, Container, InputField, Row, Stack } from "@yakad/ui";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import BackButton from "../../../../(components)/BackButton";
 import { Organization } from "../../../organization";
-import { XbackButton } from "@yakad/x";
 
 async function viewOrg(uuid: string, token: string) {
     const response = await fetch(`${process.env.API_URL}/organization/${uuid}`, {
@@ -128,7 +128,7 @@ export default async function EditOrg({
                         defaultValue={organization.profile_image!}
                     />
                     <Row align="end">
-                        <XbackButton>Cancel</XbackButton>
+                        <BackButton>Cancel</BackButton>
                         <Button variant="filled">Edit</Button>
                     </Row>
                 </Stack>

@@ -4,7 +4,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { useFetch, useForm } from "@yakad/lib";
 import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
-import { XbackButton } from "@yakad/x";
+import BackButton from "../../../(components)/BackButton";
 
 export default function AddSurah() {
     const router = useRouter();
@@ -75,7 +75,7 @@ export default function AddSurah() {
                         first ayah or start without bismillah
                     </p>
                     <Row align="end">
-                        <XbackButton>Cancel</XbackButton>
+                        <BackButton>Cancel</BackButton>
                         <Button
                             loadingVariant="spinner"
                             onClick={fetch.send}
