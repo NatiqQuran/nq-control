@@ -1,7 +1,7 @@
 import { Stack, Button, InputField, Hr } from "@yakad/ui";
 import { sendCode } from "./lib";
 import { redirect } from "next/navigation";
-import { XbackButton } from "@yakad/x";
+import BackButton from "../../(components)/BackButton";
 
 export default function Page() {
     return (
@@ -26,7 +26,7 @@ export default function Page() {
                 </Stack>
             </form>
             <Hr />
-            <XbackButton size="small">Cancel</XbackButton>
+            <BackButton size="small">Cancel</BackButton>
         </Stack>
     );
 }

@@ -1,17 +1,17 @@
 import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
-import { Mushaf } from "../mushaf";
 import { cookies } from "next/headers";
+import { Permission } from "../list/page";
 import BackButton from "../../../(components)/BackButton";
 
-async function addMushaf(formData: FormData) {
-    const requestBody: Mushaf = {
-        name: formData.get("name")?.toString()!,
-        short_name: formData.get("short_name")?.toString()!,
-        source: formData.get("source")?.toString()!,
-        bismillah_text: formData.get("bismillah_text")?.toString()!,
+async function addPermission(formData: FormData) {
+    const requestBody: Permission = {
+        subject: formData.get("subject")?.toString()!,
+        object: formData.get("object")?.toString()!,
+        action: formData.get("action")?.toString()! as any,
+        conditions: [],
     };
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/mushaf`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/permission`, {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -22,7 +22,7 @@ async function addMushaf(formData: FormData) {
     });
 
     if (response.status !== 200) {
-        throw new Error(`Could't add new mushaf, ${await response.text()}`);
+        throw new Error(`Could't add new permission, ${await response.text()}`);
     }
 }
 
@@ -35,33 +35,27 @@ export default function Page() {
                 style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
-                    await addMushaf(formData);
+                    await addPermission(formData);
                 }}
             >
                 <Stack>
                     <InputField
                         variant="outlined"
-                        placeholder="Mushaf Name"
+                        placeholder="Subject"
                         type="string"
-                        name="name"
+                        name="subject"
                     />
                     <InputField
                         variant="outlined"
-                        placeholder="Mushaf short name"
+                        placeholder="Object"
                         type="string"
-                        name="short_name"
+                        name="object"
                     />
                     <InputField
                         variant="outlined"
-                        placeholder="Mushaf Source"
+                        placeholder="Action"
                         type="string"
-                        name="source"
-                    />
-                    <InputField
-                        variant="outlined"
-                        placeholder="Bismillah text in Mushaf"
-                        type="string"
-                        name="bismillah_text"
+                        name="action"
                     />
 
                     <Row align="end">

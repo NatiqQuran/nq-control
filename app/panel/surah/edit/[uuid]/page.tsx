@@ -9,8 +9,8 @@ import {
     Spacer,
     Stack,
 } from "@yakad/ui";
-import { XbackButton } from "@yakad/x";
 import { Surah, SurahPeriod } from "../../surah";
+import BackButton from "../../../../(components)/BackButton";
 
 async function getSurah(uuid: string): Promise<Surah> {
     const response = await fetch(
@@ -117,7 +117,7 @@ export default async function Page({ params }: { params: { uuid: string } }) {
                         first ayah or start without bismillah
                     </p>
                     <Row align="end">
-                        <XbackButton>Cancel</XbackButton>
+                        <BackButton>Cancel</BackButton>
                         <Button variant="filled">Edit</Button>
                     </Row>
                 </Stack>
