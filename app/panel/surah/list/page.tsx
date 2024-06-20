@@ -67,7 +67,7 @@ export default async function Page({ searchParams }: { searchParams: { mushaf: s
                                         </Button>
                                     </Link>
 
-                                    <DeleteButton controller="surah" uuid={item.uuid} variant="link" size="small" />
+                                    <DeleteButton pagePath="/panel/surah/list" controller="surah" uuid={item.uuid} variant="link" size="small" />
                                 </Row>
                             </Td>
                         </Tr>

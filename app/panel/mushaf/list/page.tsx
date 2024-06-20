@@ -72,7 +72,7 @@ export default async function Page() {
                                         </Button>
                                     </Link>
 
-                                    <DeleteButton controller="mushaf" uuid={item.uuid} variant="link" size="small" />
+                                    <DeleteButton pagePath="/panel/mushaf/list" controller="mushaf" uuid={item.uuid} variant="link" size="small" />
                                 </Row>
                             </Td>
                         </Tr>

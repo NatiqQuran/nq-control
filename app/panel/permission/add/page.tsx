@@ -1,7 +1,8 @@
-import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
+import { Button, Container, InputField, Row, Stack } from "@yakad/ui";
 import { cookies } from "next/headers";
 import { Permission } from "../list/page";
 import BackButton from "../../../(components)/BackButton";
+import { redirect } from "next/navigation";
 
 async function addPermission(formData: FormData) {
     const requestBody: Permission = {
@@ -36,6 +37,7 @@ export default function Page() {
                 action={async (formData) => {
                     "use server";
                     await addPermission(formData);
+                    redirect("/panel/permission/list");
                 }}
             >
                 <Stack>
@@ -51,12 +53,15 @@ export default function Page() {
                         type="string"
                         name="object"
                     />
-                    <InputField
-                        variant="outlined"
-                        placeholder="Action"
-                        type="string"
-                        name="action"
-                    />
+
+                    <label>Action: </label>
+                    
+                    <select name="action">
+                        <option value="create">Create</option>
+                        <option value="view">View</option>
+                        <option value="delete">Delete</option>
+                        <option value="edit">Edit</option>
+                    </select>
 
                     <Row align="end">
                         <BackButton>Cancel</BackButton>

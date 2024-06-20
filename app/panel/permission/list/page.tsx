@@ -91,7 +91,7 @@ export default async function Page() {
                                         </Button>
                                     </Link>
 
-                                    <DeleteButton controller="permission" uuid={item.uuid!} variant="link" size="small" />
+                                    <DeleteButton pagePath="/panel/permission/list" controller="permission" uuid={item.uuid!} variant="link" size="small" />
                                 </Row>
                             </Td>
                         </Tr>

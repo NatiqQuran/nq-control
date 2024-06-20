@@ -1,6 +1,5 @@
 import {
     Container,
-    Button,
     Table,
     Tbody,
     Td,
@@ -8,10 +7,7 @@ import {
     Thead,
     Tr,
     Row,
-    Spacer,
 } from "@yakad/ui";
-import Link from "next/link";
-import DeleteButton from "../../../(components)/DeleteButton";
 import { cookies } from "next/headers";
 
 interface ErrorLog {
@@ -27,6 +23,10 @@ async function getErrorsList(): Promise<ErrorLog[]> {
             Authorization: cookies().get("token")?.value || "",
         },
     });
+
+    if (response.status !== 200) {
+        throw new Error(`Coudn't get list of errors!, ${await response.text()}`);
+    }
 
     return response.json();
 }
