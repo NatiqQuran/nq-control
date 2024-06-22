@@ -1,13 +1,13 @@
-import ProfileButton from "../(components)/ProfileButton";
-import NavigationItems from "./navigationItems";
 import { Xpanel } from "@yakad/x";
+import ProfileButton from "../(components)/ProfileButton";
+import NavMenuList from "./navMenuList";
 
 export default function Layout({ children }: any) {
-       return (
+    return (
         <Xpanel
             name="Natiq Control Panel"
             appbarChildren={<ProfileButton />}
-            navigationChildren={<NavigationItems />}
+            navigationChildren={<NavMenuList />}
         >
             {children}
         </Xpanel>

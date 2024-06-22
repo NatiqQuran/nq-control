@@ -1,8 +1,9 @@
 "use client";
-import { XnavigationList } from "@yakad/x";
-import { useRouter } from "next/navigation";
 
-export default function NavigationItems() {
+import { useRouter } from "next/navigation";
+import { XmenuList } from "@yakad/x";
+
+export default function NavMenuList() {
     const router = useRouter();
     const menuItems = [
         {
@@ -14,7 +15,10 @@ export default function NavigationItems() {
             childs: [
                 { name: "Users" },
                 { name: "Organizations" },
-                { name: "Permissions", onclick: () => router.push("/panel/permission/list") },
+                {
+                    name: "Permissions",
+                    onclick: () => router.push("/panel/permission/list"),
+                },
             ],
         },
         {
@@ -41,7 +45,5 @@ export default function NavigationItems() {
         },
     ];
 
-    return (
-        <XnavigationList menuItems={menuItems} />
-    );
+    return <XmenuList menuItems={menuItems} />;
 }
