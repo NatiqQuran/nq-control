@@ -24,7 +24,7 @@ export default async function ViewPermission({
     const permission = await getPermission(params.uuid);
 
     return (
-        <Container>
+        <Container maxWidth="xl">
             <h1>Permission uuid : {permission.uuid}</h1>
             <h1>Permission subject : {permission.subject}</h1>
             <h1>Permission object: {permission.object}</h1>

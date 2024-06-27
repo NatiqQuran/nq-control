@@ -15,8 +15,8 @@
         "react-router-dom": "6.4.3",
         "@yakad/lib": "1.0.8",
         "@yakad/ui": "1.2.164-beta",
-        "@yakad/x": "1.0.80-beta",
-        "@yakad/symbols": "1.0.4"
+        "@yakad/x": "1.0.87-beta",
+        "@yakad/symbols": "1.0.6"
     },
     "devDependencies": {
         "@types/node": "20.5.7",

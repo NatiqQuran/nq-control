@@ -28,13 +28,11 @@ interface PermissionCondition {
     value: string;
 }
 
-async function getPermissionsList(
-    token: string
-): Promise<Permission[]> {
+async function getPermissionsList(token: string): Promise<Permission[]> {
     const response = await fetch(`${process.env.API_URL}/permission`, {
         headers: {
-            Authorization: token
-        }
+            Authorization: token,
+        },
     });
 
     if (response.status !== 200) {
@@ -49,7 +47,7 @@ export default async function Page() {
     const permissions = await getPermissionsList(token);
 
     return (
-        <Container>
+        <Container maxWidth="xl">
             <Row>
                 <h1>Permissions List</h1>
                 <Spacer />
@@ -78,20 +76,31 @@ export default async function Page() {
                             <Td>{item.conditions.length} item</Td>
                             <Td>
                                 <Row>
-                                    <Link href={"/panel/permission/" + item.uuid}>
+                                    <Link
+                                        href={"/panel/permission/" + item.uuid}
+                                    >
                                         <Button size="small" variant="link">
                                             View
                                         </Button>
                                     </Link>
                                     <Link
-                                        href={"/panel/permission/edit/" + item.uuid}
+                                        href={
+                                            "/panel/permission/edit/" +
+                                            item.uuid
+                                        }
                                     >
                                         <Button size="small" variant="link">
                                             Edit
                                         </Button>
                                     </Link>
 
-                                    <DeleteButton pagePath="/panel/permission/list" controller="permission" uuid={item.uuid!} variant="link" size="small" />
+                                    <DeleteButton
+                                        pagePath="/panel/permission/list"
+                                        controller="permission"
+                                        uuid={item.uuid!}
+                                        variant="link"
+                                        size="small"
+                                    />
                                 </Row>
                             </Td>
                         </Tr>
@@ -99,7 +108,5 @@ export default async function Page() {
                 </Tbody>
             </Table>
         </Container>
-
     );
 }
-

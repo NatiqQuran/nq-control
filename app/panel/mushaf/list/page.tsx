@@ -29,7 +29,7 @@ export default async function Page() {
     const mushafsList = await getMushafsList();
 
     return (
-        <Container>
+        <Container maxWidth="xl">
             <Row>
                 <h1>Mushaf List</h1>
                 <Spacer />
@@ -54,7 +54,9 @@ export default async function Page() {
                             <Td>{item.uuid}</Td>
                             <Td>
                                 <Row>
-                                    <Link href={`/panel/surah/list?mushaf=${item.name}`}>
+                                    <Link
+                                        href={`/panel/surah/list?mushaf=${item.name}`}
+                                    >
                                         <Button size="small" variant="link">
                                             Surahs
                                         </Button>
@@ -72,7 +74,13 @@ export default async function Page() {
                                         </Button>
                                     </Link>
 
-                                    <DeleteButton pagePath="/panel/mushaf/list" controller="mushaf" uuid={item.uuid} variant="link" size="small" />
+                                    <DeleteButton
+                                        pagePath="/panel/mushaf/list"
+                                        controller="mushaf"
+                                        uuid={item.uuid}
+                                        variant="link"
+                                        size="small"
+                                    />
                                 </Row>
                             </Td>
                         </Tr>
