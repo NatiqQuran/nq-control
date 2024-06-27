@@ -36,7 +36,7 @@ export default async function ViewSurah({
     const singleSurah = await getSurah(params.uuid);
 
     return (
-        <Container>
+        <Container maxWidth="xl">
             <h1>surah number : {singleSurah.surah_number}</h1>
             <h1>surah name : {singleSurah.surah_name}</h1>
             <h1>surah ayahs : {singleSurah.number_of_ayahs}</h1>
@@ -44,7 +44,9 @@ export default async function ViewSurah({
             <h1>mushaf name : {singleSurah.mushaf_name}</h1>
             <h1>mushaf uuid : {singleSurah.mushaf_uuid}</h1>
             <h1>bismillah status : {singleSurah.bismillah_status}</h1>
-            <h1>bismillah as first ayah : {singleSurah.bismillah_as_first_ayah}</h1>
+            <h1>
+                bismillah as first ayah : {singleSurah.bismillah_as_first_ayah}
+            </h1>
 
             <Xtable
                 data={singleSurah.ayahs.map((ayah) => ({

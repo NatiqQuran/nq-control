@@ -1,16 +1,18 @@
-import {
-    Container,
-    Table,
-    Tbody,
-    Td,
-    Th,
-    Thead,
-    Tr,
-    Row,
-} from "@yakad/ui";
 import { cookies } from "next/headers";
+import { Container, Row, Spacer } from "@yakad/ui";
+import { Xtable } from "@yakad/x";
 
+interface ErrorLogHead {
+    id: string;
+    uuid: string;
+    error_name: string;
+    status_code: string;
+    message: string;
+    detail?: string;
+}
 interface ErrorLog {
+    id: number;
+    uuid: string;
     error_name: string;
     status_code: number;
     message: string;
@@ -25,42 +27,32 @@ async function getErrorsList(): Promise<ErrorLog[]> {
     });
 
     if (response.status !== 200) {
-        throw new Error(`Coudn't get list of errors!, ${await response.text()}`);
+        throw new Error(
+            `Coudn't get list of errors!, ${await response.text()}`
+        );
     }
 
     return response.json();
 }
 
 export default async function Page() {
+    const tableHead: ErrorLogHead = {
+        id: "ID",
+        uuid: "UUID",
+        status_code: "Status Code",
+        error_name: "Error Name",
+        message: "Message",
+        detail: "Detail",
+    };
+
     const errorsList = await getErrorsList();
 
     return (
-        <Container>
+        <Container maxWidth="xl">
             <Row>
                 <h1>Errors list</h1>
             </Row>
-            <Table>
-                <Thead style={{ textAlign: "justify" }}>
-                    <Tr>
-                        <Th>#</Th>
-                        <Th>Status Code</Th>
-                        <Th>Name</Th>
-                        <Th>Message</Th>
-                        <Th>Detail</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {errorsList.map((item, index) => (
-                        <Tr key={index}>
-                            <Td>{index + 1}</Td>
-                            <Td>{item.status_code}</Td>
-                            <Td>{item.error_name}</Td>
-                            <Td>{item.message}</Td>
-                            <Td>{item.detail}</Td>
-                        </Tr>
-                    ))}
-                </Tbody>
-            </Table>
+            <Xtable head={tableHead} data={errorsList} />
         </Container>
     );
 }

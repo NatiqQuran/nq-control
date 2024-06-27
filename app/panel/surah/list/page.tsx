@@ -23,16 +23,22 @@ interface ListSurah {
 }
 
 async function getSurahsList(mushaf: string): Promise<ListSurah[]> {
-    const response = await fetch(`${process.env.API_URL}/surah?mushaf=${mushaf}`);
+    const response = await fetch(
+        `${process.env.API_URL}/surah?mushaf=${mushaf}`
+    );
 
     return response.json();
 }
 
-export default async function Page({ searchParams }: { searchParams: { mushaf: string } }) {
+export default async function Page({
+    searchParams,
+}: {
+    searchParams: { mushaf: string };
+}) {
     const surahsList = await getSurahsList(searchParams.mushaf);
 
     return (
-        <Container>
+        <Container maxWidth="xl">
             <h1>Surah List</h1>
             <Table>
                 <Thead style={{ textAlign: "justify" }}>
@@ -67,7 +73,13 @@ export default async function Page({ searchParams }: { searchParams: { mushaf: s
                                         </Button>
                                     </Link>
 
-                                    <DeleteButton pagePath="/panel/surah/list" controller="surah" uuid={item.uuid} variant="link" size="small" />
+                                    <DeleteButton
+                                        pagePath="/panel/surah/list"
+                                        controller="surah"
+                                        uuid={item.uuid}
+                                        variant="link"
+                                        size="small"
+                                    />
                                 </Row>
                             </Td>
                         </Tr>

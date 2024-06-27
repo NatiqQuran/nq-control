@@ -27,7 +27,7 @@ export default async function ViewMushaf({
     const singleMushaf: SimpleMushaf = await response.json();
 
     return (
-        <Container>
+        <Container maxWidth="xl">
             <h1>mushaf uuid : {singleMushaf.uuid}</h1>
             <h1>mushaf name : {singleMushaf.name}</h1>
             <h1>mushaf source: {singleMushaf.source}</h1>
