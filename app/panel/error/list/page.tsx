@@ -1,10 +1,7 @@
+import { Container, Table, Tbody, Td, Th, Thead, Tr, Row } from "@yakad/ui";
 import { cookies } from "next/headers";
-import { Container, Row } from "@yakad/ui";
-import { Xtable, XtColumn } from "@yakad/x";
 
 interface ErrorLog {
-    id: number;
-    uuid: string;
     error_name: string;
     status_code: number;
     message: string;
@@ -35,55 +32,28 @@ export default async function Page() {
             <Row>
                 <h1>Errors list</h1>
             </Row>
-            <Xtable data={errorsList}>
-                <XtColumn
-                    dataKey="id"
-                    headTitle="ID"
-                    footTitle="Sum:"
-                    footFunc="sum"
-                    alignText="center"
-                    sortable
-                />
-                <XtColumn
-                    dataKey="uuid"
-                    headTitle="UUID"
-                    footTitle="Sum:"
-                    footFunc="sum"
-                    sortable
-                    searchable
-                />
-                <XtColumn
-                    dataKey="status_code"
-                    headTitle="Status Code"
-                    footTitle="Sum:"
-                    footFunc="sum"
-                    alignText="center"
-                />
-                <XtColumn
-                    dataKey="error_name"
-                    headTitle="Name"
-                    footTitle="Sum:"
-                    footFunc="sum"
-                    sortable
-                    searchable
-                />
-                <XtColumn
-                    dataKey="message"
-                    headTitle="Message"
-                    footTitle="Sum:"
-                    footFunc="sum"
-                    sortable
-                    searchable
-                />
-                <XtColumn
-                    dataKey="detail"
-                    headTitle="Detail"
-                    footTitle="Sum:"
-                    footFunc="sum"
-                    sortable
-                    searchable
-                />
-            </Xtable>
+            <Table>
+                <Thead style={{ textAlign: "justify" }}>
+                    <Tr>
+                        <Th>#</Th>
+                        <Th>Status Code</Th>
+                        <Th>Name</Th>
+                        <Th>Message</Th>
+                        <Th>Detail</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {errorsList.map((item, index) => (
+                        <Tr key={index}>
+                            <Td>{index + 1}</Td>
+                            <Td>{item.status_code}</Td>
+                            <Td>{item.error_name}</Td>
+                            <Td>{item.message}</Td>
+                            <Td>{item.detail}</Td>
+                        </Tr>
+                    ))}
+                </Tbody>
+            </Table>
         </Container>
     );
 }
