@@ -1,15 +1,7 @@
 import { cookies } from "next/headers";
-import { Container, Row, Spacer } from "@yakad/ui";
-import { Xtable } from "@yakad/x";
+import { Container, Row } from "@yakad/ui";
+import { Xtable, XtColumn } from "@yakad/x";
 
-interface ErrorLogHead {
-    id: string;
-    uuid: string;
-    error_name: string;
-    status_code: string;
-    message: string;
-    detail?: string;
-}
 interface ErrorLog {
     id: number;
     uuid: string;
@@ -36,15 +28,6 @@ async function getErrorsList(): Promise<ErrorLog[]> {
 }
 
 export default async function Page() {
-    const tableHead: ErrorLogHead = {
-        id: "ID",
-        uuid: "UUID",
-        status_code: "Status Code",
-        error_name: "Error Name",
-        message: "Message",
-        detail: "Detail",
-    };
-
     const errorsList = await getErrorsList();
 
     return (
@@ -52,7 +35,55 @@ export default async function Page() {
             <Row>
                 <h1>Errors list</h1>
             </Row>
-            <Xtable head={tableHead} data={errorsList} />
+            <Xtable data={errorsList}>
+                <XtColumn
+                    dataKey="id"
+                    headTitle="ID"
+                    footTitle="Sum:"
+                    footFunc="sum"
+                    alignText="center"
+                    sortable
+                />
+                <XtColumn
+                    dataKey="uuid"
+                    headTitle="UUID"
+                    footTitle="Sum:"
+                    footFunc="sum"
+                    sortable
+                    searchable
+                />
+                <XtColumn
+                    dataKey="status_code"
+                    headTitle="Status Code"
+                    footTitle="Sum:"
+                    footFunc="sum"
+                    alignText="center"
+                />
+                <XtColumn
+                    dataKey="error_name"
+                    headTitle="Name"
+                    footTitle="Sum:"
+                    footFunc="sum"
+                    sortable
+                    searchable
+                />
+                <XtColumn
+                    dataKey="message"
+                    headTitle="Message"
+                    footTitle="Sum:"
+                    footFunc="sum"
+                    sortable
+                    searchable
+                />
+                <XtColumn
+                    dataKey="detail"
+                    headTitle="Detail"
+                    footTitle="Sum:"
+                    footFunc="sum"
+                    sortable
+                    searchable
+                />
+            </Xtable>
         </Container>
     );
 }
