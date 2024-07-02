@@ -1,5 +1,5 @@
 import { Container } from "@yakad/ui";
-import { Xtable } from "@yakad/x";
+import { XdataMap, Xtable } from "@yakad/x";
 
 interface SimpleSurah {
     mushaf_uuid: string;
@@ -48,7 +48,7 @@ export default async function ViewSurah({
                 bismillah as first ayah : {singleSurah.bismillah_as_first_ayah}
             </h1>
 
-            <Xtable
+            <XdataMap
                 data={singleSurah.ayahs.map((ayah) => ({
                     number: ayah.number,
                     text: ayah.content.text,
