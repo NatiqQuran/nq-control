@@ -41,6 +41,14 @@ export default function NavMenuList() {
                     name: "Errors",
                     onclick: () => router.push("/panel/error/list"),
                 },
+                {
+                    name: "Errors Xtable",
+                    onclick: () => router.push("/panel/error/listXtable"),
+                },
+                {
+                    name: "Errors XdataMap",
+                    onclick: () => router.push("/panel/error/listXdataMap"),
+                },
             ],
         },
     ];
