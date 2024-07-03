@@ -1,12 +1,9 @@
 import { cookies } from "next/headers";
-import { Container, Row } from "@yakad/ui";
-import { Xtable, XtColumn } from "@yakad/x";
-// import Xtable from "../../../../../yakad/packages/x/Xtable/Xtable";
-// import XtColumn from "../../../../../yakad/packages/x/XtColumn/XtColumn";
+import { Container, Row, Table } from "@yakad/ui";
+import { XThead, XTbody, XTfoot, XTr, XTh, XTd, XTf } from "@yakad/x";
+// } from "../../../../../yakad/packages/x/Xtablenew/Xtable";
 
 interface ErrorLog {
-    id: number;
-    uuid: string;
     error_name: string;
     status_code: number;
     message: string;
@@ -35,57 +32,45 @@ export default async function Page() {
     return (
         <Container maxWidth="xl">
             <Row>
-                <h1>Errors list by Xtable</h1>
+                <h1>Errors list</h1>
             </Row>
-            <Xtable data={errorsList}>
-                <XtColumn
-                    dataKey="id"
-                    headTitle="ID"
-                    footTitle="Sum:"
-                    footFunc="sum"
-                    alignText="center"
-                    sortable
-                />
-                <XtColumn
-                    dataKey="uuid"
-                    headTitle="UUID"
-                    footTitle="Sum:"
-                    footFunc="sum"
-                    sortable
-                    searchable
-                />
-                <XtColumn
-                    dataKey="status_code"
-                    headTitle="Status Code"
-                    footTitle="Sum:"
-                    footFunc="sum"
-                    alignText="center"
-                />
-                <XtColumn
-                    dataKey="error_name"
-                    headTitle="Name"
-                    footTitle="Sum:"
-                    footFunc="sum"
-                    sortable
-                    searchable
-                />
-                <XtColumn
-                    dataKey="message"
-                    headTitle="Message"
-                    footTitle="Sum:"
-                    footFunc="sum"
-                    sortable
-                    searchable
-                />
-                <XtColumn
-                    dataKey="detail"
-                    headTitle="Detail"
-                    footTitle="Sum:"
-                    footFunc="sum"
-                    sortable
-                    searchable
-                />
-            </Xtable>
+            <Table>
+                <XThead style={{ textAlign: "justify" }}>
+                    <XTr>
+                        <XTh>#</XTh>
+                        <XTh>Status Code</XTh>
+                        <XTh sortable searchable>
+                            Name
+                        </XTh>
+                        <XTh sortable searchable>
+                            Message
+                        </XTh>
+                        <XTh sortable searchable>
+                            Detail
+                        </XTh>
+                    </XTr>
+                </XThead>
+                <XTbody>
+                    {errorsList.map((item, index) => (
+                        <XTr key={index}>
+                            <XTd>{index + 1}</XTd>
+                            <XTd>{item.status_code}</XTd>
+                            <XTd>{item.error_name}</XTd>
+                            <XTd>{item.message}</XTd>
+                            <XTd>{item.detail}</XTd>
+                        </XTr>
+                    ))}
+                </XTbody>
+                <XTfoot style={{ textAlign: "justify" }}>
+                    <XTr>
+                        <XTf>#</XTf>
+                        <XTf>Status Code</XTf>
+                        <XTf>Name</XTf>
+                        <XTf footFunc="sum">Message</XTf>
+                        <XTf footFunc="average" />
+                    </XTr>
+                </XTfoot>
+            </Table>
         </Container>
     );
 }
