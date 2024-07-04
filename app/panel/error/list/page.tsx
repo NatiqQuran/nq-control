@@ -1,8 +1,10 @@
-import { Container, Row } from "@yakad/ui";
-import { Table, Thead, Tbody, Tr, Th, Td } from "@yakad/ui";
 import { cookies } from "next/headers";
+import { Container, Row } from "@yakad/ui";
+import { XdataMap } from "@yakad/x";
 
 interface ErrorLog {
+    id: number;
+    uuid: string;
     error_name: string;
     status_code: number;
     message: string;
@@ -33,28 +35,7 @@ export default async function Page() {
             <Row>
                 <h1>Errors list</h1>
             </Row>
-            <Table>
-                <Thead style={{ textAlign: "justify" }}>
-                    <Tr>
-                        <Th>#</Th>
-                        <Th>Status Code</Th>
-                        <Th>Name</Th>
-                        <Th>Message</Th>
-                        <Th>Detail</Th>
-                    </Tr>
-                </Thead>
-                <Tbody>
-                    {errorsList.map((item, index) => (
-                        <Tr key={index}>
-                            <Td>{index + 1}</Td>
-                            <Td>{item.status_code}</Td>
-                            <Td>{item.error_name}</Td>
-                            <Td>{item.message}</Td>
-                            <Td>{item.detail}</Td>
-                        </Tr>
-                    ))}
-                </Tbody>
-            </Table>
+            <XdataMap data={errorsList} />
         </Container>
     );
 }
