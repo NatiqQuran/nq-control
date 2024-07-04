@@ -1,5 +1,5 @@
 import { Container } from "@yakad/ui";
-import { XdataMap, Xtable } from "@yakad/x";
+import { XdataMap } from "@yakad/x";
 
 interface SimpleSurah {
     mushaf_uuid: string;

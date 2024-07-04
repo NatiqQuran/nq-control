@@ -63,7 +63,7 @@ export default async function Page() {
                 </XTbody>
                 <XTfoot style={{ textAlign: "justify" }}>
                     <XTr>
-                        <XTf>#</XTf>
+                        <XTf footFunc="count">#</XTf>
                         <XTf>Status Code</XTf>
                         <XTf>Name</XTf>
                         <XTf footFunc="sum">Message</XTf>

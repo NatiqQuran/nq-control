@@ -1,5 +1,5 @@
 import { Container, Row } from "@yakad/ui";
-import { Table, Tbody, Td, Th, Thead, Tr } from "@yakad/ui";
+import { Table, Thead, Tbody, Tr, Th, Td } from "@yakad/ui";
 import { cookies } from "next/headers";
 
 interface ErrorLog {
