@@ -2,6 +2,7 @@ import { Button } from "@yakad/ui";
 import { ButtonProps } from "@yakad/ui/button/button";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 async function del(controller: string, uuid: string) {
     const response = await fetch(`${process.env.API_URL}/${controller}/${uuid}`,
@@ -22,16 +23,22 @@ interface DeleteButtonProps extends ButtonProps {
     controller: string;
     uuid: string;
     pagePath: string;
+    redirectTo?: string;
 }
 
 export default function DeleteButton(props: DeleteButtonProps) {
-    const { controller, uuid, pagePath, ...restOfProps } = props;
+    const { redirectTo, controller, uuid, pagePath, ...restOfProps } = props;
 
     return (
         <form action={async () => {
             "use server";
             await del(controller, uuid)
-            revalidatePath(pagePath);
+            if (redirectTo) {
+                revalidatePath(pagePath);
+                redirect(redirectTo);
+            } else {
+                revalidatePath(pagePath);
+            }
         }}>
             <Button {...restOfProps}>Delete</Button>
         </form>

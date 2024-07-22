@@ -11,6 +11,7 @@ import {
 } from "@yakad/ui";
 import { Surah, SurahPeriod } from "../../surah";
 import BackButton from "../../../../(components)/BackButton";
+import { revalidatePath } from "next/cache";
 
 async function getSurah(uuid: string): Promise<Surah> {
     const response = await fetch(
@@ -53,8 +54,10 @@ async function editSurah(uuid: string, formData: FormData) {
     }
 }
 
-export default async function Page({ params }: { params: { uuid: string } }) {
+export default async function Page({ params, searchParams }: { params: { uuid: string }, searchParams: { continue: string } }) {
     const surah = await getSurah(params.uuid);
+    const url = decodeURIComponent(searchParams.continue);
+    const urlWithoutParams = url.split("?")[0];
 
     return (
         <Container maxWidth="sm">
@@ -66,7 +69,8 @@ export default async function Page({ params }: { params: { uuid: string } }) {
                     "use server";
                     await editSurah(params.uuid, formData);
 
-                    redirect("/panel/mushaf/list");
+                    revalidatePath(urlWithoutParams);
+                    redirect(url);
                 }}
             >
                 <Stack>

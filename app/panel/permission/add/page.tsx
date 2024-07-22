@@ -30,7 +30,7 @@ async function addPermission(formData: FormData) {
 export default function Page() {
     return (
         <Container maxWidth="sm">
-            <h1>Add new Mushaf</h1>
+            <h1>Add new Permission</h1>
 
             <form
                 style={{ width: "100%" }}
