@@ -6,11 +6,11 @@ import {
     Container,
     InputField,
     Row,
-    Spacer,
     Stack,
 } from "@yakad/ui";
 import { Surah, SurahPeriod } from "../../surah";
 import BackButton from "../../../../(components)/BackButton";
+import { revalidatePath } from "next/cache";
 
 async function getSurah(uuid: string): Promise<Surah> {
     const response = await fetch(
@@ -53,8 +53,10 @@ async function editSurah(uuid: string, formData: FormData) {
     }
 }
 
-export default async function Page({ params }: { params: { uuid: string } }) {
+export default async function Page({ params, searchParams }: { params: { uuid: string }, searchParams: { continue: string } }) {
     const surah = await getSurah(params.uuid);
+    const url = decodeURIComponent(searchParams.continue);
+    const urlWithoutParams = url.split("?")[0];
 
     return (
         <Container maxWidth="sm">
@@ -66,7 +68,8 @@ export default async function Page({ params }: { params: { uuid: string } }) {
                     "use server";
                     await editSurah(params.uuid, formData);
 
-                    redirect("/panel/mushaf/list");
+                    revalidatePath(urlWithoutParams);
+                    redirect(url);
                 }}
             >
                 <Stack>
@@ -77,7 +80,6 @@ export default async function Page({ params }: { params: { uuid: string } }) {
                         name="name"
                         defaultValue={surah.surah_name}
                     />
-                    <p>The name of surah</p>
                     <InputField
                         variant="outlined"
                         placeholder="Period"
@@ -85,7 +87,6 @@ export default async function Page({ params }: { params: { uuid: string } }) {
                         name="period"
                         defaultValue={surah.surah_period as any}
                     />
-                    <p>The surah is makki or madani</p>
                     <InputField
                         variant="outlined"
                         placeholder="Surah Number"
@@ -93,7 +94,6 @@ export default async function Page({ params }: { params: { uuid: string } }) {
                         name="number"
                         defaultValue={surah.surah_number.toString()}
                     />
-                    <p>The number of surah</p>
                     <InputField
                         variant="outlined"
                         placeholder="Mushaf uuid"
@@ -101,7 +101,6 @@ export default async function Page({ params }: { params: { uuid: string } }) {
                         name="mushaf_uuid"
                         defaultValue={surah.mushaf_uuid}
                     />
-                    <p>The mushaf id that we want add the surah</p>
                     <Chekbox
                         label="Bismillah status"
                         name="bismillah_status"

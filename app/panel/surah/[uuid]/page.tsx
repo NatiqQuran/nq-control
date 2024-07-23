@@ -1,5 +1,7 @@
-import { Container } from "@yakad/ui";
+import { Button, Container, Hr, Row, Spacer, Table, Tbody, Td, Th, Thead, Tr } from "@yakad/ui";
 import { XdataMap } from "@yakad/x";
+import Link from "next/link";
+import DeleteButton from "../../../(components)/DeleteButton";
 
 interface SimpleSurah {
     mushaf_uuid: string;
@@ -36,26 +38,87 @@ export default async function ViewSurah({
     const singleSurah = await getSurah(params.uuid);
 
     return (
-        <Container maxWidth="xl">
-            <h1>surah number : {singleSurah.surah_number}</h1>
-            <h1>surah name : {singleSurah.surah_name}</h1>
-            <h1>surah ayahs : {singleSurah.number_of_ayahs}</h1>
-            <h1>surah uuid : {singleSurah.surah_uuid}</h1>
-            <h1>mushaf name : {singleSurah.mushaf_name}</h1>
-            <h1>mushaf uuid : {singleSurah.mushaf_uuid}</h1>
-            <h1>bismillah status : {singleSurah.bismillah_status}</h1>
-            <h1>
-                bismillah as first ayah : {singleSurah.bismillah_as_first_ayah}
-            </h1>
+        <Container maxWidth="lg">
+            <Row>
+                <h1>Surah: {singleSurah.surah_name}</h1>
+                <Spacer />
+                <Link
+                    href={`/panel/surah/edit/${singleSurah.surah_uuid}?continue=${encodeURIComponent(`/panel/surah/${singleSurah.surah_uuid}`)}`}
+                >
+                    <Button variant="filled">
+                        Edit
+                    </Button>
+                </Link>
 
-            <XdataMap
-                data={singleSurah.ayahs.map((ayah) => ({
-                    number: ayah.number,
-                    text: ayah.content.text,
-                    sajdeh: ayah.sajdeh,
-                    uuid: ayah.uuid,
-                }))}
-            />
+                <DeleteButton
+                    pagePath={"/panel/surah/list"}
+                    redirectTo={"/panel/surah/list?mushaf=" + singleSurah.mushaf_name}
+                    controller="surah"
+                    uuid={singleSurah.surah_uuid}
+                    variant="tonal"
+                />
+            </Row>
+            <Hr />
+            <p>surah number : {singleSurah.surah_number}</p>
+            <p>surah ayahs : {singleSurah.number_of_ayahs}</p>
+            <p>surah uuid : {singleSurah.surah_uuid}</p>
+            <p>mushaf name : {singleSurah.mushaf_name}</p>
+            <p>mushaf uuid : {singleSurah.mushaf_uuid}</p>
+            <p>bismillah status : {singleSurah.bismillah_status}</p>
+            <p>
+                bismillah as first ayah : {singleSurah.bismillah_as_first_ayah}
+            </p>
+
+            <Hr />
+            <Row>
+                <h2>List of Ayahs:</h2>
+                <Spacer />
+                <Button>Add Ayah</Button>
+            </Row>
+            <Table>
+                <Thead style={{ textAlign: "justify" }}>
+                    <Tr>
+                        <Th>Number</Th>
+                        <Th>Text</Th>
+                        <Th>Sajdeh</Th>
+                        <Th>More</Th>
+                    </Tr>
+                </Thead>
+                <Tbody>
+                    {singleSurah.ayahs.map((item, index) => (
+                        <Tr key={index}>
+                            <Td>{item.number}</Td>
+                            <Td>{item.content.text}</Td>
+                            <Td>{item.sajdeh}</Td>
+
+                            <Td>
+                                <Row>
+                                    <Link href={`/panel/ayah/${item.uuid}?surah_uuid=${singleSurah.surah_uuid}`}>
+                                        <Button size="small" variant="link">
+                                            View
+                                        </Button>
+                                    </Link>
+                                    <Link
+                                        href={`/panel/ayah/edit/${item.uuid}?continue=${encodeURIComponent("/panel/surah/" + singleSurah.surah_uuid)}`}
+                                    >
+                                        <Button size="small" variant="link">
+                                            Edit
+                                        </Button>
+                                    </Link>
+
+                                    <DeleteButton
+                                        pagePath={`/panel/surah/${singleSurah.surah_uuid}`}
+                                        controller="ayah"
+                                        uuid={item.uuid}
+                                        variant="link"
+                                        size="small"
+                                    />
+                                </Row>
+                            </Td>
+                        </Tr>
+                    ))}
+                </Tbody>
+            </Table>
         </Container>
     );
 }

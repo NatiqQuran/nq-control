@@ -66,7 +66,7 @@ export default async function Page({
                                         </Button>
                                     </Link>
                                     <Link
-                                        href={"/panel/surah/edit/" + item.uuid}
+                                        href={`/panel/surah/edit/${item.uuid}?continue=${encodeURIComponent("/panel/surah/list?mushaf=" + searchParams.mushaf)}`}
                                     >
                                         <Button size="small" variant="link">
                                             Edit
