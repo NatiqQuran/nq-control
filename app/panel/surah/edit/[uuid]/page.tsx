@@ -6,7 +6,6 @@ import {
     Container,
     InputField,
     Row,
-    Spacer,
     Stack,
 } from "@yakad/ui";
 import { Surah, SurahPeriod } from "../../surah";
@@ -81,7 +80,6 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                         name="name"
                         defaultValue={surah.surah_name}
                     />
-                    <p>The name of surah</p>
                     <InputField
                         variant="outlined"
                         placeholder="Period"
@@ -89,7 +87,6 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                         name="period"
                         defaultValue={surah.surah_period as any}
                     />
-                    <p>The surah is makki or madani</p>
                     <InputField
                         variant="outlined"
                         placeholder="Surah Number"
@@ -97,7 +94,6 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                         name="number"
                         defaultValue={surah.surah_number.toString()}
                     />
-                    <p>The number of surah</p>
                     <InputField
                         variant="outlined"
                         placeholder="Mushaf uuid"
@@ -105,7 +101,6 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                         name="mushaf_uuid"
                         defaultValue={surah.mushaf_uuid}
                     />
-                    <p>The mushaf id that we want add the surah</p>
                     <Chekbox
                         label="Bismillah status"
                         name="bismillah_status"

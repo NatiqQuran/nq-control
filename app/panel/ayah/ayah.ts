@@ -1,7 +1,11 @@
+import { Word } from "../word/word";
+
 interface Ayah {
     ayah_number: number;
     uuid: string;
     sajdeh: string;
+    text: string;
+    words: Word[];
 }
 
 export async function getAyah(uuid: string): Promise<Ayah> {
@@ -11,5 +15,4 @@ export async function getAyah(uuid: string): Promise<Ayah> {
 
     return response.json();
 }
-
 

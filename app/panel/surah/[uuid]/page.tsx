@@ -93,7 +93,7 @@ export default async function ViewSurah({
 
                             <Td>
                                 <Row>
-                                    <Link href={"/panel/ayah/" + item.uuid}>
+                                    <Link href={`/panel/ayah/${item.uuid}?surah_uuid=${singleSurah.surah_uuid}`}>
                                         <Button size="small" variant="link">
                                             View
                                         </Button>
