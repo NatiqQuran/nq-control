@@ -9,10 +9,12 @@ import {
     Row,
     List,
     ListItem,
+    DisplayOnScreen,
 } from "@yakad/ui";
 import LogoIcon from "./logoicon";
 import { Xbackground, XgetStart } from "@yakad/x";
 import ProfileButton from "./(components)/ProfileButton";
+import Symbol from "@yakad/symbols";
 
 const navListItems = [
     <ListItem key={0}>
@@ -31,9 +33,14 @@ export default async function Page() {
     return (
         <Pg>
             <AppBar style={{ gap: "1rem" }}>
-                <SvgIcon size={5}>
-                    <LogoIcon />
-                </SvgIcon>
+                <DisplayOnScreen largerThan="md">
+                    <SvgIcon size={5}>
+                        <LogoIcon />
+                    </SvgIcon>
+                </DisplayOnScreen>
+                <DisplayOnScreen smallerOrEqualTo="md">
+                    <Button icon={<Symbol icon="menu" />} />
+                </DisplayOnScreen>
                 <h1
                     style={{
                         fontFamily: "arial",
@@ -44,7 +51,9 @@ export default async function Page() {
                 >
                     Natiq
                 </h1>
-                <List>{navListItems.map((item) => item)}</List>
+                <DisplayOnScreen largerThan="md">
+                    <List>{navListItems.map((item) => item)}</List>
+                </DisplayOnScreen>
                 <Spacer />
                 <ProfileButton />
             </AppBar>
