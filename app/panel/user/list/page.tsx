@@ -8,59 +8,70 @@ import {
     Thead,
     Tr,
     Row,
-    Spacer,
 } from "@yakad/ui";
 import Link from "next/link";
 import DeleteButton from "../../../(components)/DeleteButton";
+import { cookies } from "next/headers";
+import { User } from "../user";
 
-interface SimpleMushaf {
-    name: string;
-    source: string;
-    uuid: string;
-}
+async function getUserList(): Promise<User[]> {
+    const response = await fetch(
+        `${process.env.API_URL}/user`,
+        {
+            headers: {
+                Authorization: cookies().get("token")?.value || "none",
+            }
+        }
+    );
 
-async function getMushafsList(): Promise<SimpleMushaf[]> {
-    const response = await fetch(`${process.env.API_URL}/mushaf`);
+    if (response.status !== 200) {
+        throw new Error(`Could't get users list, ${await response.text()}`);
+    }
 
     return response.json();
 }
 
 export default async function Page() {
-    const mushafsList = await getMushafsList();
+    const usersList = await getUserList();
 
     return (
         <Container maxWidth="xl">
-            <Row>
-                <h1>Mushaf List</h1>
-                <Spacer />
-                <Link href={"/panel/mushaf/add"}>
-                    <Button variant="outlined">Add Mushaf</Button>
-                </Link>
-            </Row>
+            <h1>Users List</h1>
             <Table>
                 <Thead style={{ textAlign: "justify" }}>
                     <Tr>
-                        <Th>Mushaf Name</Th>
-                        <Th>Mushaf Source</Th>
-                        <Th>Mushaf uuid</Th>
+                        <Th>UUID</Th>
+                        <Th>Email</Th>
+                        <Th>Username</Th>
+                        <Th>First Name</Th>
+                        <Th>Last Name</Th>
+                        <Th>Birthday</Th>
+                        <Th>Profile Image URL</Th>
+                        <Th>Language</Th>
                         <Th>More</Th>
                     </Tr>
                 </Thead>
                 <Tbody>
-                    {mushafsList.map((item, index) => (
+                    {usersList.map((item, index) => (
                         <Tr key={index}>
-                            <Td>{item.name}</Td>
-                            <Td>{item.source}</Td>
                             <Td>{item.uuid}</Td>
+                            <Td>{item.email}</Td>
+                            <Td>{item.username}</Td>
+                            <Td>{item.first_name}</Td>
+                            <Td>{item.last_name}</Td>
+                            <Td>{item.birthday}</Td>
+                            <Td>{item.profile_image}</Td>
+                            <Td>{item.language}</Td>
+
                             <Td>
                                 <Row>
-                                    <Link href={"/panel/mushaf/" + item.uuid}>
+                                    <Link href={"/panel/user/" + item.uuid}>
                                         <Button size="small" variant="link">
                                             View
                                         </Button>
                                     </Link>
                                     <Link
-                                        href={"/panel/mushaf/edit/" + item.uuid}
+                                        href={`/panel/user/edit/${item.uuid}?continue=${encodeURIComponent("/panel/user/list")}`}
                                     >
                                         <Button size="small" variant="link">
                                             Edit
@@ -68,8 +79,8 @@ export default async function Page() {
                                     </Link>
 
                                     <DeleteButton
-                                        pagePath="/panel/mushaf/list"
-                                        controller="mushaf"
+                                        pagePath="/panel/user/list"
+                                        controller="user"
                                         uuid={item.uuid}
                                         variant="link"
                                         size="small"

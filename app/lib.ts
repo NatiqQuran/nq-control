@@ -1,5 +1,8 @@
 "use server";
+
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function del(controller: string, uuid: string) {
     const response = await fetch(`${process.env.API_URL}/${controller}/${uuid}`,
@@ -16,3 +19,14 @@ export default async function del(controller: string, uuid: string) {
     }
 }
 
+export async function deleteAction(controller: string, uuid: string, redirectTo: string | null, pagePath: string) {
+
+    await del(controller, uuid)
+    if (redirectTo) {
+        revalidatePath(pagePath);
+        redirect(redirectTo);
+    } else {
+        revalidatePath(pagePath);
+    }
+
+}

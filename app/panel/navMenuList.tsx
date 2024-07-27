@@ -13,7 +13,7 @@ export default function NavMenuList() {
         {
             name: "Accounts",
             childs: [
-                { name: "Users" },
+                { name: "Users", onclick: () => router.push("/panel/user/list")},
                 { name: "Organizations" },
                 {
                     name: "Permissions",
