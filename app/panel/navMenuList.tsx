@@ -13,7 +13,7 @@ export default function NavMenuList() {
         {
             name: "Accounts",
             childs: [
-                { name: "Users" },
+                { name: "Users", onclick: () => router.push("/panel/user/list") },
                 { name: "Organizations" },
                 {
                     name: "Permissions",
@@ -28,7 +28,7 @@ export default function NavMenuList() {
                     name: "Mushafs",
                     onclick: () => router.push("/panel/mushaf/list"),
                 },
-                { name: "Translations" },
+                { name: "Translations", onclick: () => router.push("/panel/translation/list") },
                 { name: "By Word" },
                 { name: "Tafrsir" },
                 { name: "Recite" },
