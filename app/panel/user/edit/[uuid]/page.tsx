@@ -18,6 +18,7 @@ async function editUser(uuid: string, formData: FormData) {
     }
     const user = {
         username: formData.get("username")?.toString()!,
+        primary_email: formData.get("primary_email")?.toString()!,
         first_name: formData.get("first_name")?.toString()!,
         last_name: formData.get("last_name")?.toString()!,
         birthday: formData.get("birthday")?.toString()!,
@@ -65,6 +66,12 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                         placeholder="username"
                         name="username"
                         defaultValue={user.username}
+                    />
+                    <InputField
+                        type="email"
+                        placeholder="Primary Email"
+                        name="primary_email"
+                        defaultValue={user.email}
                     />
                     <InputField
                         type="text"
