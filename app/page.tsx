@@ -5,7 +5,7 @@ import {
     SvgIcon,
     Button,
     Spacer,
-    Page as Pg,
+    Page,
     Row,
     List,
     ListItem,
@@ -16,22 +16,14 @@ import { Xbackground, XgetStart } from "@yakad/x";
 import ProfileButton from "./(components)/ProfileButton";
 import Symbol from "@yakad/symbols";
 
-const navListItems = [
-    <ListItem key={0}>
-        <a href="https://natiq.net" target="_blank">
-            <Button style={{ width: "100%" }}>Quran</Button>
-        </a>
-    </ListItem>,
-    <ListItem key={1}>
-        <a href="https://blog.natiq.net/about" target="_blank">
-            <Button style={{ width: "100%" }}>About</Button>
-        </a>
-    </ListItem>,
+const navList = [
+    { name: "Quran", link: "https://natiq.net" },
+    { name: "About", link: "https://blog.natiq.net/about" },
 ];
 
-export default async function Page() {
+export default async function Intro() {
     return (
-        <Pg>
+        <Page>
             <AppBar style={{ gap: "1rem" }}>
                 <DisplayOnScreen largerThan="md">
                     <SvgIcon size={5}>
@@ -52,7 +44,17 @@ export default async function Page() {
                     Natiq
                 </h1>
                 <DisplayOnScreen largerThan="md">
-                    <List>{navListItems.map((item) => item)}</List>
+                    <List>
+                        {navList.map((item, index) => (
+                            <ListItem key={index}>
+                                <a href={item.link} target="_blank">
+                                    <Button style={{ width: "100%" }}>
+                                        {item.name}
+                                    </Button>
+                                </a>
+                            </ListItem>
+                        ))}
+                    </List>
                 </DisplayOnScreen>
                 <Spacer />
                 <ProfileButton />
@@ -125,6 +127,6 @@ export default async function Page() {
                     </XgetStart>
                 </Xbackground>
             </Main>
-        </Pg>
+        </Page>
     );
 }
