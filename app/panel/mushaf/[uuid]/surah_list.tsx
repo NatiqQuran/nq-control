@@ -12,8 +12,6 @@ import {
 import Link from "next/link";
 import DeleteButton from "../../../(components)/DeleteButton";
 
-export const dynamic = "force-dynamic";
-
 interface ListSurah {
     uuid: string;
     name: string;
@@ -30,12 +28,8 @@ async function getSurahsList(mushaf: string): Promise<ListSurah[]> {
     return response.json();
 }
 
-export default async function Page({
-    searchParams,
-}: {
-    searchParams: { mushaf: string };
-}) {
-    const surahsList = await getSurahsList(searchParams.mushaf);
+export default async function SurahList({ mushaf }: { mushaf: string }) {
+    const surahsList = await getSurahsList(mushaf);
 
     return (
         <Container maxWidth="xl">
@@ -66,7 +60,7 @@ export default async function Page({
                                         </Button>
                                     </Link>
                                     <Link
-                                        href={`/panel/surah/edit/${item.uuid}?continue=${encodeURIComponent("/panel/surah/list?mushaf=" + searchParams.mushaf)}`}
+                                        href={`/panel/surah/edit/${item.uuid}?continue=${encodeURIComponent("/panel/surah/list?mushaf=" + mushaf)}`}
                                     >
                                         <Button size="small" variant="link">
                                             Edit

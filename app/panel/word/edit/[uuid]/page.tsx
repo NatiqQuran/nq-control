@@ -52,7 +52,6 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                         name="word"
                         defaultValue={word.word}
                     />
-                    <p>Word Text</p>
                     <Row align="end">
                         <BackButton>Cancel</BackButton>
                         <Button variant="filled">Edit</Button>
