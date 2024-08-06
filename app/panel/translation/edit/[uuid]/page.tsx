@@ -18,7 +18,7 @@ async function editTranslation(uuid: string, formData: FormData) {
         translator_account_uuid: formData.get("translator_account_uuid")?.toString() || null,
         language: formData.get("language")?.toString()!,
         source: formData.get("source")?.toString()!,
-        completed: formData.get("completed")?.toString()! === "on"
+        approved: formData.get("approved")?.toString()! === "on"
             ? true
             : false,
     };
@@ -82,9 +82,9 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                     />
 
                     <Chekbox
-                        name="completed"
-                        label="Completed"
-                        checked={translation.completed}
+                        name="approved"
+                        label="Approved"
+                        checked={translation.approved}
                     />
 
                     <Row align="end">

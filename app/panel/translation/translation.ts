@@ -1,10 +1,19 @@
+interface TranslationAyah {
+    uuid: string;
+    text_uuid?: string;
+    number: number;
+    surah_number: number;
+    text?: string;
+}
+
 export interface Translation {
     mushaf_uuid: string;
     translator_acccount_uuid: string;
     language: string;
     release_date?: string;
     source?: string;
-    completed: boolean;
+    approved: boolean;
+    ayahs: TranslationAyah[];
 }
 
 export async function getTranslation(uuid: string): Promise<Translation> {
