@@ -18,7 +18,7 @@ interface SimpleTranslation {
     language: string;
     release_date: string;
     source: string;
-    completed: boolean;
+    approved: boolean;
 }
 
 async function getTranslationsList(): Promise<SimpleTranslation[]> {
@@ -46,7 +46,7 @@ export default async function Page() {
                         <Th>Language</Th>
                         <Th>Release date</Th>
                         <Th>Source</Th>
-                        <Th>Completed</Th>
+                        <Th>Approved</Th>
                         <Th>More</Th>
                     </Tr>
                 </Thead>
@@ -57,7 +57,9 @@ export default async function Page() {
                             <Td>{item.language}</Td>
                             <Td>{item.release_date}</Td>
                             <Td>{item.source}</Td>
-                            <Td style={{ fontSize: "30px", display: "flex", justifyContent: "center" }}>{item.completed ? "✓" : "✕"}</Td>
+                            <Td style={{ fontSize: "30px", display: "flex", justifyContent: "center" }}>
+                                {item.approved ? "✓" : "✕"}
+                            </Td>
                             <Td>
                                 <Row>
                                     <Link href={"/panel/translation/" + item.uuid}>
