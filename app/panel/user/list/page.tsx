@@ -8,6 +8,7 @@ import {
     Thead,
     Tr,
     Row,
+    Spacer,
 } from "@yakad/ui";
 import Link from "next/link";
 import DeleteButton from "../../../(components)/DeleteButton";
@@ -36,7 +37,14 @@ export default async function Page() {
 
     return (
         <Container maxWidth="xl">
-            <h1>Users List</h1>
+            <Row >
+                <h1>Users List</h1>
+                <Spacer />
+
+                <Link href={"/panel/user/add"}>
+                    <Button variant="outlined">Add User</Button>
+                </Link>
+            </Row>
             <Table>
                 <Thead style={{ textAlign: "justify" }}>
                     <Tr>

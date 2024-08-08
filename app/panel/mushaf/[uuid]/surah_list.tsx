@@ -8,6 +8,7 @@ import {
     Thead,
     Tr,
     Row,
+    Spacer,
 } from "@yakad/ui";
 import Link from "next/link";
 import DeleteButton from "../../../(components)/DeleteButton";
@@ -28,12 +29,18 @@ async function getSurahsList(mushaf: string): Promise<ListSurah[]> {
     return response.json();
 }
 
-export default async function SurahList({ mushaf }: { mushaf: string }) {
+export default async function SurahList({ mushaf, mushaf_uuid }: { mushaf: string, mushaf_uuid: string }) {
     const surahsList = await getSurahsList(mushaf);
 
     return (
         <Container maxWidth="xl">
-            <h1>Surah List</h1>
+            <Row>
+                <h1>Surah List</h1>
+                <Spacer />
+                <Link href="/panel/surah/add">
+                    <Button variant="outlined">Add surah</Button>
+                </Link>
+            </Row>
             <Table>
                 <Thead style={{ textAlign: "justify" }}>
                     <Tr>
@@ -60,7 +67,7 @@ export default async function SurahList({ mushaf }: { mushaf: string }) {
                                         </Button>
                                     </Link>
                                     <Link
-                                        href={`/panel/surah/edit/${item.uuid}?continue=${encodeURIComponent("/panel/surah/list?mushaf=" + mushaf)}`}
+                                        href={`/panel/surah/edit/${item.uuid}?continue=${encodeURIComponent("/panel/mushaf/" + mushaf_uuid)}`}
                                     >
                                         <Button size="small" variant="link">
                                             Edit
