@@ -1,11 +1,11 @@
 export interface User {
-    uuid: string;
-    email: string;
+    uuid?: string;
+    primary_email: string;
     username: string;
     first_name: string;
     last_name: string;
     birthday: string;
-    profile_image: string;
+    profile_image?: string;
     language: string;
 }
 

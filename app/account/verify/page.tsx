@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { verify } from "./lib";
-import { Button, CodeField, Hr, Row, Stack } from "@yakad/ui";
+import { Button, CodeField, Hr, Stack } from "@yakad/ui";
 import BackButton from "../../(components)/BackButton";
 
 export default function Page({
