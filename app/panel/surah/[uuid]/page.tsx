@@ -1,5 +1,4 @@
 import { Button, Container, Hr, Row, Spacer, Table, Tbody, Td, Th, Thead, Tr } from "@yakad/ui";
-import { XdataMap } from "@yakad/x";
 import Link from "next/link";
 import DeleteButton from "../../../(components)/DeleteButton";
 
@@ -38,7 +37,7 @@ export default async function ViewSurah({
     const singleSurah = await getSurah(params.uuid);
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
             <Row>
                 <h1>Surah: {singleSurah.surah_name}</h1>
                 <Spacer />
@@ -73,7 +72,9 @@ export default async function ViewSurah({
             <Row>
                 <h2>List of Ayahs:</h2>
                 <Spacer />
-                <Button>Add Ayah</Button>
+                <Link href={`/panel/ayah/add?surah_uuid=${params.uuid}&continue=${encodeURIComponent(`/panel/surah/${params.uuid}`)}`}>
+                    <Button variant="outlined">Add Ayah</Button>
+                </Link>
             </Row>
             <Table>
                 <Thead style={{ textAlign: "justify" }}>

@@ -7,7 +7,7 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
     const ayah = await getAyah(params.uuid);
     return (
 
-        <Container maxWidth="lg">
+        <Container maxWidth="xl">
             <Row>
                 <h1>Ayah Number: {ayah.ayah_number}</h1>
                 <Spacer />
