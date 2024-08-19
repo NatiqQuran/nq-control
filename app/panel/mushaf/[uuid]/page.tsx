@@ -62,7 +62,7 @@ export default async function ViewMushaf({
 
 
             </Container>
-            <SurahList mushaf={mushaf.name} mushaf_uuid={mushaf.uuid} />
+            <SurahList mushaf={mushaf.short_name} mushaf_uuid={mushaf.uuid} />
         </>
     );
 }

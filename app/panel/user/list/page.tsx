@@ -13,27 +13,10 @@ import {
 import Link from "next/link";
 import DeleteButton from "../../../(components)/DeleteButton";
 import { cookies } from "next/headers";
-import { User } from "../user";
-
-async function getUserList(): Promise<User[]> {
-    const response = await fetch(
-        `${process.env.API_URL}/user`,
-        {
-            headers: {
-                Authorization: cookies().get("token")?.value || "none",
-            }
-        }
-    );
-
-    if (response.status !== 200) {
-        throw new Error(`Could't get users list, ${await response.text()}`);
-    }
-
-    return response.json();
-}
+import { User, getUserList } from "../user";
 
 export default async function Page() {
-    const usersList = await getUserList();
+    const usersList: User[] = await getUserList(cookies().get("token")?.value || "none");
 
     return (
         <Container maxWidth="xl">
@@ -63,7 +46,7 @@ export default async function Page() {
                     {usersList.map((item, index) => (
                         <Tr key={index}>
                             <Td>{item.uuid}</Td>
-                            <Td>{item.email}</Td>
+                            <Td>{item.primary_email}</Td>
                             <Td>{item.username}</Td>
                             <Td>{item.first_name}</Td>
                             <Td>{item.last_name}</Td>
@@ -89,7 +72,7 @@ export default async function Page() {
                                     <DeleteButton
                                         pagePath="/panel/user/list"
                                         controller="user"
-                                        uuid={item.uuid}
+                                        uuid={item.uuid!}
                                         variant="link"
                                         size="small"
                                     />

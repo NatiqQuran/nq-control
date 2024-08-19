@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { Button, Container, InputField, Row, Stack } from "@yakad/ui";
+import { Button, Container, InputField, Row, Select, Stack } from "@yakad/ui";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import BackButton from "../../../(components)/BackButton";
@@ -47,12 +47,11 @@ export default async function Page({ searchParams }: { searchParams: { continue:
                 }}
             >
                 <Stack>
-                    <p>Sajdeh</p>
-                    <select name="sajdeh">
+                    <Select name="sajdah" placeholder="Sajdah">
                         <option value="none">None</option>
                         <option value="mostahab">Mostahab</option>
                         <option value="vajib">Vajib</option>
-                    </select>
+                    </Select>
 
                     <InputField
                         variant="outlined"

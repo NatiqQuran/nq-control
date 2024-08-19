@@ -15,6 +15,7 @@ import DeleteButton from "../../../(components)/DeleteButton";
 
 interface SimpleMushaf {
     name: string;
+    short_name: string;
     source: string;
     uuid: string;
 }
@@ -41,6 +42,7 @@ export default async function Page() {
                 <Thead style={{ textAlign: "justify" }}>
                     <Tr>
                         <Th>Mushaf Name</Th>
+                        <Th>Mushaf Short Name</Th>
                         <Th>Mushaf Source</Th>
                         <Th>Mushaf uuid</Th>
                         <Th>More</Th>
@@ -50,6 +52,7 @@ export default async function Page() {
                     {mushafsList.map((item, index) => (
                         <Tr key={index}>
                             <Td>{item.name}</Td>
+                            <Td>{item.short_name}</Td>
                             <Td>{item.source}</Td>
                             <Td>{item.uuid}</Td>
                             <Td>

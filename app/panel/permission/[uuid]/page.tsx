@@ -26,7 +26,9 @@ export default async function ViewPermission({
     return (
         <Container maxWidth="xl">
             <h1>Permission uuid : {permission.uuid}</h1>
-            <h1>Permission subject : {permission.subject}</h1>
+            <h1>Account username  : {permission.account.username}</h1>
+            <h1>Account First name  : {permission.account.first_name}</h1>
+            <h1>Account Last name  : {permission.account.last_name}</h1>
             <h1>Permission object: {permission.object}</h1>
         </Container>
     );
