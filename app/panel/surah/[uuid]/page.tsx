@@ -17,7 +17,7 @@ interface SimpleSurah {
         number: number;
         uuid: string;
         sajdeh: string;
-        content: { text: string };
+        text: string;
     }[];
 }
 
@@ -89,7 +89,7 @@ export default async function ViewSurah({
                     {singleSurah.ayahs.map((item, index) => (
                         <Tr key={index}>
                             <Td>{item.number}</Td>
-                            <Td>{item.content.text}</Td>
+                            <Td>{item.text}</Td>
                             <Td>{item.sajdeh}</Td>
 
                             <Td>

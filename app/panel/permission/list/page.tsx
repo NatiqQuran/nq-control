@@ -17,7 +17,12 @@ import Link from "next/link";
 
 export interface Permission {
     uuid?: string;
-    subject: string;
+    account: {
+        uuid: string | null;
+        username: string | null;
+        first_name: string | null;
+        last_name: string | null;
+    };
     object: string;
     action: "create" | "delete" | "edit" | "view";
     conditions: PermissionCondition[];
@@ -59,7 +64,7 @@ export default async function Page() {
                 <Thead style={{ textAlign: "justify" }}>
                     <Tr>
                         <Th>UUID</Th>
-                        <Th>Subject</Th>
+                        <Th>Account</Th>
                         <Th>Object</Th>
                         <Th>Action</Th>
                         <Th>Conditions</Th>
@@ -70,7 +75,7 @@ export default async function Page() {
                     {permissions.map((item, index) => (
                         <Tr key={index}>
                             <Td>{item.uuid}</Td>
-                            <Td>{item.subject}</Td>
+                            <Td>{item.account.username}</Td>
                             <Td>{item.object}</Td>
                             <Td>{item.action}</Td>
                             <Td>{item.conditions.length} item</Td>

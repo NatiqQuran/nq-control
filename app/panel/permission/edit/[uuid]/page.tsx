@@ -1,9 +1,10 @@
-import { Button, Container, InputField, Row, Stack } from "@yakad/ui";
+import { Button, Container, InputField, Row, Select, Stack } from "@yakad/ui";
 import React from "react";
 import { cookies } from "next/headers";
 import { Permission } from "../../list/page";
 import BackButton from "../../../../(components)/BackButton";
 import { redirect } from "next/navigation";
+import UsersSelect from "../../../../(components)/UsersSelect";
 
 async function getPermission(uuid: string): Promise<Response> {
     const response = await fetch(`${process.env.API_URL}/permission/${uuid}`, {
@@ -69,28 +70,27 @@ export default async function EditPermission({
                 }}
             >
                 <Stack>
-                    <InputField
-                        placeholder="subject (user id)"
-                        type="string"
+                    <UsersSelect
+                        placeholder="Subject"
                         name="subject"
-                        defaultValue={permission.subject}
+                        defaultValue={permission.account.uuid!}
                     />
 
                     <InputField
-                        placeholder="object (resource i.e organization)"
+                        variant="outlined"
+                        placeholder="Object"
                         type="string"
                         name="object"
                         defaultValue={permission.object}
                     />
 
-                    <label>Action: </label>
-
-                    <select name="action">
+                    <Select name="action" placeholder="Action" defaultValue={permission.action}>
                         <option value="create">Create</option>
                         <option value="view">View</option>
                         <option value="delete">Delete</option>
                         <option value="edit">Edit</option>
-                    </select>
+                    </Select>
+
 
                     <Row align="end">
                         <BackButton>Cancel</BackButton>
