@@ -43,6 +43,15 @@ export default function NavMenuList() {
                 },
             ],
         },
+        {
+            name: "Manage Apps",
+            childs: [
+                {
+                    name: "App Translation",
+                    onclick: () => router.push("/panel/app_translation")
+                }
+            ]
+        }
     ];
 
     return <XmenuList menuItems={menuItems} />;
