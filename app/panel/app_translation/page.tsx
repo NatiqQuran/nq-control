@@ -12,7 +12,7 @@ import {
 } from "@yakad/ui";
 import Link from "next/link";
 import { cookies } from "next/headers";
-import DeleteButton from "../../(components)/DeleteButton";
+import NewLang from "./newLangSupport";
 
 async function phrase_list() {
     const response = await fetch(
@@ -44,6 +44,7 @@ export default async function Page() {
                         Phrases
                     </Button>
                 </Link>
+                <NewLang />
             </Row>
             <Table>
                 <Thead style={{ textAlign: "justify" }}>

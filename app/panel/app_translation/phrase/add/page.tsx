@@ -35,8 +35,8 @@ export default async function Page() {
                     "use server";
                     await addPhrase(formData);
 
-                    revalidatePath("/panel/phrase/list");
-                    redirect("/panel/phrase/list");
+                    revalidatePath("/panel/app_translation/phrase/list");
+                    redirect("/panel/app_translation/phrase/list");
                 }}
             >
                 <Stack>

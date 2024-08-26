@@ -15,6 +15,8 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import { get_phrase } from "../../phrase/phrase";
 import { revalidatePath } from "next/cache";
+import SaveBtn from "./saveBtn";
+import BackButton from "../../../../(components)/BackButton";
 
 type Phrases = { phrase: string, translation: string }[];
 
@@ -23,12 +25,14 @@ async function updateTranslations(formData: FormData, phrases: Phrases, lang: st
 
     for (const item of phrases) {
         Object.defineProperty(result, formData.get(item.phrase)?.toString()!, {
-            value: formData.get(item.translation)?.toString()!,
+            value: formData.get(item.translation || `${item.phrase}T`)?.toString() || "",
             writable: true,
             enumerable: true,
             configurable: true,
         })
     }
+
+    console.log(result)
 
     const response = await fetch(`${process.env.API_URL}/phrase/${lang}`, {
         method: "POST",
@@ -73,7 +77,6 @@ export default async function Page({ params }: {
                 await updateTranslations(formData, phrases, params.language);
                 revalidatePath(`/panel/app_translation/edit/${params.language}`)
             }}>
-                <Button>Edit</Button>
                 <Table>
                     <Thead style={{ textAlign: "justify" }}>
                         <Tr>
@@ -92,16 +95,19 @@ export default async function Page({ params }: {
                                     </Td>
 
                                     <Td>
-                                        <InputField name={phrase.translation} defaultValue={phrase.translation} />
+                                        <InputField name={phrase.translation || `${phrase.phrase}T`} defaultValue={phrase.translation} />
                                     </Td>
                                 </Tr>
                             )
                         }
                     </Tbody>
-
                 </Table>
+                <Row>
+                    <BackButton variant="outlined"/>
+                    <SaveBtn />
+                </Row>
             </form>
 
-        </Container >
+        </Container>
     );
 }

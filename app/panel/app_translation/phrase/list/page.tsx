@@ -39,6 +39,7 @@ export default async function Page() {
                 <Thead style={{ textAlign: "justify" }}>
                     <Tr>
                         <Th>Phrase</Th>
+                        <Th>More</Th>
                     </Tr>
                 </Thead>
 
@@ -49,6 +50,16 @@ export default async function Page() {
                             <Tr key={key}>
                                 <Td>
                                     {phrase}
+                                </Td>
+
+                                <Td>
+                                    <DeleteButton
+                                        pagePath="/panel/app_translation/phrase/list"
+                                        controller="phrase"
+                                        uuid={phrase}
+                                        variant="link"
+                                        size="small"
+                                    />
                                 </Td>
                             </Tr>
                         )
