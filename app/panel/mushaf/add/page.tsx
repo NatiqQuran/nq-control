@@ -1,30 +1,6 @@
-import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
-import { Mushaf } from "../mushaf";
-import { cookies } from "next/headers";
+import { Button, Container, InputField, Row, Stack } from "@yakad/ui";
 import BackButton from "../../../(components)/BackButton";
-
-async function addMushaf(formData: FormData) {
-    const requestBody: Mushaf = {
-        name: formData.get("name")?.toString()!,
-        short_name: formData.get("short_name")?.toString()!,
-        source: formData.get("source")?.toString()!,
-        bismillah_text: formData.get("bismillah_text")?.toString()!,
-    };
-
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/mushaf`, {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: cookies().get("token")?.value || "none",
-        },
-        body: JSON.stringify(requestBody),
-    });
-
-    if (response.status !== 200) {
-        throw new Error(`Could't add new mushaf, ${await response.text()}`);
-    }
-}
+import { controllerMushaf } from "../../../connnection";
 
 export default function Page() {
     return (
@@ -35,7 +11,15 @@ export default function Page() {
                 style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
-                    await addMushaf(formData);
+
+                    const requestBody = {
+                        name: formData.get("name")?.toString()!,
+                        short_name: formData.get("short_name")?.toString()!,
+                        source: formData.get("source")?.toString()!,
+                        bismillah_text: formData.get("bismillah_text")?.toString()!,
+                    };
+
+                    await controllerMushaf.add(requestBody, {});
                 }}
             >
                 <Stack>

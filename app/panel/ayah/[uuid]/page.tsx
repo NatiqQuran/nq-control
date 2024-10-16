@@ -1,12 +1,11 @@
 import { Button, Container, Hr, Row, Spacer, Table, Tbody, Td, Th, Thead, Tr } from "@yakad/ui";
-import { getAyah } from "../ayah";
 import DeleteButton from "../../../(components)/DeleteButton";
 import Link from "next/link";
+import { controllerAyah } from "../../../connnection";
 
 export default async function Page({ params, searchParams }: { params: { uuid: string }, searchParams: { surah_uuid: string } }) {
-    const ayah = await getAyah(params.uuid);
+    const ayah = (await controllerAyah.view(params.uuid, {})).data;
     return (
-
         <Container maxWidth="xl">
             <Row>
                 <h1>Ayah Number: {ayah.ayah_number}</h1>
@@ -33,7 +32,7 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                 <div>
                     <p>Number: {ayah.ayah_number}</p>
                     <p>UUID: {ayah.uuid}</p>
-                    <p>sajdeh: {ayah.sajdeh}</p>
+                    <p>sajdeh: {ayah.sajdah}</p>
                 </div>
 
             </Row>

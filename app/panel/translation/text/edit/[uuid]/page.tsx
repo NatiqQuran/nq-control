@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import {
     Button,
@@ -8,15 +7,19 @@ import {
     Stack,
 } from "@yakad/ui";
 import { revalidatePath } from "next/cache";
-import { getTranslationText } from "../../translation_text";
 import BackButton from "../../../../../(components)/BackButton";
+import { controllerTranslation } from "../../../../../connnection";
 
 
 export default async function Page(
     { params, searchParams }: { params: { uuid: string }, searchParams: { ayah_uuid: string, continue: string } }
 ) {
 
-    const translation_text = await getTranslationText(params.uuid, searchParams.ayah_uuid);
+    const translation_text =
+        (await controllerTranslation
+            .text()
+            .view(params.uuid, { params: { ayah_uuid: searchParams.ayah_uuid } })).data;
+
     const url = decodeURIComponent(searchParams.continue);
     const urlWithoutParams = url.split("?")[0];
     return (
@@ -27,7 +30,13 @@ export default async function Page(
                 style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
-                    await editText(params.uuid, searchParams.ayah_uuid, formData);
+                    const data = {
+                        text: formData.get("text")?.toString()!,
+                    };
+
+                    await controllerTranslation
+                        .text()
+                        .modify(params.uuid, data, { params: { ayah_uuid: searchParams.ayah_uuid } as any });
 
                     revalidatePath(urlWithoutParams);
                     redirect(url);
@@ -48,28 +57,7 @@ export default async function Page(
 
                 </Stack>
             </form>
-        </Container>
+        </Container >
 
     );
 }
-
-async function editText(translation_uuid: string, ayah_uuid: string, formData: FormData) {
-    const text = {
-        text: formData.get("text")?.toString()!,
-    };
-
-    const response = await fetch(`${process.env.API_URL}/translation/text/${translation_uuid}?ayah_uuid=${ayah_uuid}`, {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: cookies().get("token")?.value || "none",
-        },
-        body: JSON.stringify(text),
-    });
-
-    if (response.status !== 200) {
-        throw new Error(`You can't edit this translation text!, ${await response.text()}`);
-    }
-}
-

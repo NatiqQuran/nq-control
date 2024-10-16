@@ -1,11 +1,12 @@
 import { Button, Container, Hr, Row, Spacer } from "@yakad/ui";
 import Link from "next/link";
-import { TranslationText, getTranslationText } from "../translation_text";
+import { controllerTranslation } from "../../../../connnection";
 
 export default async function Page(
     { params, searchParams }: { params: { uuid: string }, searchParams: { ayah_uuid: string } }
 ) {
-    const translation_text: TranslationText = await getTranslationText(params.uuid, searchParams.ayah_uuid);
+    const translation_text = (await controllerTranslation.text()
+        .view(params.uuid, { params: { ayah_uuid: searchParams.ayah_uuid } })).data;
 
     return (
         <Container maxWidth="lg">

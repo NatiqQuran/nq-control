@@ -1,40 +1,36 @@
-"use client";
 
 import React from "react";
-import { useRouter } from "next/navigation";
-import { useFetch, useForm } from "@yakad/lib";
-import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
+import { Button, Container, InputField, Row, Stack } from "@yakad/ui";
 import BackButton from "../../../(components)/BackButton";
+import { controllerSurah } from "../../../connnection";
+import { SurahViewRequestData } from "@ntq/sdk/build/interfaces/surah";
+import { Period } from "@ntq/sdk/build/interfaces/utils";
 
-export default function AddSurah() {
-    const router = useRouter();
-
-    const [data, handle] = useForm({
-        name: null,
-        mushaf_uuid: null,
-        number: null,
-        period: null,
-        bismillah_status: null,
-        bismillah_as_first_ayah: null,
-    });
-
-    const fetch = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/surah`, {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    });
-
+export default function Page() {
     return (
         <Container maxWidth="sm">
             <h1>Add Surah</h1>
 
             <form
                 style={{ width: "100%" }}
-                onChange={handle}
-                onSubmit={fetch.send}
+                action={async (form) => {
+                    "use server";
+
+                    const data: SurahViewRequestData = {
+                        name: form.get("name")?.toString()!,
+                        number: parseInt(form.get("number")?.toString()!),
+                        period: form.get("period")?.toString()! as Period,
+                        mushaf_uuid: form.get("mushaf_uuid")?.toString()!,
+                        bismillah_status: form.get("bismillah_status")?.toString()! === "on" ? true : false,
+                        name_pronunciation: form.get("name_pronunciation")?.toString()!,
+                        name_transliteration: form.get("name_transliteration")?.toString()!,
+                        bismillah_as_first_ayah: form.get("bismillah_as_first_ayah")?.toString()! === "on" ? true : false,
+                        name_translation_phrase: form.get("name_translation_phrase")?.toString()!
+                    }
+
+                    await controllerSurah.add(data, {});
+
+                }}
             >
                 <Stack>
                     <InputField
@@ -43,6 +39,26 @@ export default function AddSurah() {
                         type="string"
                         name="name"
                     />
+                    <InputField
+                        variant="outlined"
+                        placeholder="Name Pronunciation"
+                        type="string"
+                        name="name_pronunciation"
+                    />
+                    <InputField
+                        variant="outlined"
+                        placeholder="Name Transliteration"
+                        type="string"
+                        name="name_transliteration"
+                    />
+                    <InputField
+                        variant="outlined"
+                        placeholder="Name Translation Phrase"
+                        type="string"
+                        name="name_translation_phrase"
+                    />
+
+
                     <p>The name of surah</p>
                     <InputField
                         variant="outlined"
@@ -74,14 +90,10 @@ export default function AddSurah() {
                         The surah start with bismillah, start with bismillah as
                         first ayah or start without bismillah
                     </p>
+
                     <Row align="end">
                         <BackButton>Cancel</BackButton>
-                        <Button
-                            loadingVariant="spinner"
-                            onClick={fetch.send}
-                            variant="filled"
-                            disabled={fetch.loading}
-                        >
+                        <Button>
                             Add
                         </Button>
                     </Row>

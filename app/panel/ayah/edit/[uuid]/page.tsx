@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import {
     Button,
@@ -9,31 +8,10 @@ import {
 } from "@yakad/ui";
 import BackButton from "../../../../(components)/BackButton";
 import { revalidatePath } from "next/cache";
-import { getAyah } from "../../ayah";
-
-async function editAyah(uuid: string, formData: FormData) {
-    const ayah = {
-        ayah_number: parseInt(formData.get("ayah_number")?.toString()!),
-        sajdeh: formData.get("sajdeh")?.toString()!
-    };
-
-    const response = await fetch(`${process.env.API_URL}/ayah/${uuid}`, {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: cookies().get("token")?.value || "none",
-        },
-        body: JSON.stringify(ayah),
-    });
-
-    if (response.status !== 200) {
-        throw new Error(`You can't edit this ayah!, ${await response.text()}`);
-    }
-}
+import { controllerAyah } from "../../../../connnection";
 
 export default async function Page({ params, searchParams }: { params: { uuid: string }, searchParams: { continue: string } }) {
-    const ayah = await getAyah(params.uuid);
+    const ayah = (await controllerAyah.view(params.uuid, {})).data;
     const url = decodeURIComponent(searchParams.continue);
     const urlWithoutParams = url.split("?")[0];
 
@@ -45,7 +23,13 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                 style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
-                    await editAyah(params.uuid, formData);
+
+                    const ayah = {
+                        ayah_number: parseInt(formData.get("ayah_number")?.toString()!),
+                        sajdeh: formData.get("sajdeh")?.toString()!
+                    };
+
+                    await controllerAyah.edit(params.uuid, ayah as any, {});
 
                     revalidatePath(urlWithoutParams);
                     redirect(url);

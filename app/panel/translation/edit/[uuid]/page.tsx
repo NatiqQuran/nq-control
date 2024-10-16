@@ -1,9 +1,6 @@
-
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import {
     Button,
-    Chekbox,
     Container,
     InputField,
     Row,
@@ -11,35 +8,10 @@ import {
 } from "@yakad/ui";
 import BackButton from "../../../../(components)/BackButton";
 import { revalidatePath } from "next/cache";
-import { getTranslation } from "../../translation";
-
-async function editTranslation(uuid: string, formData: FormData) {
-    const translation = {
-        translator_account_uuid: formData.get("translator_account_uuid")?.toString() || null,
-        language: formData.get("language")?.toString()!,
-        source: formData.get("source")?.toString()!,
-        approved: formData.get("approved")?.toString()! === "on"
-            ? true
-            : false,
-    };
-
-    const response = await fetch(`${process.env.API_URL}/translation/${uuid}`, {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: cookies().get("token")?.value || "none",
-        },
-        body: JSON.stringify(translation),
-    });
-
-    if (response.status !== 200) {
-        throw new Error(`You can't edit this translation!, ${await response.text()}`);
-    }
-}
+import { controllerTranslation } from "../../../../connnection";
 
 export default async function Page({ params, searchParams }: { params: { uuid: string }, searchParams: { continue: string } }) {
-    const translation = await getTranslation(params.uuid);
+    const translation = (await controllerTranslation.view(params.uuid, {})).data;
     const url = decodeURIComponent(searchParams.continue);
     const urlWithoutParams = url.split("?")[0];
 
@@ -51,7 +23,16 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                 style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
-                    await editTranslation(params.uuid, formData);
+
+                    const translation = {
+                        translator_account_uuid: formData.get("translator_account_uuid")?.toString() || null,
+                        language: formData.get("language")?.toString()!,
+                        source: formData.get("source")?.toString()!,
+                        bismillah: formData.get("bismillah")?.toString()!,
+                    };
+
+
+                    await controllerTranslation.edit(params.uuid, translation as any, {});
 
                     revalidatePath(urlWithoutParams);
                     redirect(url);
@@ -63,7 +44,7 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                         placeholder="Translator Account UUID"
                         type="string"
                         name="translator_account_uuid"
-                        defaultValue={translation.translator_acccount_uuid}
+                        defaultValue={translation.translator.account_uuid}
                     />
                     <InputField
                         variant="outlined"
@@ -80,11 +61,12 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                         name="language"
                         defaultValue={translation.language}
                     />
-
-                    <Chekbox
-                        name="approved"
-                        label="Approved"
-                        checked={translation.approved}
+                    <InputField
+                        variant="outlined"
+                        placeholder="Bismillah"
+                        type="string"
+                        name="bismillah"
+                        defaultValue={translation.bismillah}
                     />
 
                     <Row align="end">
