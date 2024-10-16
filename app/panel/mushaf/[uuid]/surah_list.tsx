@@ -12,25 +12,10 @@ import {
 } from "@yakad/ui";
 import Link from "next/link";
 import DeleteButton from "../../../(components)/DeleteButton";
-
-interface ListSurah {
-    uuid: string;
-    name: string;
-    number: number;
-    number_of_ayahs: number;
-    period: "makki" | "madani" | null;
-}
-
-async function getSurahsList(mushaf: string): Promise<ListSurah[]> {
-    const response = await fetch(
-        `${process.env.API_URL}/surah?mushaf=${mushaf}`
-    );
-
-    return response.json();
-}
+import { controllerSurah } from "../../../connnection";
 
 export default async function SurahList({ mushaf, mushaf_uuid }: { mushaf: string, mushaf_uuid: string }) {
-    const surahsList = await getSurahsList(mushaf);
+    const surahsList = (await controllerSurah.list({ params: { mushaf: mushaf } })).data;
 
     return (
         <Container maxWidth="xl">
@@ -55,7 +40,7 @@ export default async function SurahList({ mushaf, mushaf_uuid }: { mushaf: strin
                     {surahsList.map((item, index) => (
                         <Tr key={index}>
                             <Td>{item.number}</Td>
-                            <Td>{item.name}</Td>
+                            <Td>{item.names[0].arabic}</Td>
                             <Td>{item.number_of_ayahs}</Td>
                             <Td>{item.period}</Td>
 

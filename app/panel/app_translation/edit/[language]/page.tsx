@@ -10,6 +10,7 @@ import {
     Row,
     Spacer,
     InputField,
+    Hr,
 } from "@yakad/ui";
 import Link from "next/link";
 import { cookies } from "next/headers";
@@ -24,15 +25,14 @@ async function updateTranslations(formData: FormData, phrases: Phrases, lang: st
     let result = {};
 
     for (const item of phrases) {
-        Object.defineProperty(result, formData.get(item.phrase)?.toString()!, {
-            value: formData.get(item.translation || `${item.phrase}T`)?.toString() || "",
+
+        Object.defineProperty(result, item.phrase, {
+            value: formData.get(item.phrase)?.toString() || null,
             writable: true,
             enumerable: true,
             configurable: true,
         })
     }
-
-    console.log(result)
 
     const response = await fetch(`${process.env.API_URL}/phrase/${lang}`, {
         method: "POST",
@@ -61,7 +61,7 @@ export default async function Page({ params }: {
     }
 
     return (
-        <Container maxWidth="xl">
+        <Container maxWidth="md">
             <Row >
                 <h1>Phrases</h1>
                 <Spacer />
@@ -91,19 +91,20 @@ export default async function Page({ params }: {
                             phrases.map((phrase, key) =>
                                 <Tr key={key}>
                                     <Td>
-                                        <InputField name={phrase.phrase} defaultValue={phrase.phrase} />
+                                        <h3>{phrase.phrase}</h3>
                                     </Td>
 
                                     <Td>
-                                        <InputField name={phrase.translation || `${phrase.phrase}T`} defaultValue={phrase.translation} />
+                                        <InputField name={phrase.phrase} defaultValue={phrase.translation} />
                                     </Td>
                                 </Tr>
                             )
                         }
                     </Tbody>
                 </Table>
+                <Hr marginTopBottom={3} />
                 <Row>
-                    <BackButton variant="outlined"/>
+                    <BackButton variant="outlined" />
                     <SaveBtn />
                 </Row>
             </form>

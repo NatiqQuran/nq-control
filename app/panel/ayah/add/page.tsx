@@ -1,32 +1,8 @@
-import { cookies } from "next/headers";
 import { Button, Container, InputField, Row, Select, Stack } from "@yakad/ui";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import BackButton from "../../../(components)/BackButton";
-
-async function addAyah(surah_uuid: string, formData: FormData) {
-    const sajdeh = formData.get("sajdeh")?.toString()!;
-
-    const ayah = {
-        surah_uuid: surah_uuid,
-        sajdeh: sajdeh === "none" ? null : sajdeh,
-        text: formData.get("text")?.toString()!,
-    };
-
-    const response = await fetch(`${process.env.API_URL}/ayah`, {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: cookies().get("token")?.value || "none",
-        },
-        body: JSON.stringify(ayah),
-    });
-
-    if (response.status !== 200) {
-        throw new Error(`You can't add this ayah!, ${await response.text()}`);
-    }
-}
+import { controllerAyah } from "../../../connnection";
 
 export default async function Page({ searchParams }: { searchParams: { continue: string, surah_uuid: string } }) {
     const url = decodeURIComponent(searchParams.continue);
@@ -40,10 +16,19 @@ export default async function Page({ searchParams }: { searchParams: { continue:
                 style={{ width: "100%" }}
                 action={async (formData) => {
                     "use server";
-                    await addAyah(searchParams.surah_uuid, formData);
+                    const sajdeh = formData.get("sajdeh")?.toString()!;
+
+                    const ayah = {
+                        surah_uuid: searchParams.surah_uuid,
+                        sajdeh: sajdeh === "none" ? null : sajdeh,
+                        text: formData.get("text")?.toString()!,
+                    };
+
+                    await controllerAyah.add(ayah as any, {});
 
                     revalidatePath(urlWithoutParams);
                     redirect(url);
+
                 }}
             >
                 <Stack>
@@ -65,6 +50,6 @@ export default async function Page({ searchParams }: { searchParams: { continue:
                     </Row>
                 </Stack>
             </form>
-        </Container>
+        </Container >
     );
 }

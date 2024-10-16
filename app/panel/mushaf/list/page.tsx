@@ -12,22 +12,10 @@ import {
 } from "@yakad/ui";
 import Link from "next/link";
 import DeleteButton from "../../../(components)/DeleteButton";
-
-interface SimpleMushaf {
-    name: string;
-    short_name: string;
-    source: string;
-    uuid: string;
-}
-
-async function getMushafsList(): Promise<SimpleMushaf[]> {
-    const response = await fetch(`${process.env.API_URL}/mushaf`);
-
-    return response.json();
-}
+import { controllerMushaf } from "../../../connnection";
 
 export default async function Page() {
-    const mushafsList = await getMushafsList();
+    const mushafsList = (await controllerMushaf.list({})).data;
 
     return (
         <Container maxWidth="xl">

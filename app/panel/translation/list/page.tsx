@@ -12,23 +12,11 @@ import {
 } from "@yakad/ui";
 import Link from "next/link";
 import DeleteButton from "../../../(components)/DeleteButton";
-
-interface SimpleTranslation {
-    uuid: string;
-    language: string;
-    release_date: string;
-    source: string;
-    approved: boolean;
-}
-
-async function getTranslationsList(): Promise<SimpleTranslation[]> {
-    const response = await fetch(`${process.env.API_URL}/translation?mushaf=hafs`);
-
-    return response.json();
-}
+import { controllerTranslation } from "../../../connnection";
 
 export default async function Page() {
-    const translationsList = await getTranslationsList();
+    // TODO: Fix static mushaf
+    const translationsList = (await controllerTranslation.list({ params: { mushaf: "hafs" } })).data;
 
     return (
         <Container maxWidth="xl">

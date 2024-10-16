@@ -1,68 +1,33 @@
-import { Button, Container, InputField, Row, Spacer, Stack } from "@yakad/ui";
+import { Button, Container, InputField, Row, Stack } from "@yakad/ui";
 import React from "react";
-import { Mushaf } from "../../mushaf";
-import { cookies } from "next/headers";
 import BackButton from "../../../../(components)/BackButton";
-
-/**
- * Returns the Mushaf Object
- */
-async function viewMushaf(uuid: string): Promise<Response> {
-    const response = await fetch(`${process.env.API_URL}/mushaf/${uuid}`, {
-        method: "GET",
-    });
-
-    if (response.status !== 200) {
-        throw new Error("Can't view mushaf");
-    }
-
-    return response;
-}
-
-async function editMushaf(uuid: string, form: FormData) {
-    const data: Mushaf = {
-        name: form.get("name")?.toString()!,
-        short_name: form.get("short_name")?.toString()!,
-        source: form.get("source")?.toString()!,
-        bismillah_text: form.get("bismillah_text")?.toString()!,
-    };
-
-    const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/mushaf/${uuid}`,
-        {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                Authorization: cookies().get("token")?.value || "none",
-            },
-
-            body: JSON.stringify(data),
-        }
-    );
-
-    if (response.status !== 200) {
-        throw new Error(`Can't edit mushaf!, ${await response.text()}`);
-    }
-}
+import { controllerMushaf } from "../../../../connnection";
 
 export default async function EditMushaf({
     params: { uuid },
 }: {
     params: { uuid: string };
 }) {
-    const response = await viewMushaf(uuid);
-    const mushaf: Mushaf = await response.json();
+    const mushaf = (await controllerMushaf.view(uuid, {})).data;
 
     return (
         <Container maxWidth="sm">
             <h1>Edit Mushaf</h1>
             <form
                 style={{ width: "100%" }}
-                action={async (formData) => {
+                action={async (form) => {
                     "use server";
+                    const data = {
+                        name: form.get("name")?.toString()!,
+                        short_name: form.get("short_name")?.toString()!,
+                        source: form.get("source")?.toString()!,
+                        bismillah_text: form.get("bismillah_text")?.toString()!,
+                    };
 
-                    await editMushaf(uuid, formData);
+                    const response = await controllerMushaf.edit(uuid, data, {});
+                    if (response.status !== 200) {
+                        throw new Error(`Can't edit mushaf!, ${response.data}`);
+                    }
                 }}
             >
                 <Stack>

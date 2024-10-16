@@ -1,14 +1,14 @@
 import { Button, Container, Hr, Row, Spacer, Table, Tbody, Td, Th, Thead, Tr } from "@yakad/ui"
 import Link from "next/link"
 import DeleteButton from "../../../(components)/DeleteButton"
-import { Translation, getTranslation } from "../translation"
+import { controllerTranslation } from "../../../connnection"
 
 export default async function Page({ params }: {
     params: {
         uuid: string
     }
 }) {
-    const translation: Translation = await getTranslation(params.uuid);
+    const translation = (await controllerTranslation.view(params.uuid, {})).data;
 
     return (
         <Container maxWidth="lg">
@@ -40,7 +40,7 @@ export default async function Page({ params }: {
                     <p>Mushaf UUID: {translation.mushaf_uuid}</p>
                     <p>source: {translation.source}</p>
                     <p>language: {translation.language}</p>
-                    <p>Approved: {translation.approved ? "Yes" : "No"}</p>
+                    <p>Status: {translation.status}</p>
                     <p>Release date: {translation.release_date}</p>
                 </div>
 

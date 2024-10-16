@@ -1,4 +1,3 @@
-import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import {
     Button,
@@ -8,53 +7,14 @@ import {
     Row,
     Stack,
 } from "@yakad/ui";
-import { Surah, SurahPeriod } from "../../surah";
 import BackButton from "../../../../(components)/BackButton";
 import { revalidatePath } from "next/cache";
-
-async function getSurah(uuid: string): Promise<Surah> {
-    const response = await fetch(
-        `${process.env.API_URL}/surah/${uuid}`
-    );
-
-    return response.json();
-}
-
-async function editSurah(uuid: string, formData: FormData) {
-    const surah = {
-        name: formData.get("name")?.toString() || "",
-        uuid: uuid,
-        mushaf_uuid: formData.get("mushaf_uuid")?.toString() || "",
-        number: parseInt(formData.get("number")?.toString()!),
-        period: (formData.get("period")?.toString()! as SurahPeriod) || null,
-        //number_of_ayahs: parseInt(formData.get("number_of_ayahs")?.toString()!),
-        bismillah_status:
-            formData.get("bismillah_status")?.toString()! === "on"
-                ? true
-                : false,
-        bismillah_as_first_ayah:
-            formData.get("bismillah_as_first_ayah")?.toString()! === "on"
-                ? true
-                : false,
-    };
-
-    const response = await fetch(`${process.env.API_URL}/surah/${uuid}`, {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: cookies().get("token")?.value || "none",
-        },
-        body: JSON.stringify(surah),
-    });
-
-    if (response.status !== 200) {
-        throw new Error(`You can't edit this surah!, ${await response.text()}`);
-    }
-}
+import { controllerSurah } from "../../../../connnection";
+import { SurahViewRequestData } from "@ntq/sdk/build/interfaces/surah";
+import { Period } from "@ntq/sdk/build/interfaces/utils";
 
 export default async function Page({ params, searchParams }: { params: { uuid: string }, searchParams: { continue: string } }) {
-    const surah = await getSurah(params.uuid);
+    const surah = (await controllerSurah.view(params.uuid, {})).data;
     const url = decodeURIComponent(searchParams.continue);
     const urlWithoutParams = url.split("?")[0];
 
@@ -64,10 +24,22 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
 
             <form
                 style={{ width: "100%" }}
-                action={async (formData) => {
+                action={async (form) => {
                     "use server";
-                    await editSurah(params.uuid, formData);
 
+                    const data: SurahViewRequestData = {
+                        name: form.get("name")?.toString()!,
+                        number: parseInt(form.get("number")?.toString()!),
+                        period: form.get("period")?.toString()! as Period,
+                        mushaf_uuid: form.get("mushaf_uuid")?.toString()!,
+                        bismillah_status: form.get("bismillah_status")?.toString()! === "on" ? true : false,
+                        name_pronunciation: form.get("name_pronunciation")?.toString()!,
+                        name_transliteration: form.get("name_transliteration")?.toString()!,
+                        bismillah_as_first_ayah: form.get("bismillah_as_first_ayah")?.toString()! === "on" ? true : false,
+                        name_translation_phrase: form.get("name_translation_phrase")?.toString()!
+                    }
+
+                    await controllerSurah.edit(params.uuid, data, {});
                     revalidatePath(urlWithoutParams);
                     redirect(url);
                 }}
@@ -78,28 +50,28 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                         placeholder="Surah Name"
                         type="string"
                         name="name"
-                        defaultValue={surah.surah_name}
+                        defaultValue={surah.names[0].arabic}
                     />
                     <InputField
                         variant="outlined"
                         placeholder="Period"
                         type="string"
                         name="period"
-                        defaultValue={surah.surah_period as any}
+                        defaultValue={surah.period as any}
                     />
                     <InputField
                         variant="outlined"
                         placeholder="Surah Number"
                         type="number"
                         name="number"
-                        defaultValue={surah.surah_number.toString()}
+                        defaultValue={surah.number.toString()}
                     />
                     <InputField
                         variant="outlined"
                         placeholder="Mushaf uuid"
                         type="string"
                         name="mushaf_uuid"
-                        defaultValue={surah.mushaf_uuid}
+                        defaultValue={surah.mushaf.uuid}
                     />
                     <Chekbox
                         label="Bismillah status"
