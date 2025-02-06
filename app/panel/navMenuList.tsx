@@ -13,7 +13,10 @@ export default function NavMenuList() {
         {
             name: "Accounts",
             childs: [
-                { name: "Users", onclick: () => router.push("/panel/user/list") },
+                {
+                    name: "Users",
+                    onclick: () => router.push("/panel/user/list"),
+                },
                 { name: "Organizations" },
                 {
                     name: "Permissions",
@@ -28,7 +31,10 @@ export default function NavMenuList() {
                     name: "Mushafs",
                     onclick: () => router.push("/panel/mushaf/list"),
                 },
-                { name: "Translations", onclick: () => router.push("/panel/translation/list") },
+                {
+                    name: "Translations",
+                    onclick: () => router.push("/panel/translation/list"),
+                },
                 { name: "By Word" },
                 { name: "Tafrsir" },
                 { name: "Recite" },
@@ -48,11 +54,11 @@ export default function NavMenuList() {
             childs: [
                 {
                     name: "App Translation",
-                    onclick: () => router.push("/panel/app_translation")
-                }
-            ]
-        }
+                    onclick: () => router.push("/panel/app_translation"),
+                },
+            ],
+        },
     ];
 
-    return <XmenuList menuItems={menuItems} />;
+    return <XmenuList items={menuItems} />;
 }

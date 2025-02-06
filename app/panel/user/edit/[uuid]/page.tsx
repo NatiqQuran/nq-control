@@ -1,18 +1,14 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import {
-    Button,
-    Container,
-    InputField,
-    Row,
-    Stack,
-} from "@yakad/ui";
+import { Button, Container, InputField, Row, Stack } from "@yakad/ui";
 import BackButton from "../../../../(components)/BackButton";
 import { revalidatePath } from "next/cache";
 import { getUser } from "../../user";
 
 async function editUser(uuid: string, formData: FormData) {
-    let profile_image: string | null = formData.get("profile_image")?.toString()!
+    let profile_image: string | null = formData
+        .get("profile_image")
+        ?.toString()!;
     if (profile_image === "") {
         profile_image = null;
     }
@@ -41,13 +37,22 @@ async function editUser(uuid: string, formData: FormData) {
     }
 }
 
-export default async function Page({ params, searchParams }: { params: { uuid: string }, searchParams: { continue: string } }) {
-    const user = await getUser(cookies().get("token")?.value || "none", params.uuid);
+export default async function Page({
+    params,
+    searchParams,
+}: {
+    params: { uuid: string };
+    searchParams: { continue: string };
+}) {
+    const user = await getUser(
+        cookies().get("token")?.value || "none",
+        params.uuid
+    );
     const url = decodeURIComponent(searchParams.continue);
     const urlWithoutParams = url.split("?")[0];
 
     return (
-        <Container maxWidth="sm">
+        <Container size="sm">
             <h1>Edit User</h1>
 
             <form

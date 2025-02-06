@@ -13,16 +13,18 @@ export default async function ViewMushaf({
 
     return (
         <>
-            <Container maxWidth="xl">
+            <Container size="xl">
                 <Row>
                     <h1>Mushaf: {mushaf.name}</h1>
                     <Spacer />
                     <Link
-                        href={`/panel/mushaf/edit/${mushaf.uuid}?continue=${encodeURIComponent(`/panel/mushaf/${mushaf.uuid}`)}`}
+                        href={`/panel/mushaf/edit/${
+                            mushaf.uuid
+                        }?continue=${encodeURIComponent(
+                            `/panel/mushaf/${mushaf.uuid}`
+                        )}`}
                     >
-                        <Button variant="filled">
-                            Edit
-                        </Button>
+                        <Button variant="filled">Edit</Button>
                     </Link>
 
                     <DeleteButton
@@ -40,9 +42,6 @@ export default async function ViewMushaf({
                 <p>mushaf Bissmillah text: {mushaf.bismillah_text}</p>
 
                 <Hr />
-
-
-
             </Container>
             <SurahList mushaf={mushaf.short_name} mushaf_uuid={mushaf.uuid} />
         </>

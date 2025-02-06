@@ -15,14 +15,11 @@ import { cookies } from "next/headers";
 import NewLang from "./newLangSupport";
 
 async function phrase_list() {
-    const response = await fetch(
-        `${process.env.API_URL}/phrase`,
-        {
-            headers: {
-                Authorization: cookies().get("token")?.value || "none"
-            }
-        }
-    );
+    const response = await fetch(`${process.env.API_URL}/phrase`, {
+        headers: {
+            Authorization: cookies().get("token")?.value || "none",
+        },
+    });
 
     if (response.status !== 200) {
         throw new Error(`Could't get phrase's list, ${await response.text()}`);
@@ -32,17 +29,16 @@ async function phrase_list() {
 }
 
 export default async function Page() {
-    const phrasesList: { language: string, status: string }[] = await phrase_list();
+    const phrasesList: { language: string; status: string }[] =
+        await phrase_list();
 
     return (
-        <Container maxWidth="xl">
-            <Row >
+        <Container size="xl">
+            <Row>
                 <h1>Supported languages</h1>
                 <Spacer />
                 <Link href="/panel/app_translation/phrase/list">
-                    <Button variant="filled">
-                        Phrases
-                    </Button>
+                    <Button variant="filled">Phrases</Button>
                 </Link>
                 <NewLang />
             </Row>
@@ -61,7 +57,9 @@ export default async function Page() {
                             <Td>{item.status}</Td>
                             <Td>
                                 <Row>
-                                    <Link href={`/panel/app_translation/edit/${item.language}`}>
+                                    <Link
+                                        href={`/panel/app_translation/edit/${item.language}`}
+                                    >
                                         <Button variant="link">Edit</Button>
                                     </Link>
                                 </Row>
@@ -71,6 +69,5 @@ export default async function Page() {
                 </Tbody>
             </Table>
         </Container>
-
     );
 }

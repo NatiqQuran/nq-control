@@ -1,24 +1,28 @@
-import { Button, Container, Hr, Row, Spacer, } from "@yakad/ui";
+import { Button, Container, Hr, Row, Spacer } from "@yakad/ui";
 import DeleteButton from "../../../(components)/DeleteButton";
 import Link from "next/link";
 import { getUser } from "../user";
 import { cookies } from "next/headers";
 
 export default async function Page({ params }: { params: { uuid: string } }) {
-    const user = await getUser(cookies().get("token")?.value || "none", params.uuid);
+    const user = await getUser(
+        cookies().get("token")?.value || "none",
+        params.uuid
+    );
 
     return (
-
-        <Container maxWidth="lg">
+        <Container size="lg">
             <Row>
                 <h1>User: {user.username}</h1>
                 <Spacer />
                 <Link
-                    href={`/panel/user/edit/${user.uuid}?continue=${encodeURIComponent(`/panel/user/${user.uuid}`)}`}
+                    href={`/panel/user/edit/${
+                        user.uuid
+                    }?continue=${encodeURIComponent(
+                        `/panel/user/${user.uuid}`
+                    )}`}
                 >
-                    <Button variant="filled">
-                        Edit
-                    </Button>
+                    <Button variant="filled">Edit</Button>
                 </Link>
 
                 <DeleteButton
@@ -42,10 +46,8 @@ export default async function Page({ params }: { params: { uuid: string } }) {
                     <p>Profile Image URL: {user.profile_image}</p>
                     <p>Language: {user.language}</p>
                 </div>
-
             </Row>
             <Hr />
         </Container>
     );
 }
-

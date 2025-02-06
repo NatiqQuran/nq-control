@@ -16,10 +16,12 @@ import { controllerTranslation } from "../../../connnection";
 
 export default async function Page() {
     // TODO: Fix static mushaf
-    const translationsList = (await controllerTranslation.list({ params: { mushaf: "hafs" } })).data;
+    const translationsList = (
+        await controllerTranslation.list({ params: { mushaf: "hafs" } })
+    ).data;
 
     return (
-        <Container maxWidth="xl">
+        <Container size="xl">
             <Row>
                 <h1>Translation List</h1>
                 <Spacer />
@@ -45,18 +47,30 @@ export default async function Page() {
                             <Td>{item.language}</Td>
                             <Td>{item.release_date}</Td>
                             <Td>{item.source}</Td>
-                            <Td style={{ fontSize: "30px", display: "flex", justifyContent: "center" }}>
+                            <Td
+                                style={{
+                                    fontSize: "30px",
+                                    display: "flex",
+                                    justifyContent: "center",
+                                }}
+                            >
                                 {item.approved ? "✓" : "✕"}
                             </Td>
                             <Td>
                                 <Row>
-                                    <Link href={"/panel/translation/" + item.uuid}>
+                                    <Link
+                                        href={"/panel/translation/" + item.uuid}
+                                    >
                                         <Button size="small" variant="link">
                                             View
                                         </Button>
                                     </Link>
                                     <Link
-                                        href={`/panel/translation/edit/${item.uuid}?continue=${encodeURIComponent('/panel/translation/list')}`}
+                                        href={`/panel/translation/edit/${
+                                            item.uuid
+                                        }?continue=${encodeURIComponent(
+                                            "/panel/translation/list"
+                                        )}`}
                                     >
                                         <Button size="small" variant="link">
                                             Edit

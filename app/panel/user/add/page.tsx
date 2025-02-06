@@ -5,8 +5,8 @@ import { redirect } from "next/navigation";
 import { User } from "../user";
 
 async function addUser(formData: FormData) {
-    const requestBody: User = {
-        primary_email: formData.get("primary_email")?.toString()!,
+    const requestBody: Omit<User, "uuid"> = {
+        email: formData.get("primary_email")?.toString()!,
         profile_image: formData.get("profile_image")?.toString(),
         birthday: formData.get("birthday")?.toString()!,
         language: formData.get("language")?.toString()!,
@@ -32,7 +32,7 @@ async function addUser(formData: FormData) {
 
 export default async function Page() {
     return (
-        <Container maxWidth="sm">
+        <Container size="sm">
             <h1>Add new User</h1>
 
             <form
@@ -88,10 +88,9 @@ export default async function Page() {
                         name="language"
                     />
 
-
                     <Row align="end">
                         <BackButton>Cancel</BackButton>
-                        <Button loadingVariant="spinner" variant="filled">
+                        <Button loadingvariant="spinner" variant="filled">
                             Add
                         </Button>
                     </Row>

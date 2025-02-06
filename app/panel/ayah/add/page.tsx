@@ -4,12 +4,16 @@ import { redirect } from "next/navigation";
 import BackButton from "../../../(components)/BackButton";
 import { controllerAyah } from "../../../connnection";
 
-export default async function Page({ searchParams }: { searchParams: { continue: string, surah_uuid: string } }) {
+export default async function Page({
+    searchParams,
+}: {
+    searchParams: { continue: string; surah_uuid: string };
+}) {
     const url = decodeURIComponent(searchParams.continue);
     const urlWithoutParams = url.split("?")[0];
 
     return (
-        <Container maxWidth="sm">
+        <Container size="sm">
             <h1>Add Ayah</h1>
 
             <form
@@ -28,7 +32,6 @@ export default async function Page({ searchParams }: { searchParams: { continue:
 
                     revalidatePath(urlWithoutParams);
                     redirect(url);
-
                 }}
             >
                 <Stack>
@@ -50,6 +53,6 @@ export default async function Page({ searchParams }: { searchParams: { continue:
                     </Row>
                 </Stack>
             </form>
-        </Container >
+        </Container>
     );
 }

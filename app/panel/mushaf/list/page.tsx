@@ -18,7 +18,7 @@ export default async function Page() {
     const mushafsList = (await controllerMushaf.list({})).data;
 
     return (
-        <Container maxWidth="xl">
+        <Container size="xl">
             <Row>
                 <h1>Mushaf List</h1>
                 <Spacer />

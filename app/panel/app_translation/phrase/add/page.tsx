@@ -26,7 +26,7 @@ async function addPhrase(formData: FormData) {
 
 export default async function Page() {
     return (
-        <Container maxWidth="sm">
+        <Container size="sm">
             <h1>Add Phrase</h1>
 
             <form

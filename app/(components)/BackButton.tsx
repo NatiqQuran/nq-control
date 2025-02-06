@@ -3,7 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@yakad/ui";
-import { ButtonProps } from "@yakad/ui/types";
+import { ButtonProps } from "@yakad/ui";
 
 export default function BackButton(props: ButtonProps) {
     const router = useRouter();

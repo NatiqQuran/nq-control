@@ -1,27 +1,30 @@
-import { Button, Container, InputField, Row, Select, Stack } from "@yakad/ui";
 import { cookies } from "next/headers";
-import { Permission } from "../list/page";
-import BackButton from "../../../(components)/BackButton";
 import { redirect } from "next/navigation";
+import { PermissionAddRequestData } from "@ntq/sdk";
+import { Button, Container, InputField, Row, Select, Stack } from "@yakad/ui";
+import BackButton from "../../../(components)/BackButton";
 import UsersSelect from "../../../(components)/UsersSelect";
 
 async function addPermission(formData: FormData) {
-    const requestBody: Permission = {
+    const requestBody: PermissionAddRequestData = {
         subject: formData.get("subject")?.toString()!,
         object: formData.get("object")?.toString()!,
         action: formData.get("action")?.toString()! as any,
         conditions: [],
     };
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/permission`, {
-        method: "POST",
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            Authorization: cookies().get("token")?.value || "none",
-        },
-        body: JSON.stringify(requestBody),
-    });
+    const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/permission`,
+        {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: cookies().get("token")?.value || "none",
+            },
+            body: JSON.stringify(requestBody),
+        }
+    );
 
     if (response.status !== 200) {
         throw new Error(`Could't add new permission, ${await response.text()}`);
@@ -30,7 +33,7 @@ async function addPermission(formData: FormData) {
 
 export default function Page() {
     return (
-        <Container maxWidth="sm">
+        <Container size="sm">
             <h1>Add new Permission</h1>
 
             <form
@@ -42,17 +45,14 @@ export default function Page() {
                 }}
             >
                 <Stack>
-                    <UsersSelect
-                        placeholder="Subject"
-                        name="subject"
-                    />
+                    <UsersSelect placeholder="Subject" name="subject" />
                     <InputField
                         variant="outlined"
                         placeholder="Object"
                         type="string"
                         name="object"
                     />
-                    
+
                     <Select name="action" placeholder="Action">
                         <option value="create">Create</option>
                         <option value="view">View</option>
@@ -62,7 +62,7 @@ export default function Page() {
 
                     <Row align="end">
                         <BackButton>Cancel</BackButton>
-                        <Button loadingVariant="spinner" variant="filled">
+                        <Button loadingvariant="spinner" variant="filled">
                             Add
                         </Button>
                     </Row>

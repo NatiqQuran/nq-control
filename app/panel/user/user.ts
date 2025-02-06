@@ -1,6 +1,6 @@
 export interface User {
-    uuid?: string;
-    primary_email: string;
+    uuid: string;
+    email: string;
     username: string;
     first_name: string;
     last_name: string;
@@ -10,14 +10,11 @@ export interface User {
 }
 
 export async function getUser(token: string, user_uuid: string): Promise<User> {
-    const response = await fetch(
-        `${process.env.API_URL}/user/${user_uuid}`,
-        {
-            headers: {
-                Authorization: token
-            }
-        }
-    );
+    const response = await fetch(`${process.env.API_URL}/user/${user_uuid}`, {
+        headers: {
+            Authorization: token,
+        },
+    });
 
     if (response.status !== 200) {
         throw new Error(`Could't get user, ${await response.text()}`);
@@ -27,14 +24,11 @@ export async function getUser(token: string, user_uuid: string): Promise<User> {
 }
 
 export async function getUserList(token: string): Promise<User[]> {
-    const response = await fetch(
-        `${process.env.API_URL}/user`,
-        {
-            headers: {
-                Authorization: token
-            }
-        }
-    );
+    const response = await fetch(`${process.env.API_URL}/user`, {
+        headers: {
+            Authorization: token,
+        },
+    });
 
     if (response.status !== 200) {
         throw new Error(`Could't get users list, ${await response.text()}`);
@@ -42,4 +36,3 @@ export async function getUserList(token: string): Promise<User[]> {
 
     return response.json();
 }
-

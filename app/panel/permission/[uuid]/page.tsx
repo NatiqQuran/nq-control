@@ -1,8 +1,10 @@
+import { PermissionViewResponseData } from "@ntq/sdk";
 import { Container } from "@yakad/ui";
-import { Permission } from "../list/page";
 import { cookies } from "next/headers";
 
-async function getPermission(uuid: string): Promise<Permission> {
+async function getPermission(
+    uuid: string
+): Promise<PermissionViewResponseData> {
     const response = await fetch(`${process.env.API_URL}/permission/${uuid}`, {
         headers: {
             Authorization: cookies().get("token")?.value || "none",
@@ -24,11 +26,11 @@ export default async function ViewPermission({
     const permission = await getPermission(params.uuid);
 
     return (
-        <Container maxWidth="xl">
+        <Container size="xl">
             <h1>Permission uuid : {permission.uuid}</h1>
-            <h1>Account username  : {permission.account.username}</h1>
-            <h1>Account First name  : {permission.account.first_name}</h1>
-            <h1>Account Last name  : {permission.account.last_name}</h1>
+            <h1>Account username : {permission.account.username}</h1>
+            <h1>Account First name : {permission.account.first_name}</h1>
+            <h1>Account Last name : {permission.account.last_name}</h1>
             <h1>Permission object: {permission.object}</h1>
         </Container>
     );

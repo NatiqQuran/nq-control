@@ -1,9 +1,9 @@
-import { Button, Container, InputField, Row, Select, Stack } from "@yakad/ui";
 import React from "react";
 import { cookies } from "next/headers";
-import { Permission } from "../../list/page";
-import BackButton from "../../../../(components)/BackButton";
 import { redirect } from "next/navigation";
+import { PermissionViewResponseData, PermissionAddRequestData } from "@ntq/sdk";
+import { Button, Container, InputField, Row, Select, Stack } from "@yakad/ui";
+import BackButton from "../../../../(components)/BackButton";
 import UsersSelect from "../../../../(components)/UsersSelect";
 
 async function getPermission(uuid: string): Promise<Response> {
@@ -22,7 +22,7 @@ async function getPermission(uuid: string): Promise<Response> {
 }
 
 async function editPermission(uuid: string, form: FormData) {
-    const data: Permission = {
+    const data: PermissionAddRequestData = {
         action: form.get("action")?.toString()! as any,
         object: form.get("object")?.toString()!,
         subject: form.get("subject")?.toString()!,
@@ -54,10 +54,10 @@ export default async function EditPermission({
     params: { uuid: string };
 }) {
     const response = await getPermission(uuid);
-    const permission: Permission = await response.json();
+    const permission: PermissionViewResponseData = await response.json();
 
     return (
-        <Container maxWidth="sm">
+        <Container size="sm">
             <h1>Edit Permission</h1>
 
             <form
@@ -84,13 +84,16 @@ export default async function EditPermission({
                         defaultValue={permission.object}
                     />
 
-                    <Select name="action" placeholder="Action" defaultValue={permission.action}>
+                    <Select
+                        name="action"
+                        placeholder="Action"
+                        defaultValue={permission.action}
+                    >
                         <option value="create">Create</option>
                         <option value="view">View</option>
                         <option value="delete">Delete</option>
                         <option value="edit">Edit</option>
                     </Select>
-
 
                     <Row align="end">
                         <BackButton>Cancel</BackButton>

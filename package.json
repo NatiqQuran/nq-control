@@ -9,15 +9,14 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@ntq/sdk": "1.1.44",
+        "@yakad/symbols": "1.0.7",
+        "@yakad/ui": "1.3.33",
+        "@yakad/x": "1.1.8",
         "next": "14.2.4",
         "react": "18.2.0",
         "react-dom": "18.2.0",
-        "react-router-dom": "6.4.3",
-        "@yakad/lib": "1.0.8",
-        "@yakad/ui": "1.2.193-beta",
-        "@yakad/x": "1.0.106-beta",
-        "@yakad/symbols": "1.0.7",
-        "@ntq/sdk": "1.1.29"
+        "react-router-dom": "6.4.3"
     },
     "devDependencies": {
         "@types/node": "20.5.7",

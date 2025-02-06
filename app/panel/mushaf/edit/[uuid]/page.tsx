@@ -11,7 +11,7 @@ export default async function EditMushaf({
     const mushaf = (await controllerMushaf.view(uuid, {})).data;
 
     return (
-        <Container maxWidth="sm">
+        <Container size="sm">
             <h1>Edit Mushaf</h1>
             <form
                 style={{ width: "100%" }}
@@ -24,7 +24,11 @@ export default async function EditMushaf({
                         bismillah_text: form.get("bismillah_text")?.toString()!,
                     };
 
-                    const response = await controllerMushaf.edit(uuid, data, {});
+                    const response = await controllerMushaf.edit(
+                        uuid,
+                        data,
+                        {}
+                    );
                     if (response.status !== 200) {
                         throw new Error(`Can't edit mushaf!, ${response.data}`);
                     }

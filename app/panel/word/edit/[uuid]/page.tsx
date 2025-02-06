@@ -25,13 +25,19 @@ async function editWord(uuid: string, formData: FormData) {
     }
 }
 
-export default async function Page({ params, searchParams }: { params: { uuid: string }, searchParams: { continue: string } }) {
+export default async function Page({
+    params,
+    searchParams,
+}: {
+    params: { uuid: string };
+    searchParams: { continue: string };
+}) {
     const word = await getWord(params.uuid);
     const url = decodeURIComponent(searchParams.continue);
     const urlWithoutParams = url.split("?")[0];
 
     return (
-        <Container maxWidth="sm">
+        <Container size="sm">
             <h1>Edit Word</h1>
 
             <form
