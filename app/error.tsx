@@ -10,7 +10,7 @@ export default function ErrorPage({
     reset: () => void;
 }) {
     return (
-        <Container align="center" maxWidth="sm">
+        <Container size="sm" align="center">
             <h1 style={{ color: "red", fontSize: "10rem" }}>Error</h1>
             <Card>
                 <h2>{error.message}</h2>

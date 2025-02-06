@@ -1,8 +1,8 @@
-import { Loading, Page } from "@yakad/ui";
+import { Loading, Screen } from "@yakad/ui";
 
 export default function LoadingPage() {
     return (
-        <Page
+        <Screen
             style={{
                 position: "fixed",
                 display: "flex",
@@ -13,6 +13,6 @@ export default function LoadingPage() {
             }}
         >
             <Loading variant="scaleOut" />
-        </Page>
+        </Screen>
     );
 }

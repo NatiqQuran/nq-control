@@ -5,7 +5,9 @@ import { Button, Container, InputField, Row, Stack } from "@yakad/ui";
 import BackButton from "../../../(components)/BackButton";
 
 async function editProfile(token: string, formData: FormData) {
-    let profile_image: string | null = formData.get("profile_image")?.toString()!
+    let profile_image: string | null = formData
+        .get("profile_image")
+        ?.toString()!;
     if (profile_image === "") {
         profile_image = null;
     }
@@ -40,7 +42,7 @@ export default async function EditProfile() {
     const profile: UserProfile = await getUserProfile(token);
 
     return (
-        <Container maxWidth="xs">
+        <Container size="xs">
             <form
                 style={{ width: "100%" }}
                 action={async (formData) => {

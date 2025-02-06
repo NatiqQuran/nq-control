@@ -16,7 +16,10 @@ import { cookies } from "next/headers";
 import { get_phrase } from "../phrase";
 
 export default async function Page() {
-    const phraseView = await get_phrase(cookies().get('token')?.value || "none", "en");
+    const phraseView = await get_phrase(
+        cookies().get("token")?.value || "none",
+        "en"
+    );
 
     const phrases = [];
 
@@ -25,8 +28,8 @@ export default async function Page() {
     }
 
     return (
-        <Container maxWidth="xl">
-            <Row >
+        <Container size="xl">
+            <Row>
                 <h1>Phrases</h1>
                 <Spacer />
 
@@ -44,30 +47,23 @@ export default async function Page() {
                 </Thead>
 
                 <Tbody>
+                    {phrases.map((phrase, key) => (
+                        <Tr key={key}>
+                            <Td>{phrase}</Td>
 
-                    {
-                        phrases.map((phrase, key) =>
-                            <Tr key={key}>
-                                <Td>
-                                    {phrase}
-                                </Td>
-
-                                <Td>
-                                    <DeleteButton
-                                        pagePath="/panel/app_translation/phrase/list"
-                                        controller="phrase"
-                                        uuid={phrase}
-                                        variant="link"
-                                        size="small"
-                                    />
-                                </Td>
-                            </Tr>
-                        )
-                    }
+                            <Td>
+                                <DeleteButton
+                                    pagePath="/panel/app_translation/phrase/list"
+                                    controller="phrase"
+                                    uuid={phrase}
+                                    variant="link"
+                                    size="small"
+                                />
+                            </Td>
+                        </Tr>
+                    ))}
                 </Tbody>
-
             </Table>
-
         </Container>
     );
 }

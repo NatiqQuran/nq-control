@@ -25,12 +25,16 @@ async function addWord(ayah_uuid: string, formData: FormData) {
     }
 }
 
-export default async function Page({ searchParams }: { searchParams: { continue: string, ayah_uuid: string } }) {
+export default async function Page({
+    searchParams,
+}: {
+    searchParams: { continue: string; ayah_uuid: string };
+}) {
     const url = decodeURIComponent(searchParams.continue);
     const urlWithoutParams = url.split("?")[0];
 
     return (
-        <Container maxWidth="sm">
+        <Container size="sm">
             <h1>Add Word</h1>
 
             <form

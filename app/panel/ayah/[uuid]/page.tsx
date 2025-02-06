@@ -1,21 +1,41 @@
-import { Button, Container, Hr, Row, Spacer, Table, Tbody, Td, Th, Thead, Tr } from "@yakad/ui";
+import {
+    Button,
+    Container,
+    Hr,
+    Row,
+    Spacer,
+    Table,
+    Tbody,
+    Td,
+    Th,
+    Thead,
+    Tr,
+} from "@yakad/ui";
 import DeleteButton from "../../../(components)/DeleteButton";
 import Link from "next/link";
 import { controllerAyah } from "../../../connnection";
 
-export default async function Page({ params, searchParams }: { params: { uuid: string }, searchParams: { surah_uuid: string } }) {
+export default async function Page({
+    params,
+    searchParams,
+}: {
+    params: { uuid: string };
+    searchParams: { surah_uuid: string };
+}) {
     const ayah = (await controllerAyah.view(params.uuid, {})).data;
     return (
-        <Container maxWidth="xl">
+        <Container size="xl">
             <Row>
                 <h1>Ayah Number: {ayah.ayah_number}</h1>
                 <Spacer />
                 <Link
-                    href={`/panel/ayah/edit/${ayah.uuid}?continue=${encodeURIComponent(`/panel/ayah/${ayah.uuid}`)}`}
+                    href={`/panel/ayah/edit/${
+                        ayah.uuid
+                    }?continue=${encodeURIComponent(
+                        `/panel/ayah/${ayah.uuid}`
+                    )}`}
                 >
-                    <Button variant="filled">
-                        Edit
-                    </Button>
+                    <Button variant="filled">Edit</Button>
                 </Link>
 
                 <DeleteButton
@@ -34,14 +54,17 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                     <p>UUID: {ayah.uuid}</p>
                     <p>sajdeh: {ayah.sajdah}</p>
                 </div>
-
             </Row>
             <Hr />
             <Row>
                 <h2>List of Words:</h2>
                 <Spacer />
 
-                <Link href={`/panel/word/add?ayah_uuid=${ayah.uuid}&continue=${`/panel/ayah/${ayah.uuid}`}`}>
+                <Link
+                    href={`/panel/word/add?ayah_uuid=${
+                        ayah.uuid
+                    }&continue=${`/panel/ayah/${ayah.uuid}`}`}
+                >
                     <Button variant="outlined">Add Word</Button>
                 </Link>
             </Row>
@@ -67,7 +90,11 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                                         </Button>
                                     </Link>
                                     <Link
-                                        href={`/panel/word/edit/${item.uuid}?continue=${encodeURIComponent(`/panel/ayah/${ayah.uuid}`)}`}
+                                        href={`/panel/word/edit/${
+                                            item.uuid
+                                        }?continue=${encodeURIComponent(
+                                            `/panel/ayah/${ayah.uuid}`
+                                        )}`}
                                     >
                                         <Button size="small" variant="link">
                                             Edit

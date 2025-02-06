@@ -4,7 +4,7 @@ import { controllerMushaf } from "../../../connnection";
 
 export default function Page() {
     return (
-        <Container maxWidth="sm">
+        <Container size="sm">
             <h1>Add new Mushaf</h1>
 
             <form
@@ -16,7 +16,9 @@ export default function Page() {
                         name: formData.get("name")?.toString()!,
                         short_name: formData.get("short_name")?.toString()!,
                         source: formData.get("source")?.toString()!,
-                        bismillah_text: formData.get("bismillah_text")?.toString()!,
+                        bismillah_text: formData
+                            .get("bismillah_text")
+                            ?.toString()!,
                     };
 
                     await controllerMushaf.add(requestBody, {});
@@ -50,7 +52,7 @@ export default function Page() {
 
                     <Row align="end">
                         <BackButton>Cancel</BackButton>
-                        <Button loadingVariant="spinner" variant="filled">
+                        <Button loadingvariant="spinner" variant="filled">
                             Add
                         </Button>
                     </Row>

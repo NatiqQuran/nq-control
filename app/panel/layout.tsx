@@ -6,8 +6,8 @@ export default function Layout({ children }: any) {
     return (
         <Xpanel
             name="Natiq Control Panel"
-            appbarChildren={<ProfileButton />}
-            navigationChildren={<NavMenuList />}
+            appbarchildren={<ProfileButton />}
+            navigationchildren={<NavMenuList />}
         >
             {children}
         </Xpanel>

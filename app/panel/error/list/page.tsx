@@ -31,7 +31,7 @@ export default async function Page() {
     const errorsList = await getErrorsList();
 
     return (
-        <Container maxWidth="xl">
+        <Container size="xl">
             <Row>
                 <h1>Errors list</h1>
             </Row>

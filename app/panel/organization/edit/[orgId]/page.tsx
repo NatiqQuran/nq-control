@@ -5,12 +5,15 @@ import BackButton from "../../../../(components)/BackButton";
 import { Organization } from "../../../organization";
 
 async function viewOrg(uuid: string, token: string) {
-    const response = await fetch(`${process.env.API_URL}/organization/${uuid}`, {
-        method: "GET",
-        headers: {
-            Authorization: token,
-        },
-    });
+    const response = await fetch(
+        `${process.env.API_URL}/organization/${uuid}`,
+        {
+            method: "GET",
+            headers: {
+                Authorization: token,
+            },
+        }
+    );
 
     return response.json();
 }
@@ -61,7 +64,7 @@ export default async function EditOrg({
     };
 
     return (
-        <Container maxWidth="xs">
+        <Container size="xs">
             <form
                 style={{ width: "100%" }}
                 action={async (formData) => {

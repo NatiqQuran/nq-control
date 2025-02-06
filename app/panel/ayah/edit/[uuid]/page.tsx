@@ -1,22 +1,22 @@
 import { redirect } from "next/navigation";
-import {
-    Button,
-    Container,
-    InputField,
-    Row,
-    Stack,
-} from "@yakad/ui";
+import { Button, Container, InputField, Row, Stack } from "@yakad/ui";
 import BackButton from "../../../../(components)/BackButton";
 import { revalidatePath } from "next/cache";
 import { controllerAyah } from "../../../../connnection";
 
-export default async function Page({ params, searchParams }: { params: { uuid: string }, searchParams: { continue: string } }) {
+export default async function Page({
+    params,
+    searchParams,
+}: {
+    params: { uuid: string };
+    searchParams: { continue: string };
+}) {
     const ayah = (await controllerAyah.view(params.uuid, {})).data;
     const url = decodeURIComponent(searchParams.continue);
     const urlWithoutParams = url.split("?")[0];
 
     return (
-        <Container maxWidth="sm">
+        <Container size="sm">
             <h1>Edit Ayah</h1>
 
             <form
@@ -25,8 +25,10 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                     "use server";
 
                     const ayah = {
-                        ayah_number: parseInt(formData.get("ayah_number")?.toString()!),
-                        sajdeh: formData.get("sajdeh")?.toString()!
+                        ayah_number: parseInt(
+                            formData.get("ayah_number")?.toString()!
+                        ),
+                        sajdeh: formData.get("sajdeh")?.toString()!,
                     };
 
                     await controllerAyah.edit(params.uuid, ayah as any, {});

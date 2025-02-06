@@ -1,3 +1,7 @@
+import Link from "next/link";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { PermissionListResponseData } from "@ntq/sdk";
 import {
     Container,
     Button,
@@ -10,30 +14,11 @@ import {
     Row,
     Spacer,
 } from "@yakad/ui";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import DeleteButton from "../../../(components)/DeleteButton";
-import Link from "next/link";
 
-export interface Permission {
-    uuid?: string;
-    account: {
-        uuid: string | null;
-        username: string | null;
-        first_name: string | null;
-        last_name: string | null;
-    };
-    object: string;
-    action: "create" | "delete" | "edit" | "view";
-    conditions: PermissionCondition[];
-}
-
-interface PermissionCondition {
-    name: string;
-    value: string;
-}
-
-async function getPermissionsList(token: string): Promise<Permission[]> {
+async function getPermissionsList(
+    token: string
+): Promise<PermissionListResponseData> {
     const response = await fetch(`${process.env.API_URL}/permission`, {
         headers: {
             Authorization: token,
@@ -52,7 +37,7 @@ export default async function Page() {
     const permissions = await getPermissionsList(token);
 
     return (
-        <Container maxWidth="xl">
+        <Container size="xl">
             <Row>
                 <h1>Permissions List</h1>
                 <Spacer />

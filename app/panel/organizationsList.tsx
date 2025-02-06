@@ -11,8 +11,10 @@ async function getOrgs(token: string) {
         },
     });
 
-    if(response.status !== 200) {
-        throw new Error(`Could't get list of organizations!, ${await response.text()}`);
+    if (response.status !== 200) {
+        throw new Error(
+            `Could't get list of organizations!, ${await response.text()}`
+        );
     }
 
     return response.json();
@@ -26,7 +28,7 @@ export default async function OrgsList({
     const list: Organization[] = await getOrgs(token);
 
     return (
-        <Container maxWidth="xs">
+        <Container size="xs">
             {list.map((org, index) => (
                 <Card
                     key={index}
@@ -50,13 +52,13 @@ export default async function OrgsList({
                             <Organizationicon />
                         )}
                         <Stack>
-                            <h1 style={{ marginRight: "auto" }}>{org.primary_name}</h1>
+                            <h1 style={{ marginRight: "auto" }}>
+                                {org.primary_name}
+                            </h1>
                             <h2>{org.username}</h2>
                         </Stack>
                         <Spacer />
-                        <Link
-                            href={`/panel/organization/edit/${org.uuid}`}
-                        >
+                        <Link href={`/panel/organization/edit/${org.uuid}`}>
                             <Button variant="link">Edit</Button>
                         </Link>
                     </Row>

@@ -1,4 +1,16 @@
-import { Button, Container, Hr, Row, Spacer, Table, Tbody, Td, Th, Thead, Tr } from "@yakad/ui";
+import {
+    Button,
+    Container,
+    Hr,
+    Row,
+    Spacer,
+    Table,
+    Tbody,
+    Td,
+    Th,
+    Thead,
+    Tr,
+} from "@yakad/ui";
 import Link from "next/link";
 import DeleteButton from "../../../(components)/DeleteButton";
 import { controllerSurah } from "../../../connnection";
@@ -11,21 +23,26 @@ export default async function ViewSurah({
     const singleSurah = (await controllerSurah.view(params.uuid, {})).data;
 
     return (
-        <Container maxWidth="xl">
+        <Container size="xl">
             <Row>
                 <h1>Surah: {singleSurah.names[0].arabic}</h1>
                 <Spacer />
                 <Link
-                    href={`/panel/surah/edit/${singleSurah.uuid}?continue=${encodeURIComponent(`/panel/surah/${singleSurah.uuid}`)}`}
+                    href={`/panel/surah/edit/${
+                        singleSurah.uuid
+                    }?continue=${encodeURIComponent(
+                        `/panel/surah/${singleSurah.uuid}`
+                    )}`}
                 >
-                    <Button variant="filled">
-                        Edit
-                    </Button>
+                    <Button variant="filled">Edit</Button>
                 </Link>
 
                 <DeleteButton
                     pagePath={"/panel/surah/list"}
-                    redirectTo={"/panel/surah/list?mushaf=" + singleSurah.mushaf.short_name}
+                    redirectTo={
+                        "/panel/surah/list?mushaf=" +
+                        singleSurah.mushaf.short_name
+                    }
                     controller="surah"
                     uuid={singleSurah.uuid}
                     variant="tonal"
@@ -46,7 +63,13 @@ export default async function ViewSurah({
             <Row>
                 <h2>List of Ayahs:</h2>
                 <Spacer />
-                <Link href={`/panel/ayah/add?surah_uuid=${params.uuid}&continue=${encodeURIComponent(`/panel/surah/${params.uuid}`)}`}>
+                <Link
+                    href={`/panel/ayah/add?surah_uuid=${
+                        params.uuid
+                    }&continue=${encodeURIComponent(
+                        `/panel/surah/${params.uuid}`
+                    )}`}
+                >
                     <Button variant="outlined">Add Ayah</Button>
                 </Link>
             </Row>
@@ -68,13 +91,19 @@ export default async function ViewSurah({
 
                             <Td>
                                 <Row>
-                                    <Link href={`/panel/ayah/${item.uuid}?surah_uuid=${singleSurah.uuid}`}>
+                                    <Link
+                                        href={`/panel/ayah/${item.uuid}?surah_uuid=${singleSurah.uuid}`}
+                                    >
                                         <Button size="small" variant="link">
                                             View
                                         </Button>
                                     </Link>
                                     <Link
-                                        href={`/panel/ayah/edit/${item.uuid}?continue=${encodeURIComponent("/panel/surah/" + singleSurah.uuid)}`}
+                                        href={`/panel/ayah/edit/${
+                                            item.uuid
+                                        }?continue=${encodeURIComponent(
+                                            "/panel/surah/" + singleSurah.uuid
+                                        )}`}
                                     >
                                         <Button size="small" variant="link">
                                             Edit

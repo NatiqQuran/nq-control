@@ -5,11 +5,11 @@ import {
     SvgIcon,
     Button,
     Spacer,
-    Page,
+    Screen,
     Row,
     List,
     ListItem,
-    DisplayOnScreen,
+    Display,
 } from "@yakad/ui";
 import LogoIcon from "./logoicon";
 import { Xbackground, XgetStart } from "@yakad/x";
@@ -23,16 +23,16 @@ const navList = [
 
 export default async function Intro() {
     return (
-        <Page>
+        <Screen>
             <AppBar style={{ gap: "1rem" }}>
-                <DisplayOnScreen largerThan="md">
+                <Display minWidth="md">
                     <SvgIcon size={5}>
                         <LogoIcon />
                     </SvgIcon>
-                </DisplayOnScreen>
-                <DisplayOnScreen smallerOrEqualTo="md">
+                </Display>
+                <Display maxWidth="md">
                     <Button icon={<Symbol icon="menu" />} />
-                </DisplayOnScreen>
+                </Display>
                 <h1
                     style={{
                         fontFamily: "arial",
@@ -43,7 +43,7 @@ export default async function Intro() {
                 >
                     Natiq
                 </h1>
-                <DisplayOnScreen largerThan="md">
+                <Display minWidth="md">
                     <List>
                         {navList.map((item, index) => (
                             <ListItem key={index}>
@@ -55,7 +55,7 @@ export default async function Intro() {
                             </ListItem>
                         ))}
                     </List>
-                </DisplayOnScreen>
+                </Display>
                 <Spacer />
                 <ProfileButton />
             </AppBar>
@@ -127,6 +127,6 @@ export default async function Intro() {
                     </XgetStart>
                 </Xbackground>
             </Main>
-        </Page>
+        </Screen>
     );
 }

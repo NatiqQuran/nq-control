@@ -14,11 +14,19 @@ import Link from "next/link";
 import DeleteButton from "../../../(components)/DeleteButton";
 import { controllerSurah } from "../../../connnection";
 
-export default async function SurahList({ mushaf, mushaf_uuid }: { mushaf: string, mushaf_uuid: string }) {
-    const surahsList = (await controllerSurah.list({ params: { mushaf: mushaf } })).data;
+export default async function SurahList({
+    mushaf,
+    mushaf_uuid,
+}: {
+    mushaf: string;
+    mushaf_uuid: string;
+}) {
+    const surahsList = (
+        await controllerSurah.list({ params: { mushaf: mushaf } })
+    ).data;
 
     return (
-        <Container maxWidth="xl">
+        <Container size="xl">
             <Row>
                 <h1>Surah List</h1>
                 <Spacer />
@@ -52,7 +60,11 @@ export default async function SurahList({ mushaf, mushaf_uuid }: { mushaf: strin
                                         </Button>
                                     </Link>
                                     <Link
-                                        href={`/panel/surah/edit/${item.uuid}?continue=${encodeURIComponent("/panel/mushaf/" + mushaf_uuid)}`}
+                                        href={`/panel/surah/edit/${
+                                            item.uuid
+                                        }?continue=${encodeURIComponent(
+                                            "/panel/mushaf/" + mushaf_uuid
+                                        )}`}
                                     >
                                         <Button size="small" variant="link">
                                             Edit

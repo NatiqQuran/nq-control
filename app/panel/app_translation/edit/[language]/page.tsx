@@ -19,19 +19,22 @@ import { revalidatePath } from "next/cache";
 import SaveBtn from "./saveBtn";
 import BackButton from "../../../../(components)/BackButton";
 
-type Phrases = { phrase: string, translation: string }[];
+type Phrases = { phrase: string; translation: string }[];
 
-async function updateTranslations(formData: FormData, phrases: Phrases, lang: string) {
+async function updateTranslations(
+    formData: FormData,
+    phrases: Phrases,
+    lang: string
+) {
     let result = {};
 
     for (const item of phrases) {
-
         Object.defineProperty(result, item.phrase, {
             value: formData.get(item.phrase)?.toString() || null,
             writable: true,
             enumerable: true,
             configurable: true,
-        })
+        });
     }
 
     const response = await fetch(`${process.env.API_URL}/phrase/${lang}`, {
@@ -45,14 +48,21 @@ async function updateTranslations(formData: FormData, phrases: Phrases, lang: st
     });
 
     if (response.status !== 200) {
-        throw new Error(`You can't edit this phrase translation!, ${await response.text()}`);
+        throw new Error(
+            `You can't edit this phrase translation!, ${await response.text()}`
+        );
     }
 }
 
-export default async function Page({ params }: {
-    params: { language: string, }
+export default async function Page({
+    params,
+}: {
+    params: { language: string };
 }) {
-    const phraseView = await get_phrase(cookies().get('token')?.value || "none", params.language);
+    const phraseView = await get_phrase(
+        cookies().get("token")?.value || "none",
+        params.language
+    );
 
     const phrases: Phrases = [];
 
@@ -61,8 +71,8 @@ export default async function Page({ params }: {
     }
 
     return (
-        <Container maxWidth="md">
-            <Row >
+        <Container size="md">
+            <Row>
                 <h1>Phrases</h1>
                 <Spacer />
 
@@ -71,12 +81,20 @@ export default async function Page({ params }: {
                 </Link>
             </Row>
 
-            <form action={async (formData) => {
-                "use server";
+            <form
+                action={async (formData) => {
+                    "use server";
 
-                await updateTranslations(formData, phrases, params.language);
-                revalidatePath(`/panel/app_translation/edit/${params.language}`)
-            }}>
+                    await updateTranslations(
+                        formData,
+                        phrases,
+                        params.language
+                    );
+                    revalidatePath(
+                        `/panel/app_translation/edit/${params.language}`
+                    );
+                }}
+            >
                 <Table>
                     <Thead style={{ textAlign: "justify" }}>
                         <Tr>
@@ -86,29 +104,28 @@ export default async function Page({ params }: {
                     </Thead>
 
                     <Tbody>
+                        {phrases.map((phrase, key) => (
+                            <Tr key={key}>
+                                <Td>
+                                    <h3>{phrase.phrase}</h3>
+                                </Td>
 
-                        {
-                            phrases.map((phrase, key) =>
-                                <Tr key={key}>
-                                    <Td>
-                                        <h3>{phrase.phrase}</h3>
-                                    </Td>
-
-                                    <Td>
-                                        <InputField name={phrase.phrase} defaultValue={phrase.translation} />
-                                    </Td>
-                                </Tr>
-                            )
-                        }
+                                <Td>
+                                    <InputField
+                                        name={phrase.phrase}
+                                        defaultValue={phrase.translation}
+                                    />
+                                </Td>
+                            </Tr>
+                        ))}
                     </Tbody>
                 </Table>
-                <Hr marginTopBottom={3} />
+                <Hr marginx={3} />
                 <Row>
                     <BackButton variant="outlined" />
                     <SaveBtn />
                 </Row>
             </form>
-
         </Container>
     );
 }

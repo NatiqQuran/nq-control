@@ -34,7 +34,7 @@ export default function Page() {
     const token = cookies().get("token")?.value || redirect("/account/login");
 
     return (
-        <Container maxWidth="xs">
+        <Container size="xs">
             <h1>Add a new Organization</h1>
             <form
                 style={{ width: "100%" }}

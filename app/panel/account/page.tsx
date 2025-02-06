@@ -11,14 +11,16 @@ export default async function Page() {
     const cookie = cookies();
     const token = cookie.get("token") || redirect("/account/login");
 
-    const profile: UserProfile = await getUserProfile(token.value); 
+    const profile: UserProfile = await getUserProfile(token.value);
 
-    const firstName = profile.first_name ? profile.first_name : "Empty first name";
+    const firstName = profile.first_name
+        ? profile.first_name
+        : "Empty first name";
     const lastName = profile.last_name ? profile.last_name : "Empty last name";
     const fullName = `${firstName} ${lastName}`;
 
     return (
-        <Container maxWidth="sm">
+        <Container size="sm">
             <Row>
                 <div
                     style={{
@@ -26,7 +28,8 @@ export default async function Page() {
                     }}
                 >
                     {profile.profile_image ? (
-                        <Image src={profile.profile_image || ""}
+                        <Image
+                            src={profile.profile_image || ""}
                             alt="Profile Image"
                             width={50}
                             height={50}

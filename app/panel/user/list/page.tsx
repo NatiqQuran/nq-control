@@ -16,11 +16,13 @@ import { cookies } from "next/headers";
 import { User, getUserList } from "../user";
 
 export default async function Page() {
-    const usersList: User[] = await getUserList(cookies().get("token")?.value || "none");
+    const usersList: User[] = await getUserList(
+        cookies().get("token")?.value || "none"
+    );
 
     return (
-        <Container maxWidth="xl">
-            <Row >
+        <Container size="xl">
+            <Row>
                 <h1>Users List</h1>
                 <Spacer />
 
@@ -46,7 +48,7 @@ export default async function Page() {
                     {usersList.map((item, index) => (
                         <Tr key={index}>
                             <Td>{item.uuid}</Td>
-                            <Td>{item.primary_email}</Td>
+                            <Td>{item.email}</Td>
                             <Td>{item.username}</Td>
                             <Td>{item.first_name}</Td>
                             <Td>{item.last_name}</Td>
@@ -62,7 +64,11 @@ export default async function Page() {
                                         </Button>
                                     </Link>
                                     <Link
-                                        href={`/panel/user/edit/${item.uuid}?continue=${encodeURIComponent("/panel/user/list")}`}
+                                        href={`/panel/user/edit/${
+                                            item.uuid
+                                        }?continue=${encodeURIComponent(
+                                            "/panel/user/list"
+                                        )}`}
                                     >
                                         <Button size="small" variant="link">
                                             Edit

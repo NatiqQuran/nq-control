@@ -1,22 +1,23 @@
 import { redirect } from "next/navigation";
-import {
-    Button,
-    Container,
-    InputField,
-    Row,
-    Stack,
-} from "@yakad/ui";
+import { Button, Container, InputField, Row, Stack } from "@yakad/ui";
 import BackButton from "../../../../(components)/BackButton";
 import { revalidatePath } from "next/cache";
 import { controllerTranslation } from "../../../../connnection";
 
-export default async function Page({ params, searchParams }: { params: { uuid: string }, searchParams: { continue: string } }) {
-    const translation = (await controllerTranslation.view(params.uuid, {})).data;
+export default async function Page({
+    params,
+    searchParams,
+}: {
+    params: { uuid: string };
+    searchParams: { continue: string };
+}) {
+    const translation = (await controllerTranslation.view(params.uuid, {}))
+        .data;
     const url = decodeURIComponent(searchParams.continue);
     const urlWithoutParams = url.split("?")[0];
 
     return (
-        <Container maxWidth="sm">
+        <Container size="sm">
             <h1>Edit Translation</h1>
 
             <form
@@ -25,14 +26,20 @@ export default async function Page({ params, searchParams }: { params: { uuid: s
                     "use server";
 
                     const translation = {
-                        translator_account_uuid: formData.get("translator_account_uuid")?.toString() || null,
+                        translator_account_uuid:
+                            formData
+                                .get("translator_account_uuid")
+                                ?.toString() || null,
                         language: formData.get("language")?.toString()!,
                         source: formData.get("source")?.toString()!,
                         bismillah: formData.get("bismillah")?.toString()!,
                     };
 
-
-                    await controllerTranslation.edit(params.uuid, translation as any, {});
+                    await controllerTranslation.edit(
+                        params.uuid,
+                        translation as any,
+                        {}
+                    );
 
                     revalidatePath(urlWithoutParams);
                     redirect(url);
